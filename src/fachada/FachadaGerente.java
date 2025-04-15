@@ -21,8 +21,8 @@ public class FachadaGerente {
 
     //operacoes de gerenciamento de filmes
 
-    public void adicionarFilme(Filme filme) throws FilmeJaEstaNoCatalogoException {
-        cadastroFilmes.adicionarFilme(filme);
+    public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
+        cadastroFilmes.adicionarFilme(nome, genero, duracao, classificacao);
     }
     public void removerFilme(String filme) throws FilmeNaoEstaCadastradoException {
         cadastroFilmes.removerFilme(filme);
@@ -76,7 +76,7 @@ public class FachadaGerente {
         return cadastroSalas.procurarSala(codigo);
     }
     public ArrayList<Sala> listarSalas() throws NenhumaSalaEncontradaException {
-        cadastroSalas.listarSalas();
+        return cadastroSalas.listarSalas();
     }
 
 

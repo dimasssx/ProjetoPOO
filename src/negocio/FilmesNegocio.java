@@ -15,7 +15,8 @@ public class FilmesNegocio {
         this.catalogo = catalogo;
     }
 
-    public void adicionarFilme(Filme filme) throws FilmeJaEstaNoCatalogoException {
+    public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
+       Filme filme = new Filme(nome,genero,duracao,classificacao);
         if (catalogo.existe(filme)){
             throw new FilmeJaEstaNoCatalogoException();
         }else{
