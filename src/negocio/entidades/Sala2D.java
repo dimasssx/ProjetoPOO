@@ -24,7 +24,6 @@ public class Sala2D extends Sala implements Serializable {
                         ", Assentos por fileira:" + getAssentosPorFileira();
     }
     public String getTipo(){
-
         return "2D";
     }
 }

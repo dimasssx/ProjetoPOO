@@ -34,8 +34,8 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
 
     //ler o arquivo de filmes
     public void lerFilmes(){
-        try(FileInputStream fis = new FileInputStream(file)){
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        try(FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis)){
             catalogo = (ArrayList<Filme>) ois.readObject();
         }catch (IOException | ClassNotFoundException e){
             System.err.println(e.getMessage());
@@ -45,8 +45,9 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
 
     //escrever o arquivo de filmes
     public void escritaFilmes(){
-        try(FileOutputStream fos = new FileOutputStream(file)){
-            ObjectOutput oos = new ObjectOutputStream(fos);
+        try(FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutput oos = new ObjectOutputStream(fos)){
+
             oos.writeObject(catalogo);
         }catch (IOException e){
             System.err.println(e.getMessage());
@@ -70,24 +71,6 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
             escritaFilmes();
         }
     }
-
-    //remover um filme do repositorio a partir do nome do filme recebido
-    @Override
-    public void removerFilme(String nome){
-        Filme filmeDesejado = null;
-        for (Filme filme: catalogo){
-            if(filme.getTitulo().equals(nome)){
-                filmeDesejado = filme;
-                break;
-            }
-        }
-        int index = catalogo.indexOf(filmeDesejado);
-        if (index != -1){
-            catalogo.remove(filmeDesejado);
-            escritaFilmes();
-        }
-    }
-
     //atualizar um filme do repositorio a partir de um objeto de filme recebido
     @Override
     public void atualizaFilme(Filme filme){
@@ -97,18 +80,6 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
             escritaFilmes();
         }
     }
-
-    //procurar um filme no repositorio a partir de um objeto de filme recebido
-    @Override
-    public Filme procurarFilme(Filme filme){
-        Filme filmeDesejado = null;
-        int index = catalogo.indexOf(filme);
-        if (index != -1) {
-            filmeDesejado = catalogo.get(index);
-        }
-        return filmeDesejado;
-    }
-
     //procurar um filme no repositorio a partir do nome do filme recebido
     public Filme procurarFilme(String nome){
         Filme filmeDesejado = null;

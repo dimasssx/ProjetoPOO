@@ -1,6 +1,6 @@
 package negocio.entidades;
 
-import exceptions.AssentoIndisponivelException;
+import negocio.exceptions.AssentoIndisponivelException;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -17,30 +17,21 @@ public class Assento implements Serializable {
         this.poltrona = poltrona;
         this.reservado = false;
     }
-
     public int getFileira() {
         return fileira;
     }
-
     public int getPoltrona() {
         return poltrona;
     }
-
-    public boolean getReservado() {
+    public boolean isReservado() {
         return reservado;
     }
-
-    public void setReservado(boolean reservado) {
-        this.reservado = reservado;
-    }
-
     public void reservar() throws AssentoIndisponivelException {
         if (reservado) {
             throw new AssentoIndisponivelException();
         }
         reservado = true;
     }
-
     public void cancelarReserva() {
         reservado = false;
     }

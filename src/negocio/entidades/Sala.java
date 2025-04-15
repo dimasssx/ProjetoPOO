@@ -3,7 +3,6 @@ package negocio.entidades;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-import dados.RepositorioSalas;
 //import negocio.Exceptions.CodigoSalaJaExisteException;
 //import negocio.Exceptions.LimiteSalasExcedidoException;
 //import negocio.Exceptions.SalaNaoEncontradaException;
@@ -12,7 +11,6 @@ public abstract class Sala implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
-    private static final RepositorioSalas repositorio = new RepositorioSalas();
     private final String codigo;
     private final int fileiras;
     private final int assentosPorFileira;
@@ -37,7 +35,6 @@ public abstract class Sala implements Serializable {
     }
 
     public abstract double calcularPrecoIngresso();
-
     public abstract String getTipo();
 
     @Override

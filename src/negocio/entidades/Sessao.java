@@ -4,10 +4,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.MonthDay;
 import java.time.LocalTime;
-import exceptions.AssentoIndisponivelException;
-import negocio.entidades.*;
+import negocio.exceptions.AssentoIndisponivelException;
+
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public class Sessao implements Serializable {
     @Serial
@@ -72,7 +71,7 @@ public class Sessao implements Serializable {
         for (int i = 0; i < assentos.length; i++) {
             System.out.print((char) ('A' + i) + " ");
             for (int j = 0; j < assentos[i].length; j++) {
-                if (assentos[i][j].getReservado()) {
+                if (assentos[i][j].isReservado()) {
                     System.out.print("[X] ");
                 } else {
                     System.out.print("[ ] ");
@@ -87,21 +86,21 @@ public class Sessao implements Serializable {
         System.out.println("\nLegenda: [ ] disponível | [X] reservado");
     }
 
-    public boolean reservarAssento(int fileira, int numero) throws AssentoIndisponivelException {
+    public void reservarAssento(int fileira, int numero) throws AssentoIndisponivelException {
         if (fileira >= 0 && fileira < assentos.length && numero >= 0 && numero < assentos[0].length) {
-            if (!assentos[fileira][numero].getReservado()) {
+            if (!assentos[fileira][numero].isReservado()) {
                 assentos[fileira][numero].reservar(); // Marca como reservado
-                return true;
+            }else {
+                throw new AssentoIndisponivelException();
             }
         }
-        return false; // Não conseguiu reservar
     }
 
     public int assentosDisponiveis(){
         int disponiveis = 0;
         for (int i = 0; i < assentos.length; i++) {
             for (int j = 0; j < assentos[i].length; j++) {
-                if (!assentos[i][j].getReservado()) {
+                if (!assentos[i][j].isReservado()) {
                     disponiveis++;
                 }
             }

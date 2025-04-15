@@ -11,4 +11,5 @@ public interface IRepositorioClientes {
     public ArrayList<Cliente> listarClientes();
     public void imprimir();
     public boolean existe(String login);
+    public void removerCliente(Cliente cliente) ;
 }
