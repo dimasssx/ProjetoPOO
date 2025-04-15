@@ -18,7 +18,7 @@ public abstract class Cliente implements Serializable {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.ingressosComprados = null;
+        this.ingressosComprados = new ArrayList<>();
     }
 
     /*construtor alternativo passando ingressos comprados, pois na situação de tornar o cliente vip, é necessário utilizar
@@ -51,7 +51,6 @@ public abstract class Cliente implements Serializable {
     }
 
     public ArrayList<Ingresso> getIngressosComprados(){
-        
         return this.ingressosComprados;
     }
 

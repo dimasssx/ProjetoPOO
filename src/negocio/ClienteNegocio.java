@@ -45,11 +45,16 @@ public class ClienteNegocio {
         }
 
         public void tornarVIP(Cliente cliente){
-            Cliente novoVIP = new ClienteVIP(cliente.getNome(), cliente.getLogin(), cliente.getSenha(), cliente.getIngressosComprados());
+            Cliente seTornarVIP = new ClienteVIP(cliente.getNome(), cliente.getLogin(), cliente.getSenha(), cliente.getIngressosComprados());
+            clientes.adicionarCliente(seTornarVIP);
             clientes.removerCliente(cliente);
         }
 
-
+        public void cancelarVIP(Cliente cliente){
+            Cliente voltarAoPadrao = new ClientePadrao(cliente.getNome(), cliente.getLogin(), cliente.getSenha(), cliente.getIngressosComprados());
+            clientes.adicionarCliente(voltarAoPadrao);
+            clientes.removerCliente(cliente);
+        }
 
         public Ingresso comprarIngresso(Cliente cliente, Sessao sessao, Scanner input) throws AssentoIndisponivelException {
             sessao.mostrarAssentos();
