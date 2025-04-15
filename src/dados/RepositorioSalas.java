@@ -24,8 +24,8 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
 
     // metodo para ler as salas do arquivo
     public void lerSalas() {
-        try (FileInputStream fis = new FileInputStream(file)) {
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
             salas = (ArrayList<Sala>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println(e.getMessage());
@@ -35,8 +35,8 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
 
     // metodo para escrever as salas no arquivo
     public void escritaSalas() {
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            ObjectOutput oos = new ObjectOutputStream(fos);
+        try (FileOutputStream fos = new FileOutputStream(file);
+             ObjectOutput oos = new ObjectOutputStream(fos)) {
             oos.writeObject(salas);
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -86,14 +86,6 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
     @Override
     public ArrayList<Sala> listarSalas() {
         return new ArrayList<>(salas);
-    }
-
-    // metodo para imprimir todas as salas do repositorio
-    @Override
-    public void imprimir() {
-        for (Sala s : salas) {
-            System.out.println(s);
-        }
     }
 
     @Override

@@ -1,6 +1,8 @@
 package dados;
 
 import negocio.entidades.Cliente;
+import negocio.entidades.Sala;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -23,8 +25,8 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
 
 
     public void lerClientes() {
-        try (FileInputStream fis = new FileInputStream(file)) {
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
             clientes = (ArrayList<Cliente>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println(e.getMessage());
@@ -34,14 +36,24 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
 
 
     public void escritaClientes() {
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            ObjectOutput oos = new ObjectOutputStream(fos);
+        try (FileOutputStream fos = new FileOutputStream(file);
+             ObjectOutput oos = new ObjectOutputStream(fos)) {
             oos.writeObject(clientes);
         } catch (IOException e) {
             System.err.println(e.getMessage());
             clientes = new ArrayList<Cliente>();
         }
     }
+
+    @Override
+    public void removerCliente(Cliente cliente) {
+        int index = clientes.indexOf(cliente);
+        if (index != -1) {
+            clientes.remove(cliente);
+            escritaClientes();
+        }
+    }
+
 
     @Override
     public void adicionarCliente(Cliente cliente) {

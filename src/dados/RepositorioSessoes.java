@@ -25,8 +25,8 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     }
 
     public void lerSessoes() {
-        try (FileInputStream fis = new FileInputStream(file)) {
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
             sessoes = (ArrayList<Sessao>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println(e.getMessage());
@@ -35,8 +35,8 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     }
 
     public void escreverSessoes() {
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            ObjectOutput oos = new ObjectOutputStream(fos);
+        try (FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutput oos = new ObjectOutputStream(fos)) {
             oos.writeObject(sessoes);
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -61,17 +61,6 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
         }
     }
 
-    // metodo para remover uma sessao do repositorio a partir dos atributos da sessao
-    @Override
-    public void removerSessao(LocalTime horario, String codigoSala, MonthDay dia) {
-        for (Sessao s : sessoes) {
-            if (s.getHorario().equals(horario) && s.getSala().getCodigo().equals(codigoSala) && s.getDia().equals(dia)) {
-                sessoes.remove(s);
-            }
-        }
-    }
-
-
     // metodo para atualizar uma sessao do repositorio a partir de um objeto de sessao recebido
     public void atualizarSessao(Sessao sessao) {
         int index = sessoes.indexOf(sessao);
@@ -79,15 +68,6 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
             sessoes.set(index, sessao);
             escreverSessoes();
         }
-    }
-
-    // metodo para procurar uma sessao no repositorio a partir de um objeto de sessao recebido
-    @Override
-    public void imprimir() {
-        for (Sessao sessao : sessoes) {
-            System.out.println(sessao);
-        }
-
     }
 
     // metodo para procurar uma sessao no repositorio a partir de um objeto de sessao recebido
@@ -101,19 +81,6 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
         }
         return sessaodesejada;
 
-    }
-
-    // metodo para procurar uma sessao no repositorio a partir dos atributos da sessao
-    @Override
-    public Sessao procurarSessao(MonthDay dia, String filme, LocalTime horario) {
-        Sessao sessaodesejada = null;
-        for (Sessao s : sessoes) {
-            if (s.getHorario().equals(horario) && s.getFilme().getTitulo().equals(filme) && s.getDia().equals(dia)) {
-                sessaodesejada = s;
-                break;
-            }
-        }
-        return sessaodesejada;
     }
 
     // metodo para procurar sessoes no repositorio a partir do nome do filme
@@ -137,7 +104,6 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
         }
         return sessoesDoDia;
     }
-
     // metodo para verificar se uma sessao existe no repositorio
     @Override
     public boolean existe(Sessao sessao) {
