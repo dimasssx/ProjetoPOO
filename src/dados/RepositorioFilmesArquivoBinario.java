@@ -84,7 +84,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
     public Filme procurarFilme(String nome){
         Filme filmeDesejado = null;
         for (Filme filme: catalogo){
-            if(filme.getTitulo().equals(nome)){
+            if(filme.getTitulo().equalsIgnoreCase(nome)){
                 filmeDesejado = filme;
                 break;
             }

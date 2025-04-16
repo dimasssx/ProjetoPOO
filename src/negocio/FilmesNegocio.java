@@ -9,39 +9,39 @@ import negocio.exceptions.NenhumFilmeEncontradoException;
 import java.util.ArrayList;
 
 public class FilmesNegocio {
-    IRepositorioFilmes catalogo;
+    IRepositorioFilmes repositorioFilmes;
 
-    public FilmesNegocio(IRepositorioFilmes catalogo){
-        this.catalogo = catalogo;
+    public FilmesNegocio(IRepositorioFilmes repositorioFilmes){
+        this.repositorioFilmes = repositorioFilmes;
     }
 
     public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
        Filme filme = new Filme(nome,genero,duracao,classificacao);
-        if (catalogo.existe(filme)){
+        if (repositorioFilmes.existe(filme)){
             throw new FilmeJaEstaNoCatalogoException();
         }else{
-            catalogo.adicionarFilme(filme);
+            repositorioFilmes.adicionarFilme(filme);
         }
     }
     public void removerFilme(String filme) throws FilmeNaoEstaCadastradoException {
-        Filme filmeprocurado = catalogo.procurarFilme(filme);
-        if (filmeprocurado != null) catalogo.removerFilme(filmeprocurado);
+        Filme filmeprocurado = repositorioFilmes.procurarFilme(filme);
+        if (filmeprocurado != null) repositorioFilmes.removerFilme(filmeprocurado);
         else throw new FilmeNaoEstaCadastradoException();
     }
     public void atualizarFilme(Filme filme) throws FilmeNaoEstaCadastradoException{
-        if (catalogo.existe(filme)) catalogo.atualizaFilme(filme);
+        if (repositorioFilmes.existe(filme)) repositorioFilmes.atualizaFilme(filme);
         else throw new FilmeNaoEstaCadastradoException();
     }
     public Filme procurarFilme(String filme) throws FilmeNaoEstaCadastradoException {
-        Filme filmeprocurado = catalogo.procurarFilme(filme);
+        Filme filmeprocurado = repositorioFilmes.procurarFilme(filme);
         if (filmeprocurado == null){
             throw new FilmeNaoEstaCadastradoException();
         }else return filmeprocurado;
     }
     public ArrayList<Filme> listarCatalogo() throws NenhumFilmeEncontradoException {
-        if(catalogo.listarFilmes().isEmpty()){
+        if(repositorioFilmes.listarFilmes().isEmpty()){
             throw new NenhumFilmeEncontradoException();
         }
-        return catalogo.listarFilmes();
+        return repositorioFilmes.listarFilmes();
     }
 }

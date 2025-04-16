@@ -4,11 +4,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.MonthDay;
 import java.time.LocalTime;
-import negocio.exceptions.AssentoIndisponivelException;
-
 import java.time.format.DateTimeFormatter;
 
 public class Sessao implements Serializable {
+
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
     private LocalTime horario;
@@ -46,9 +45,11 @@ public class Sessao implements Serializable {
     public Sala getSala() {
         return this.sala;
     }
+
     public Filme getFilme() {
         return this.filme;
     }
+
     public LocalTime getHorario() {
         return this.horario;
     }
@@ -62,50 +63,8 @@ public class Sessao implements Serializable {
         return this.dia.format(formatter);
     }
 
-    public double getValorIngresso() {
-        return sala.calcularPrecoIngresso();
-    }
-
-    public void mostrarAssentos() {
-        System.out.println("Mapa de assentos - " + filme.getTitulo() + " às " + horario + " (" + getDiaFormatado() + ")");
-        for (int i = 0; i < assentos.length; i++) {
-            System.out.print((char) ('A' + i) + " ");
-            for (int j = 0; j < assentos[i].length; j++) {
-                if (assentos[i][j].isReservado()) {
-                    System.out.print("[X] ");
-                } else {
-                    System.out.print("[ ] ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.print("   ");
-        for (int j = 0; j < assentos[0].length; j++) {
-            System.out.print((j + 1) + "   ");
-        }
-        System.out.println("\nLegenda: [ ] disponível | [X] reservado");
-    }
-
-    public void reservarAssento(int fileira, int numero) throws AssentoIndisponivelException {
-        if (fileira >= 0 && fileira < assentos.length && numero >= 0 && numero < assentos[0].length) {
-            if (!assentos[fileira][numero].isReservado()) {
-                assentos[fileira][numero].reservar(); // Marca como reservado
-            }else {
-                throw new AssentoIndisponivelException();
-            }
-        }
-    }
-
-    public int assentosDisponiveis(){
-        int disponiveis = 0;
-        for (int i = 0; i < assentos.length; i++) {
-            for (int j = 0; j < assentos[i].length; j++) {
-                if (!assentos[i][j].isReservado()) {
-                    disponiveis++;
-                }
-            }
-        }
-        return disponiveis;
+    public Assento[][] getAssentos() {
+        return assentos;
     }
 
     @Override

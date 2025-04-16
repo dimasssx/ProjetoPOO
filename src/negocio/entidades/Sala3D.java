@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Sala3D extends Sala implements Serializable {
+
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
 
@@ -22,6 +23,7 @@ public class Sala3D extends Sala implements Serializable {
                 ", Fileiras: " + getFileiras() +
                 ", Assentos por Fileiras:" + getAssentosPorFileira();
     }
+
     public String getTipo(){
         return "3D";
     }

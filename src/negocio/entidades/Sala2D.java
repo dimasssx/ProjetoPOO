@@ -16,14 +16,15 @@ public class Sala2D extends Sala implements Serializable {
         return precoBaseIngresso;
     }
 
+    public String getTipo(){
+        return "2D";
+    }
+
     @Override
     public String toString() {
         return
                 "Sala: " + getCodigo() + ", Tipo: 2D"+
                         ", Fileiras: " + getFileiras() +
                         ", Assentos por fileira:" + getAssentosPorFileira();
-    }
-    public String getTipo(){
-        return "2D";
     }
 }

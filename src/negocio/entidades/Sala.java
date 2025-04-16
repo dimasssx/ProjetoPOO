@@ -3,9 +3,6 @@ package negocio.entidades;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-//import negocio.Exceptions.CodigoSalaJaExisteException;
-//import negocio.Exceptions.LimiteSalasExcedidoException;
-//import negocio.Exceptions.SalaNaoEncontradaException;
 
 public abstract class Sala implements Serializable {
 
@@ -35,6 +32,7 @@ public abstract class Sala implements Serializable {
     }
 
     public abstract double calcularPrecoIngresso();
+
     public abstract String getTipo();
 
     @Override

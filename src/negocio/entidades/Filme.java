@@ -22,24 +22,31 @@ public class Filme implements Serializable {
     public String getDuracao() {
         return duracao;
     }
+
     public String getGenero() {
         return genero;
     }
+
     public String getClassificacao() {
         return classificacao;
     }
+
     public String getTitulo(){
         return titulo;
     }
+
     public void setDuracao(String duracao){
         this.duracao = duracao;
     }
+
     public void setGenero(String genero){
         this.genero = genero;
     }
+
     public void setClassificacao(String classificacao){
         this.classificacao = classificacao;
     }
+
     public void setTitulo(String titulo){
         this.titulo = titulo;
     }

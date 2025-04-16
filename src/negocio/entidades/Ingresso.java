@@ -1,6 +1,7 @@
 package negocio.entidades;
 
 public class Ingresso {
+
     private Sessao sessao;
     private Assento assento;
 

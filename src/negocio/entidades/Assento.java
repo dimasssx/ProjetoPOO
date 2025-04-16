@@ -10,34 +10,39 @@ public class Assento implements Serializable {
     private static final long serialVersionUID = 1L;
     private int fileira;
     private int poltrona;
-    private boolean reservado;
+    private boolean isReservado;
 
     public Assento(int fileira, int poltrona) {
         this.fileira = fileira;
         this.poltrona = poltrona;
-        this.reservado = false;
+        this.isReservado = false;
     }
+
     public int getFileira() {
         return fileira;
     }
+
     public int getPoltrona() {
         return poltrona;
     }
+
     public boolean isReservado() {
-        return reservado;
+        return isReservado;
     }
+
     public void reservar() throws AssentoIndisponivelException {
-        if (reservado) {
+        if (isReservado) {
             throw new AssentoIndisponivelException();
         }
-        reservado = true;
+        isReservado = true;
     }
+
     public void cancelarReserva() {
-        reservado = false;
+        isReservado = false;
     }
 
     @Override
     public String toString() {
-        return "" + (char) ('A' + (8 - fileira)) + poltrona + (reservado ? "(R)" : "");
+        return "" + (char) ('A' + (8 - fileira)) + poltrona + (isReservado ? "(R)" : "");
     }
 }

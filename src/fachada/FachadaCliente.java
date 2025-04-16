@@ -1,4 +1,53 @@
 package fachada;
 
+import dados.RepositorioFilmesArquivoBinario;
+import dados.RepositorioSessoes;
+import negocio.ClienteNegocio;
+import negocio.FilmesNegocio;
+import negocio.SessoesNegocio;
+import negocio.entidades.Cliente;
+import negocio.entidades.Filme;
+import negocio.entidades.Sessao;
+import negocio.exceptions.*;
+import java.util.ArrayList;
+
 public class FachadaCliente {
+    private Cliente cliente;
+    private ClienteNegocio clienteNegocio;
+    private FilmesNegocio filmeNegocio;
+    private SessoesNegocio sessoesNegocio;
+
+    public FachadaCliente(Cliente cliente) {
+        this.cliente = cliente;
+        this.clienteNegocio = new ClienteNegocio();
+        this.filmeNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
+        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoes());
+    }
+
+    //Visualizacao de filmes e sessoes
+
+    public Filme consultarFilme(String nomeFilme) throws FilmeNaoEstaCadastradoException {
+        return filmeNegocio.procurarFilme(nomeFilme);
+    }
+
+    public ArrayList<Filme> visualizarCatalogo() throws NenhumFilmeEncontradoException {
+        return filmeNegocio.listarCatalogo();
+    }
+
+    public ArrayList<Sessao> procurarSessaoPorFilme(String titulo) throws SessaoNaoEncontradaException {
+        return sessoesNegocio.procurarSessaoTitulo(titulo);
+    }
+
+    //Parte de compra de ingressos
+
+    public void visuzalizarAssentosDaSessao(Sessao s) throws SessaoNaoEncontradaException {
+        sessoesNegocio.mostrarAssentosDaSessao(s);
+    }
+
+    public void reservarAssento(Sessao s, String assento) throws AssentoIndisponivelException, SessaoNaoEncontradaException {
+        int fileira = assento.charAt(0) - 'A';
+        int poltrona = Integer.parseInt(assento.substring(1)) - 1;
+        sessoesNegocio.reservarAssento(s, fileira, poltrona);
+    }
 }
+

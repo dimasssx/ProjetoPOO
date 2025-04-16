@@ -12,9 +12,8 @@ public interface IRepositorioSessoes {
     void removerSessao(Sessao sessao);
     void atualizarSessao(Sessao sessao);
     Sessao procurarSessao(Sessao sessao);
-
     ArrayList<Sessao> buscarSessoesDoDia(MonthDay dia);
-    ArrayList<Sessao> procurarSessao(String filme);
+    ArrayList<Sessao> procurarSessaoPorFilme(String filme);
     ArrayList<Sessao> retornarTodas();
     boolean existe(Sessao sessao);
 

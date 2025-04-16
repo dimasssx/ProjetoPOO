@@ -84,7 +84,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     }
 
     // metodo para procurar sessoes no repositorio a partir do nome do filme
-    public ArrayList<Sessao> procurarSessao(String filme) {
+    public ArrayList<Sessao> procurarSessaoPorFilme(String filme) {
         ArrayList<Sessao> sessoesFilmes = new ArrayList<>();
         for (Sessao s : sessoes) {
             if (s.getFilme().getTitulo().equalsIgnoreCase(filme)) {
