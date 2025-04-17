@@ -27,8 +27,7 @@ public class TelaGerenciamentodeSalas {
             System.out.println("1 - Adicionar Sala");
             System.out.println("2 - Remover Sala");
             System.out.println("3 - Listar Salas");
-            System.out.println("4 - Atualizar Sala");
-            System.out.println("5 - Voltar");
+            System.out.println("4 - Voltar");
 
 
             String opcao = scanner.nextLine();
@@ -44,9 +43,6 @@ public class TelaGerenciamentodeSalas {
                     listarSalas();
                     break;
                 case "4":
-                    atualizarSala();
-                    break;
-                case "5":
                     return;
                 default:
                     System.err.println("Opção Inválida");
@@ -55,9 +51,10 @@ public class TelaGerenciamentodeSalas {
         }
     }
     private void adicionarSala() {
-
+        System.out.println("(digite 0 a qualquer momento para sair)");
         System.out.println("Código da Sala:");
-        String codigo = scanner.nextLine();
+        String codigo = lerCodigo();
+        if (codigo == null) return;
         String tipo;
         while (true) {
             System.out.println("Tipo da Sala (2D/3D)");
@@ -77,9 +74,11 @@ public class TelaGerenciamentodeSalas {
                 System.out.println("Quantidade de linhas de poltronas:");
                 linhas = scanner.nextInt();
                 scanner.nextLine();
-                if (linhas <= 0) {
+                if (linhas < 0) {
                     System.err.println("Digite um número maior que zero");
                     continue;
+                } else if (linhas == 0) {
+                    return;
                 }
                 break;
             } catch (InputMismatchException e) {
@@ -93,9 +92,11 @@ public class TelaGerenciamentodeSalas {
                 System.out.println("Quantidade de colunas de poltronas:");
                 colunas = scanner.nextInt();
                 scanner.nextLine();
-                if (colunas <= 0) {
+                if (colunas < 0) {
                     System.err.println("Digite um número maior que zero");
                     continue;
+                } else if (colunas == 0) {
+                    return;
                 }
                 break;
             } catch (InputMismatchException e) {
@@ -107,71 +108,17 @@ public class TelaGerenciamentodeSalas {
         try {
             fachada.adicionarSala(codigo, tipo, linhas, colunas);
         } catch (CodigoSalaJaExisteException | LimiteDeSalasExcedidoException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
         private void removerSala(){
+        System.out.println("(digite 0 a qualquer momento para sair)");
         System.out.println("O código da sala que será removida");
-        String codigo = scanner.nextLine();
+        String codigo = lerCodigo();
+        if (codigo == null) return;
         try {
             fachada.removerSala(codigo);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
-    private void atualizarSala(){
-        System.out.println("Código da Sala:");
-        String codigo = scanner.nextLine();
-        String tipo;
-        while(true) {
-            System.out.println("Tipo da Sala (2D/3D)");
-            tipo = scanner.nextLine().toUpperCase();
-
-            if (!tipo.equals("2D") && !tipo.equals("3D")) {
-                System.err.println("Tipo inválido! Digite 2D ou 3D");
-                continue;
-            }
-            break;
-        }
-
-        int linhas,colunas;
-
-        while(true){
-            try {
-                System.out.println("Quantidade de linhas de poltronas:");
-                linhas = scanner.nextInt();
-                scanner.nextLine();
-                if (linhas <= 0) {
-                    System.err.println("Digite um número maior que zero");
-                    continue;
-                }
-                break;
-            } catch (InputMismatchException e) {
-                System.err.println("Digite um numero valido");
-                scanner.nextLine();
-            }
-        }
-
-        while(true){
-            try {
-                System.out.println("Quantidade de colunas de poltronas:");
-                colunas = scanner.nextInt();
-                scanner.nextLine();
-                if (colunas <= 0) {
-                    System.err.println("Digite um número maior que zero");
-                    continue;
-                }
-                break;
-            } catch (InputMismatchException e) {
-                System.err.println("Digite um numero valido");
-                scanner.nextLine();
-            }
-        }
-
-
-        try {
-            fachada.atualizarSala(codigo,tipo, linhas, colunas);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -187,4 +134,24 @@ public class TelaGerenciamentodeSalas {
 
         }
     }
+    private String lerCodigo(){
+        while (true) {
+            String dado = scanner.nextLine().trim();
+
+            if (dado.equals("0")) {
+                System.out.println("\nOperação cancelada.");
+                return null;
+            }
+            if (dado.isEmpty()) {
+                System.err.println("Código não pode ser vazio!");
+                continue;
+            }
+            return dado;
+        }
+    }
+
+//    private int lerFileiras(){
+//
+//    }
+
 }

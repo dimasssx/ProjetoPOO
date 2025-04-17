@@ -7,6 +7,7 @@ import negocio.exceptions.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.NenhumFilmeEncontradoException;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class FilmesNegocio {
     IRepositorioFilmes repositorioFilmes;
@@ -45,13 +46,12 @@ public class FilmesNegocio {
         }
         return repositorioFilmes.listarFilmes();
     }
-
     public ArrayList<String> filmesFormatados() throws NenhumFilmeEncontradoException {
         ArrayList<Filme> filmes = listarCatalogo();
         ArrayList<String> formatados = new ArrayList<>();
 
         for (Filme filme : filmes) {
-            formatados.add(filme.toString()); // usa o toString da entidade!
+            formatados.add(filme.toString());
         }
 
         return formatados;

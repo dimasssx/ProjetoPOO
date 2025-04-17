@@ -23,7 +23,7 @@ public class TelaGerente {
             System.out.println("3 - Gerenciar Sessoes");
             System.out.println("4 - Logout");
 
-            String opcao = scanner.nextLine();
+            String opcao = scanner.nextLine().trim();
 
             switch (opcao){
                 case "1":

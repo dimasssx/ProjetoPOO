@@ -18,7 +18,11 @@ public abstract class Sala implements Serializable {
         this.fileiras = fileiras;
         this.assentosPorFileira = assentosPorFileira;
     }
-
+    public Sala(String codigo) {
+        this.codigo = codigo;
+        this.fileiras = 0;
+        this.assentosPorFileira = 0;
+    }
     public String getCodigo() {
         return codigo;
     }

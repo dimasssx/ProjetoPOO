@@ -57,24 +57,24 @@ public class SalasNegocio {
             return saladesejada;
         }else throw new SalaNaoEncontradaException("Sala nao foi encontrada");
     }
-    public void atualizarSala(String codigo,String tipo, int linhas, int colunas) throws SalaNaoEncontradaException{
-        
-        Sala s = null;
-        
-        if (tipo.equalsIgnoreCase("2D")){
-            s = new Sala2D(codigo,linhas, colunas);
-            s = salas.procurarSala(s.getCodigo());
-        }else if (tipo.equalsIgnoreCase("3D")){
-            s = new Sala3D(codigo,linhas, colunas);
-            s = salas.procurarSala(s.getCodigo());
-        }
-
-        if (s != null){
-            salas.atualizarSala(s);
-        }else {
-            throw new SalaNaoEncontradaException("Nenhuma sala encontrada");
-        }
-    }
+//    public void atualizarSala(String codigo,String tipo, int linhas, int colunas) throws SalaNaoEncontradaException{
+//
+//        Sala s = null;
+//
+//        if (tipo.equalsIgnoreCase("2D")){
+//            s = new Sala2D(codigo,linhas, colunas);
+//            s = salas.procurarSala(s.getCodigo());
+//        }else if (tipo.equalsIgnoreCase("3D")){
+//            s = new Sala3D(codigo,linhas, colunas);
+//            s = salas.procurarSala(s.getCodigo());
+//        }
+//
+//        if (s != null){
+//            salas.atualizarSala(s);
+//        }else {
+//            throw new SalaNaoEncontradaException("Nenhuma sala encontrada");
+//        }
+//    }
     public ArrayList<Sala> listarSalas() throws NenhumaSalaEncontradaException {
         if (salas.listarSalas().isEmpty()){
             throw new NenhumaSalaEncontradaException();

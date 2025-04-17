@@ -36,6 +36,7 @@ public class SessoesNegocio {
     }
 
     public void removerSessao(LocalTime horario,String sala,MonthDay dia) throws SessaoNaoEncontradaException {
+
         Sessao sessaoprocurada = sessoes.procurarSessao(horario,sala,dia);
         if (sessaoprocurada != null) sessoes.removerSessao(sessaoprocurada);
         else throw new SessaoNaoEncontradaException();

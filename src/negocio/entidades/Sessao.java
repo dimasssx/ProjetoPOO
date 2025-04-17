@@ -26,6 +26,12 @@ public class Sessao implements Serializable {
         this.assentos = new Assento[sala.getFileiras()][sala.getAssentosPorFileira()];
         inicializarAssentos();
     }
+    public Sessao(String horario, Sala sala,String dia){
+        this.horario = LocalTime.parse(horario);
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM");
+        this.dia = MonthDay.parse(dia, formater);
+        this.sala = sala;
+    }
 
     private void inicializarAssentos() {
         for (int i = 0; i < sala.getFileiras(); i++) {
