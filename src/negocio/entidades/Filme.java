@@ -65,7 +65,7 @@ public class Filme implements Serializable {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Filme filme = (Filme) obj;
-        return titulo.equals(filme.getTitulo());
+        return titulo.equalsIgnoreCase(filme.getTitulo());
     }
 
 }

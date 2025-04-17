@@ -46,21 +46,28 @@ public class TelaCadastroFilme {
                     listarFilmes();
                     break;
                 case "6":
+                    System.out.println("Voltando...");
                     return;
+                default:
+                    System.err.println("Opção Invalida");
 
             }
         }
     }
 
     private void adicionarFilme() {
-        System.out.println("Nome do Filme:");
-        String nome = scanner.nextLine();
-        System.out.println("Genero: ");
-        String genero = scanner.nextLine();
-        System.out.println("Duracao: ");
-        String duracao = scanner.nextLine();
-        System.out.println("Classificacao: ");
-        String classificacao = scanner.nextLine();
+        System.out.println("Detalhes do filme que será adicionado ");
+        System.out.println("(digite 0 a qualquer momento para sair)");
+
+        String nome = lerDado("Nome do Filme");
+        if (nome == null) return;
+        String genero = lerDado("Gênero");
+        if (genero == null) return;
+        String duracao = lerDado("Duração ");
+        if (duracao == null) return;
+        String classificacao = lerDado("Classificação");
+        if (classificacao == null) return;
+
         try {
             fachada.adicionarFilme(nome, genero, duracao, classificacao);
         } catch (FilmeJaEstaNoCatalogoException e) {
@@ -70,8 +77,9 @@ public class TelaCadastroFilme {
     }
 
     private void removerFilme() {
-        System.out.println("Nome do filme que será removido");
-        String nome = scanner.nextLine();
+        System.out.println("(digite 0 a qualquer momento para sair)");
+        String nome = lerDado("Nome do Filme que será removido");
+        if (nome == null) return;
         try {
             fachada.removerFilme(nome);
         } catch (FilmeNaoEstaCadastradoException e) {
@@ -80,20 +88,23 @@ public class TelaCadastroFilme {
     }
 
     private void atualizarFilme() {
-        System.out.println("Nome");
-        String nome = scanner.nextLine();
 
+        System.out.println("(digite 0 a qualquer momento para sair)");
+        String nome = lerDado("Nome do Filme que deseja modificar");
+        if (nome == null) return;
         try{
             fachada.procurarFilme(nome);
         } catch (FilmeNaoEstaCadastradoException e) {
-            System.err.println(e.getMessage());;
+            System.err.println(e.getMessage());
+            return;
         }
-        System.out.println("Genero");
-        String genero = scanner.nextLine();
-        System.out.println("Duracao");
-        String duracao = scanner.nextLine();
-        System.out.println("Classificacao");
-        String classificacao = scanner.nextLine();
+        System.out.println("Caracteristicas que serão atualizadas");
+        String genero = lerDado("Gênero");
+        if (genero == null) return;
+        String duracao = lerDado("Duração ");
+        if (duracao == null) return;
+        String classificacao = lerDado("Classificação");
+        if (classificacao == null) return;
 
         try {
             fachada.atualizarFilme(nome, genero, duracao, classificacao);
@@ -104,8 +115,9 @@ public class TelaCadastroFilme {
     }
 
     private void buscarFilme() {
-        System.out.println("Nome do Filme");
-        String nome = scanner.nextLine();
+        System.out.println("(digite 0 a qualquer momento para sair)");
+        String nome = lerDado("Nome do Filme");
+        if (nome == null) return;
         try {
             System.out.println(fachada.procurarFilme(nome));
         } catch (FilmeNaoEstaCadastradoException e) {
@@ -123,5 +135,22 @@ public class TelaCadastroFilme {
         } catch (NenhumFilmeEncontradoException e) {
             System.err.println(e.getMessage());
         }
+    }
+    private String lerDado(String campo) {
+        System.out.print(campo + ": ");
+        while(true){
+            String dado = scanner.nextLine().trim();
+
+            if (dado.equals("0")) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+            if (dado.isEmpty()) {
+                System.err.println(campo + " não pode ser vazio!");
+                continue;
+            }
+            return dado;
+        }
+
     }
 }

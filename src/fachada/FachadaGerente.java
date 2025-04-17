@@ -107,9 +107,9 @@ public class FachadaGerente {
     public void removerSala(String codigo) throws SalaNaoEncontradaException {
         cadastroSalas.removerSala(codigo);
     }
-    public void atualizarSala(String codigo,String tipo, int linhas, int colunas) throws SalaNaoEncontradaException {
-        cadastroSalas.atualizarSala(codigo,tipo,linhas,colunas);
-    }
+//    public void atualizarSala(String codigo,String tipo, int linhas, int colunas) throws SalaNaoEncontradaException {
+//        cadastroSalas.atualizarSala(codigo,tipo,linhas,colunas);
+//    }
     public Sala procuraSala(String codigo) throws SalaNaoEncontradaException {
         return cadastroSalas.procurarSala(codigo);
     }

@@ -61,22 +61,27 @@ public class TelaGerenciamentoSessoes {
     }
     private void adicionarSessao(){
         String horario,filme,sala,dia;
-        horario = lerHorario();
-        filme = scanner.nextLine();
+
+        filme = lerDado("Nome do Filme");
+        if (filme== null)return;
         try {
             fachada.procurarFilme(filme);
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
             return;
         }
-        sala = scanner.nextLine();
+        sala = lerDado("Código da Sala");
+        if (sala == null) return;
         try{
             fachada.procuraSala(sala);
         } catch (SalaNaoEncontradaException e) {
             System.err.println(e.getMessage());
             return;
         }
+        horario = lerHorario();
+        if (horario== null)return;
         dia = lerData();
+        if (dia== null)return;
 
         try{
             fachada.adicionarSessao(horario,filme,sala,dia);
@@ -87,16 +92,20 @@ public class TelaGerenciamentoSessoes {
 
     private void removerSessao(){
         String horario,sala,dia;
-        horario = lerHorario();
-        sala = scanner.nextLine();
+
+
+        sala = lerDado("Codigo da sala");
+        if (sala == null) return;
         try{
             fachada.procuraSala(sala);
         } catch (SalaNaoEncontradaException e) {
             System.err.println(e.getMessage());
             return;
         }
+        horario = lerHorario();
+        if (horario ==null) return;
         dia = lerData();
-
+        if (dia==null) return;
         try{
             fachada.removerSessao(horario,sala,dia);
         } catch (SessaoNaoEncontradaException e) {
@@ -107,6 +116,8 @@ public class TelaGerenciamentoSessoes {
     private void atualizarSessao(){
         String horario,filme,sala,dia;
         horario = lerHorario();
+        if (horario == null) return;
+        System.out.println("Nome do Filme");
         filme = scanner.nextLine();
         try {
             fachada.procurarFilme(filme);
@@ -114,6 +125,7 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
             return;
         }
+        System.out.println("Codigo da sala");
         sala = scanner.nextLine();
         try{
             fachada.procuraSala(sala);
@@ -122,6 +134,7 @@ public class TelaGerenciamentoSessoes {
             return;
         }
         dia= lerData();
+        if (dia == null)return;
 
         try {
             fachada.atualizarSessao(horario,filme,sala,dia);
@@ -183,35 +196,17 @@ public class TelaGerenciamentoSessoes {
         do {
             System.out.println("Horário da sessão (HH:mm):");
             horario = scanner.nextLine();
-
+            if(horario.equals("0")){
+                System.out.println("Operação cancelada.");
+                return null;
+            }
             if (!isHorarioValido(horario)) {
                 System.err.println("Horário inválido! Use formato HH:mm");
             }
+
         } while (!isHorarioValido(horario));
 
         return horario;
-    }
-    private String lerData() {
-        String data;
-        do {
-            System.out.println("Data da sessão (dd/MM):");
-            data = scanner.nextLine();
-
-            if (!isDataValida(data)) {
-                System.err.println("Data inválida! Use formato dd/MM");
-            }
-        } while (!isDataValida(data));
-
-        return data;
-    }
-    private boolean isDataValida(String data) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
-            MonthDay.parse(data, formatter);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
     }
     private boolean isHorarioValido(String horario) {
         try {
@@ -222,4 +217,50 @@ public class TelaGerenciamentoSessoes {
             return false;
         }
     }
+    private String lerData() {
+        String data;
+        do {
+            System.out.println("Data da sessão (dd-MM):");
+            data = scanner.nextLine();
+            if (data.equals("0")) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+
+            if (!isDataValida(data)) {
+                System.err.println("Data inválida! Use formato dd/MM");
+            }
+
+        } while (!isDataValida(data));
+
+        return data;
+    }
+    private boolean isDataValida(String data) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
+            MonthDay.parse(data, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    private String lerDado(String campo) {
+        System.out.print(campo + ": ");
+        while(true){
+            String dado = scanner.nextLine().trim();
+
+            if (dado.equals("0")) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+            if (dado.isEmpty()) {
+                System.err.println(campo + " não pode ser vazio!");
+                continue;
+            }
+            return dado;
+        }
+
+    }
 }
+
