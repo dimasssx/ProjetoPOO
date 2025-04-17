@@ -1,28 +1,42 @@
 package negocio;
 
+import dados.IRepositorioFilmes;
+import dados.IRepositorioSalas;
 import dados.IRepositorioSessoes;
 import negocio.entidades.Assento;
+import negocio.entidades.Filme;
+import negocio.entidades.Sala;
 import negocio.entidades.Sessao;
 import negocio.exceptions.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class SessoesNegocio {
     private IRepositorioSessoes sessoes;
+    private SalasNegocio salas;
+    private FilmesNegocio filmes;
 
-    public SessoesNegocio(IRepositorioSessoes sessoes) {
+    public SessoesNegocio(IRepositorioSessoes sessoes,SalasNegocio salas,FilmesNegocio filmes) {
         this.sessoes = sessoes;
+        this.salas = salas;
+        this.filmes = filmes;
     }
 
-    public void adicionarSessao(Sessao sessao) throws SessaoJaExisteException {
+    public void adicionarSessao(String horario, String sfilme,String ssala,String dia) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+        Filme filme = filmes.procurarFilme(sfilme);
+        Sala sala = salas.procurarSala(ssala);
+        Sessao sessao = new Sessao(filme,horario,sala,dia);
         if (sessoes.existe(sessao)) {
             throw new SessaoJaExisteException();
         } else sessoes.adicionarSessao(sessao);
     }
 
-    public void removerSessao(Sessao sessao) throws SessaoNaoEncontradaException {
-        Sessao sessaoprocurada = sessoes.procurarSessao(sessao);
+    public void removerSessao(LocalTime horario,String sala,MonthDay dia) throws SessaoNaoEncontradaException {
+        Sessao sessaoprocurada = sessoes.procurarSessao(horario,sala,dia);
         if (sessaoprocurada != null) sessoes.removerSessao(sessaoprocurada);
         else throw new SessaoNaoEncontradaException();
 
@@ -41,8 +55,8 @@ public class SessoesNegocio {
         } else return sessoes.retornarTodas();
     }
 
-    public Sessao procurarSessao(Sessao sessao) throws SessaoNaoEncontradaException {
-        Sessao sessaoprocurada = sessoes.procurarSessao(sessao);
+    public Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia) throws SessaoNaoEncontradaException {
+        Sessao sessaoprocurada = sessoes.procurarSessao(horario, sala, dia);
         if (sessaoprocurada != null) return sessaoprocurada;
         else throw new SessaoNaoEncontradaException();
 
@@ -70,7 +84,44 @@ public class SessoesNegocio {
             throw new SessaoNaoEncontradaException();
         }
     }
-    
+
+    /*esses proximos  metodos de retornarem sessoes formatadas em string, servem para a tela, la na frente,
+     nao instanciar diretamente objetos de entidade*/
+
+    public ArrayList<String> sessoesFormatadasPorDia(MonthDay dia) throws SessaoNaoEncontradaException {
+        ArrayList<Sessao> sessoes = procurarSessaodoDia(dia.format(DateTimeFormatter.ofPattern("dd-MM")));
+        ArrayList<String> formatadas = new ArrayList<>();
+
+        for (Sessao s : sessoes) {
+            formatadas.add(s.toString());
+        }
+
+        return formatadas;
+    }
+
+    public ArrayList<String> sessoesFormatadasPorFilme(String titulo) throws SessaoNaoEncontradaException {
+        ArrayList<Sessao> sessoes = procurarSessaoTitulo(titulo);
+        ArrayList<String> formatadas = new ArrayList<>();
+
+        for (Sessao s : sessoes) {
+            formatadas.add(s.toString());
+        }
+
+        return formatadas;
+    }
+
+    public ArrayList<String> sessoesFormatadasPorFilmeEDia(String titulo, LocalDate dia) throws SessaoNaoEncontradaException {
+        ArrayList<Sessao> sessoes = procurarSessaoTitulo(titulo);
+        ArrayList<String> formatadas = new ArrayList<>();
+
+        for (Sessao s : sessoes) {
+            if (s.getDia().getDayOfMonth() == dia.getDayOfMonth() && s.getDia().getMonth() == dia.getMonth()) {
+                formatadas.add(s.toString());
+            }
+        }
+        return formatadas;
+    }
+
     public void mostrarAssentos(Sessao sessao) {
         Assento[][] assentos = sessao.getAssentos();
         System.out.println("Mapa de assentos - " + sessao.getFilme().getTitulo() + " às " + sessao.getHorario() + " (" + sessao.getDiaFormatado() + ")");
@@ -92,6 +143,7 @@ public class SessoesNegocio {
         System.out.println("\nLegenda: [ ] disponível | [X] reservado");
     }
 
+    //utiliza o metodo marcarAssentoReserrvado para reservar um assento, fazendo algumas outras verificações
     public void reservarAssento(Sessao sessao, int fileira, int poltrona) throws AssentoIndisponivelException, SessaoNaoEncontradaException {
         Sessao s = sessoes.procurarSessao(sessao);
         if (s != null) {
@@ -117,7 +169,7 @@ public class SessoesNegocio {
             }
         }
     }
-    
+
     public int assentosDisponiveis(Sessao sessao) throws SessaoNaoEncontradaException {
         Sessao s = sessoes.procurarSessao(sessao);
         if (s != null) {

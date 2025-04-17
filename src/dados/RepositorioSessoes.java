@@ -82,6 +82,17 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
         return sessaodesejada;
 
     }
+    @Override
+    public Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia){
+        for (Sessao s : sessoes) {
+            if (s.getHorario().equals(horario) &&
+                    s.getSala().getCodigo().equals(sala) &&
+                    s.getDia().equals(dia)) {
+                return s;
+            }
+        }
+        return null;
+    }
 
     // metodo para procurar sessoes no repositorio a partir do nome do filme
     public ArrayList<Sessao> procurarSessaoPorFilme(String filme) {

@@ -1,17 +1,23 @@
 package fachada;
 
 import dados.RepositorioFilmesArquivoBinario;
+import dados.RepositorioSalas;
 import dados.RepositorioSessoes;
 import negocio.ClienteNegocio;
 import negocio.FilmesNegocio;
+import negocio.SalasNegocio;
 import negocio.SessoesNegocio;
 import negocio.entidades.Cliente;
 import negocio.entidades.Filme;
 import negocio.entidades.Sessao;
 import negocio.exceptions.*;
+
+import java.time.LocalDate;
+import java.time.MonthDay;
 import java.util.ArrayList;
 
 public class FachadaCliente {
+
     private Cliente cliente;
     private ClienteNegocio clienteNegocio;
     private FilmesNegocio filmeNegocio;
@@ -21,7 +27,7 @@ public class FachadaCliente {
         this.cliente = cliente;
         this.clienteNegocio = new ClienteNegocio();
         this.filmeNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
-        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoes());
+        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoes(),new SalasNegocio(new RepositorioSalas()), filmeNegocio);
     }
 
     //Visualizacao de filmes e sessoes
@@ -30,12 +36,24 @@ public class FachadaCliente {
         return filmeNegocio.procurarFilme(nomeFilme);
     }
 
-    public ArrayList<Filme> visualizarCatalogo() throws NenhumFilmeEncontradoException {
-        return filmeNegocio.listarCatalogo();
+    public ArrayList<String> acessarSessoesFormatadasPorDia(MonthDay dia) throws SessaoNaoEncontradaException {
+        return sessoesNegocio.sessoesFormatadasPorDia(dia);
+    }
+
+    public ArrayList<String> acessarSessoesFormatadasPorFilmeEDia(String titulo, LocalDate dia) throws SessaoNaoEncontradaException {
+        return sessoesNegocio.sessoesFormatadasPorFilmeEDia(titulo, dia);
+    }
+
+    public ArrayList<String> acessarSessoesFormatadasPorFilme(String titulo) throws SessaoNaoEncontradaException {
+        return sessoesNegocio.sessoesFormatadasPorFilme(titulo);
     }
 
     public ArrayList<Sessao> procurarSessaoPorFilme(String titulo) throws SessaoNaoEncontradaException {
         return sessoesNegocio.procurarSessaoTitulo(titulo);
+    }
+
+    public ArrayList<String> verCatalogo() throws NenhumFilmeEncontradoException {
+        return filmeNegocio.filmesFormatados();
     }
 
     //Parte de compra de ingressos

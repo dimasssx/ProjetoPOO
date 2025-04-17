@@ -28,7 +28,8 @@ public class FilmesNegocio {
         if (filmeprocurado != null) repositorioFilmes.removerFilme(filmeprocurado);
         else throw new FilmeNaoEstaCadastradoException();
     }
-    public void atualizarFilme(Filme filme) throws FilmeNaoEstaCadastradoException{
+    public void atualizarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeNaoEstaCadastradoException{
+        Filme filme = new Filme(nome,genero,duracao,classificacao);
         if (repositorioFilmes.existe(filme)) repositorioFilmes.atualizaFilme(filme);
         else throw new FilmeNaoEstaCadastradoException();
     }
@@ -43,5 +44,16 @@ public class FilmesNegocio {
             throw new NenhumFilmeEncontradoException();
         }
         return repositorioFilmes.listarFilmes();
+    }
+
+    public ArrayList<String> filmesFormatados() throws NenhumFilmeEncontradoException {
+        ArrayList<Filme> filmes = listarCatalogo();
+        ArrayList<String> formatados = new ArrayList<>();
+
+        for (Filme filme : filmes) {
+            formatados.add(filme.toString()); // usa o toString da entidade!
+        }
+
+        return formatados;
     }
 }
