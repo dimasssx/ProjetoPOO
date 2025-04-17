@@ -96,6 +96,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
     //listar todos os filmes do repositorio
     @Override
     public ArrayList<Filme> listarFilmes(){
+        lerFilmes();
         ArrayList<Filme> filmes = new ArrayList<>();
         for (Filme filme : catalogo) {
             if (filme != null) {

@@ -86,6 +86,7 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
     // metodo para listar todas as salas do repositorio
     @Override
     public ArrayList<Sala> listarSalas() {
+        lerSalas();
         return new ArrayList<>(salas);
     }
 

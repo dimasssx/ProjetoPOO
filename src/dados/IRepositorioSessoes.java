@@ -16,6 +16,7 @@ public interface IRepositorioSessoes {
     ArrayList<Sessao> buscarSessoesDoDia(MonthDay dia);
     ArrayList<Sessao> procurarSessaoPorFilme(String filme);
     ArrayList<Sessao> retornarTodas();
+    ArrayList<Sessao> procurarSessaoporSala(String codigo);
     boolean existe(Sessao sessao);
 
 }

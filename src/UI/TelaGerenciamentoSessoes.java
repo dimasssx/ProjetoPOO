@@ -115,27 +115,28 @@ public class TelaGerenciamentoSessoes {
 
     private void atualizarSessao(){
         String horario,filme,sala,dia;
-        horario = lerHorario();
-        if (horario == null) return;
-        System.out.println("Nome do Filme");
-        filme = scanner.nextLine();
-        try {
-            fachada.procurarFilme(filme);
-        } catch (FilmeNaoEstaCadastradoException e) {
-            System.err.println(e.getMessage());
-            return;
-        }
-        System.out.println("Codigo da sala");
-        sala = scanner.nextLine();
+
+
+        sala = lerDado("Código da sala");
+        if (sala == null) return;
         try{
             fachada.procuraSala(sala);
         } catch (SalaNaoEncontradaException e) {
             System.err.println(e.getMessage());
             return;
         }
+        horario = lerHorario();
+        if (horario == null) return;
         dia= lerData();
         if (dia == null)return;
-
+        filme = lerDado("Nome do filme que será colocado nesse horário");
+        if (filme==null)return;
+        try {
+            fachada.procurarFilme(filme);
+        } catch (FilmeNaoEstaCadastradoException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
         try {
             fachada.atualizarSessao(horario,filme,sala,dia);
         } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
@@ -144,14 +145,9 @@ public class TelaGerenciamentoSessoes {
     }
 
     private void buscarSessaoporTitulo(){
-        String filme = scanner.nextLine();
+        String filme = lerDado("Nome do Filme");
+        if (filme==null)return;
         ArrayList<String> sessoes;
-        try{
-            fachada.procurarSessaoTitulo(filme);
-        } catch (SessaoNaoEncontradaException e) {
-            System.err.println(e.getMessage());
-            return;
-        }
         try {
             sessoes = fachada.procurarSessaoTitulo(filme);
             for (String sessoe : sessoes) {
@@ -162,11 +158,10 @@ public class TelaGerenciamentoSessoes {
         }
     }
 
-
     private void buscarSessaoDia(){
         String dia = lerData();
+        if (dia==null)return;
         ArrayList<String> sessoes;
-
         try{
             sessoes = fachada.procurarSessaoporDia(dia);
             for (String sessoe : sessoes) {
@@ -179,7 +174,6 @@ public class TelaGerenciamentoSessoes {
 
     private void imprimeTodasSessoes(){
         ArrayList<String> sessoes;
-
         try{
             sessoes = fachada.listarTodas();
             for (String sessoe : sessoes) {

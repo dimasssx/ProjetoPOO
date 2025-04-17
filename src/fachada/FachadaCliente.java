@@ -19,16 +19,14 @@ import java.util.ArrayList;
 
 public class FachadaCliente {
 
-    private Cliente cliente;
     private ClienteNegocio clienteNegocio;
     private FilmesNegocio filmeNegocio;
     private SessoesNegocio sessoesNegocio;
 
-    public FachadaCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public FachadaCliente() {
         this.clienteNegocio = new ClienteNegocio();
         this.filmeNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
-        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoes(),new SalasNegocio(new RepositorioSalas()), filmeNegocio);
+        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoes(),new SalasNegocio(new RepositorioSalas(),new RepositorioSessoes()), filmeNegocio);
     }
 
     //Visualizacao de filmes e sessoes
@@ -49,6 +47,7 @@ public class FachadaCliente {
 
         return formatadas;
     }
+
 
     public ArrayList<String> procurarSessaoPorTituloDoFilme(String titulo) throws SessaoNaoEncontradaException {
         ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaoTitulo(titulo);
