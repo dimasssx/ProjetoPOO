@@ -1,4 +1,4 @@
-/*
+
 package UI;
 
 //import fachada.Cinema;
@@ -30,7 +30,7 @@ public class TelaCliente {
 
         System.out.println("Bem-vindo ao MovieTime, " + cliente.getNome() + "!");
         System.out.println("---------------------------");
-        exibicaoSessoesDeHoje(); //exibe somente os filmes e sessoes de hoje
+        exibicaoSessoesDeHoje(); //exibe os filmes em cartaz e as sessões de hoje
 
         while(true){
             System.out.println("1 - Comprar ingresso");
@@ -49,27 +49,30 @@ public class TelaCliente {
             }
 
             switch (opcao){
-                case "1":
-                    TelaComprarIngresso comprar = new TelaComprarIngresso(fachada);
-                    try {
-                        comprar.iniciar();
-                    } catch (AssentoIndisponivelException | SessaoNaoEncontradaException e) {
-                        System.err.println(e);
-                    }
-                    break;
+//                case "1":
+//                    TelaComprarIngresso comprar = new TelaComprarIngresso(clienteFachada);
+//                    try {
+//                        comprar.iniciar();
+//                    } catch (AssentoIndisponivelException | SessaoNaoEncontradaException e) {
+//                        System.err.println(e);
+//                    }
+//                    break;
 
                 case "2":
                     try {
                         buscarporDia();
                     } catch (NenhumaSessaoEncontradaException e) {
-                        System.err.println(e);
+                        System.err.println(e.getMessage());
                     }
                     break;
                 case "3":
                     try {
                         buscarPorFilme();
                     } catch (NenhumFilmeEncontradoException e) {
-                        System.err.println(e);
+                        System.err.println(e.getMessage());
+                    }
+                    catch (SessaoNaoEncontradaException e){
+                        System.err.println(e.getMessage());
                     }
                     break;
                 case "4":
@@ -94,42 +97,29 @@ public class TelaCliente {
     public void exibicaoSessoesDeHoje() {
         System.out.println("Filmes em Cartaz Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
         System.out.println("-------------------");
-        ArrayList<String> filmesFormatados;
 
         try {
-            filmesFormatados = clienteFachada.verCatalogo();
-        } catch (NenhumFilmeEncontradoException e) {
-            System.out.println("Nenhum filme encontrado.");
-            return;
-        }
+            ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessoesHoje();
 
-        for (String filmeFormatado : filmesFormatados) {
-            String titulo = extrairTituloDoToString(filmeFormatado);
-            ArrayList<String> sessoesFormatadas;
-            try {
-                sessoesFormatadas = clienteFachada.acessarSessoesFormatadasPorFilmeEDia(titulo, LocalDate.from(hoje));
-                if (!sessoesFormatadas.isEmpty()) {
-                    System.out.println("Filme: " + filmeFormatado);
-                    System.out.println("Sessões disponíveis:");
-                    for (String sessao : sessoesFormatadas) {
-                        System.out.println(sessao);
-                    }
+            if (sessoesFormatadas.isEmpty()) {
+                System.out.println("Nenhuma sessão disponível para hoje.");
+            } else {
+                for (String sessao : sessoesFormatadas) {
+                    System.out.println(sessao);
+                    System.out.println("----------------------------");
                 }
-            } catch (SessaoNaoEncontradaException e) {
-                e.getMessage();
             }
+        } catch (SessaoNaoEncontradaException e) {
+            System.out.println("Nenhuma sessão encontrada para hoje.");
         }
     }
 
-    public void buscarporDia() {
+    public void buscarporDia() throws NenhumaSessaoEncontradaException {
         System.out.println("Digite a Data: (dd-MM)");
         String datainput = scanner.nextLine();
 
         try {
-            MonthDay diaEscolhido = MonthDay.parse(datainput, DateTimeFormatter.ofPattern("dd-MM"));
-            System.out.println("Sessões para o dia: " + diaEscolhido.format(DateTimeFormatter.ofPattern("dd-MM")));
-
-            ArrayList<String> sessoesFormatadas = clienteFachada.acessarSessoesFormatadasPorDia(diaEscolhido);
+            ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoporDia(datainput);
 
             if (sessoesFormatadas.isEmpty()) {
                 System.out.println("Nenhuma sessão encontrada para esta data.");
@@ -147,7 +137,7 @@ public class TelaCliente {
     }
 
 
-    public void buscarPorFilme() {
+    public void buscarPorFilme() throws NenhumFilmeEncontradoException, SessaoNaoEncontradaException {
         System.out.println("Digite o nome do Filme:");
         String tituloInput = scanner.nextLine().trim();
 
@@ -166,7 +156,7 @@ public class TelaCliente {
             if (tituloExtraido.equalsIgnoreCase(tituloInput)) {
                 encontrouFilme = true;
                 try {
-                    ArrayList<String> sessoesFormatadas = clienteFachada.acessarSessoesFormatadasPorFilme(tituloExtraido);
+                    ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoPorTituloDoFilme(tituloExtraido);
                     if (sessoesFormatadas.isEmpty()) {
                         System.out.println("Nenhuma sessão encontrada para o filme: " + tituloExtraido);
                     } else {
@@ -187,4 +177,4 @@ public class TelaCliente {
             System.out.println("Filme não encontrado no catálogo.");
         }
     }
-}*/
+}

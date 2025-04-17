@@ -14,6 +14,7 @@ import negocio.exceptions.*;
 
 import java.time.LocalDate;
 import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class FachadaCliente {
@@ -36,20 +37,38 @@ public class FachadaCliente {
         return filmeNegocio.procurarFilme(nomeFilme);
     }
 
-//    public ArrayList<String> acessarSessoesFormatadasPorDia(MonthDay dia) throws SessaoNaoEncontradaException {
-//        return sessoesNegocio.sessoesFormatadasPorDia(dia);
-//    }
-//
-//    public ArrayList<String> acessarSessoesFormatadasPorFilmeEDia(String titulo, LocalDate dia) throws SessaoNaoEncontradaException {
-//        return sessoesNegocio.sessoesFormatadasPorFilmeEDia(titulo, dia);
-//    }
-//
-//    public ArrayList<String> acessarSessoesFormatadasPorFilme(String titulo) throws SessaoNaoEncontradaException {
-//        return sessoesNegocio.sessoesFormatadasPorFilme(titulo);
-//    }
+    public ArrayList<String> procurarSessaoporDia(String sdia) throws SessaoNaoEncontradaException {
 
-    public ArrayList<Sessao> procurarSessaoPorFilme(String titulo) throws SessaoNaoEncontradaException {
-        return sessoesNegocio.procurarSessaoTitulo(titulo);
+        MonthDay dia = MonthDay.parse(sdia, DateTimeFormatter.ofPattern("dd-MM"));
+        ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaodoDia(dia);
+        ArrayList<String> formatadas = new ArrayList<>();
+
+        for (Sessao s : sessoes) {
+            formatadas.add(s.toString());
+        }
+
+        return formatadas;
+    }
+
+    public ArrayList<String> procurarSessaoPorTituloDoFilme(String titulo) throws SessaoNaoEncontradaException {
+        ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaoTitulo(titulo);
+        ArrayList<String> formatadas = new ArrayList<>();
+        for (Sessao s : sessoes) {
+            formatadas.add(s.toString());
+        }
+        return formatadas;
+    }
+
+    public ArrayList<String> procurarSessoesHoje() throws SessaoNaoEncontradaException {
+        MonthDay hoje = MonthDay.now();
+        ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaodoDia(hoje);
+        ArrayList<String> formatadas = new ArrayList<>();
+
+        for (Sessao s : sessoes) {
+            formatadas.add(s.toString());
+        }
+
+        return formatadas;
     }
 
     public ArrayList<String> verCatalogo() throws NenhumFilmeEncontradoException {
