@@ -23,7 +23,8 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
     private File file;
 
     public RepositorioFilmesArquivoBinario(){
-        file = new File("MovieTime/arquivos/filmes.dat");
+        file = new File("filmes.dat");
+
         if (file.exists()){
             lerFilmes();
         }else {

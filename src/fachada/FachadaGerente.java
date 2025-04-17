@@ -54,24 +54,49 @@ public class FachadaGerente {
         cadastroSessoes.adicionarSessao(horario,filme,sala,dia);
     }
     public void removerSessao(String shorario,String sala,String sdia) throws SessaoNaoEncontradaException {
-        MonthDay dia = MonthDay.parse(sdia, DateTimeFormatter.ofPattern("dd/MM"));
+        MonthDay dia = MonthDay.parse(sdia, DateTimeFormatter.ofPattern("dd-MM"));
         LocalTime horario = LocalTime.parse(shorario);
         cadastroSessoes.removerSessao(horario,sala,dia);
     }
-    public void atualizarSessao(String horario, String filme,String sala,String dia) throws SessaoNaoEncontradaException {
+    public void atualizarSessao(String horario, String filme,String sala,String dia) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
         cadastroSessoes.atualizarSessao(horario,filme,sala,dia);
     }
-    public Sessao procurarSessao(String horario,String sala,String dia) throws SessaoNaoEncontradaException{
-        return cadastroSessoes.procurarSessao(horario,sala,dia);
+    public String procurarSessao(String shorario,String sala,String sdia) throws SessaoNaoEncontradaException, SalaNaoEncontradaException {
+        LocalTime horario = LocalTime.parse(shorario);
+        MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
+        return cadastroSessoes.procurarSessao(horario,sala,dia).toString();
     }
-    public ArrayList<Sessao> procurarSessaoporDia(String dia) throws SessaoNaoEncontradaException {
-        return cadastroSessoes.procurarSessaodoDia(dia);
+
+    public ArrayList<String> procurarSessaoTitulo(String titulo) throws SessaoNaoEncontradaException {
+        ArrayList<Sessao> sessoes = cadastroSessoes.procurarSessaoTitulo(titulo);
+        ArrayList<String> formatadas = new ArrayList<>();
+        for (Sessao s : sessoes) {
+            formatadas.add(s.toString());
+        }
+        return formatadas;
     }
-    public ArrayList<Sessao> procurarSessaoTitulo(String titulo) throws SessaoNaoEncontradaException {
-        return cadastroSessoes.procurarSessaoTitulo(titulo);
+
+    public ArrayList<String> procurarSessaoporDia(String sdia) throws SessaoNaoEncontradaException {
+
+        MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
+        ArrayList<Sessao> sessoes = cadastroSessoes.procurarSessaodoDia(dia);
+        ArrayList<String> formatadas = new ArrayList<>();
+
+        for (Sessao s : sessoes) {
+            formatadas.add(s.toString());
+        }
+
+        return formatadas;
     }
-    public ArrayList<Sessao> listarTodas() throws NenhumaSessaoEncontradaException{
-        return cadastroSessoes.listarSessoes();
+
+    public ArrayList<String> listarTodas() throws NenhumaSessaoEncontradaException{
+        ArrayList<Sessao> sessoes = cadastroSessoes.listarSessoes();
+        ArrayList<String> sessoesFormat = new ArrayList<>();
+
+        for (Sessao s : sessoes){
+            sessoesFormat.add(s.toString());
+        }
+        return sessoesFormat;
     }
 
     //gerenciamento de salas

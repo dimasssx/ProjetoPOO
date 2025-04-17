@@ -36,17 +36,17 @@ public class FachadaCliente {
         return filmeNegocio.procurarFilme(nomeFilme);
     }
 
-    public ArrayList<String> acessarSessoesFormatadasPorDia(MonthDay dia) throws SessaoNaoEncontradaException {
-        return sessoesNegocio.sessoesFormatadasPorDia(dia);
-    }
-
-    public ArrayList<String> acessarSessoesFormatadasPorFilmeEDia(String titulo, LocalDate dia) throws SessaoNaoEncontradaException {
-        return sessoesNegocio.sessoesFormatadasPorFilmeEDia(titulo, dia);
-    }
-
-    public ArrayList<String> acessarSessoesFormatadasPorFilme(String titulo) throws SessaoNaoEncontradaException {
-        return sessoesNegocio.sessoesFormatadasPorFilme(titulo);
-    }
+//    public ArrayList<String> acessarSessoesFormatadasPorDia(MonthDay dia) throws SessaoNaoEncontradaException {
+//        return sessoesNegocio.sessoesFormatadasPorDia(dia);
+//    }
+//
+//    public ArrayList<String> acessarSessoesFormatadasPorFilmeEDia(String titulo, LocalDate dia) throws SessaoNaoEncontradaException {
+//        return sessoesNegocio.sessoesFormatadasPorFilmeEDia(titulo, dia);
+//    }
+//
+//    public ArrayList<String> acessarSessoesFormatadasPorFilme(String titulo) throws SessaoNaoEncontradaException {
+//        return sessoesNegocio.sessoesFormatadasPorFilme(titulo);
+//    }
 
     public ArrayList<Sessao> procurarSessaoPorFilme(String titulo) throws SessaoNaoEncontradaException {
         return sessoesNegocio.procurarSessaoTitulo(titulo);

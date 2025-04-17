@@ -82,6 +82,12 @@ public class TelaCadastroFilme {
     private void atualizarFilme() {
         System.out.println("Nome");
         String nome = scanner.nextLine();
+
+        try{
+            fachada.procurarFilme(nome);
+        } catch (FilmeNaoEstaCadastradoException e) {
+            System.err.println(e.getMessage());;
+        }
         System.out.println("Genero");
         String genero = scanner.nextLine();
         System.out.println("Duracao");

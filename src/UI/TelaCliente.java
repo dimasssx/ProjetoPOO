@@ -1,3 +1,4 @@
+/*
 package UI;
 
 //import fachada.Cinema;
@@ -48,7 +49,6 @@ public class TelaCliente {
             }
 
             switch (opcao){
-                /*
                 case "1":
                     TelaComprarIngresso comprar = new TelaComprarIngresso(fachada);
                     try {
@@ -57,7 +57,7 @@ public class TelaCliente {
                         System.err.println(e);
                     }
                     break;
-                 */
+
                 case "2":
                     try {
                         buscarporDia();
@@ -187,4 +187,4 @@ public class TelaCliente {
             System.out.println("Filme não encontrado no catálogo.");
         }
     }
-}
+}*/
