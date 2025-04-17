@@ -66,8 +66,6 @@ public class TelaCliente {
                 case "3":
                     try {
                         buscarPorFilme();
-                    } catch (NenhumFilmeEncontradoException e) {
-                        System.err.println(e.getMessage());
                     }
                     catch (SessaoNaoEncontradaException e){
                         System.err.println(e.getMessage());
@@ -84,13 +82,13 @@ public class TelaCliente {
         }
     }
 
-    private String extrairTituloDoToString(String filmeFormatado) {
-        String[] partes = filmeFormatado.split("\\|");
-        if (partes.length > 0) {
-            return partes[0].replace("Título:", "").trim();
-        }
-        return "";
-    }
+//    private String extrairTituloDoToString(String filmeFormatado) {
+//        String[] partes = filmeFormatado.split("\\|");
+//        if (partes.length > 0) {
+//            return partes[0].replace("Título:", "").trim();
+//        }
+//        return "";
+//    }
 
     public void exibicaoSessoesDeHoje() {
         System.out.println("Filmes em Cartaz Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
@@ -135,43 +133,33 @@ public class TelaCliente {
     }
 
 
-    public void buscarPorFilme() throws NenhumFilmeEncontradoException, SessaoNaoEncontradaException {
+    public void buscarPorFilme() throws SessaoNaoEncontradaException {
         System.out.println("Digite o nome do Filme:");
         String tituloInput = scanner.nextLine().trim();
 
-        ArrayList<String> filmesFormatados;
-            filmesFormatados = clienteFachada.procurarSessaoPorTituloDoFilme(tituloInput);
-            for (String filmesFormatado : filmesFormatados) {
-                System.out.println(filmesFormatado);
-            }
+        try {
+            clienteFachada.consultarFilme(tituloInput);
 
-        boolean encontrouFilme = false;
+            ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoPorTituloDoFilme(tituloInput);
 
-        for (String filmeFormatado : filmesFormatados) {
-            String tituloExtraido = extrairTituloDoToString(filmeFormatado);
-            if (tituloExtraido.equalsIgnoreCase(tituloInput)) {
-                encontrouFilme = true;
-                try {
-                    ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoPorTituloDoFilme(tituloExtraido);
-                    if (sessoesFormatadas.isEmpty()) {
-                        System.out.println("Nenhuma sessão encontrada para o filme: " + tituloExtraido);
-                    } else {
-                        System.out.println("Sessões para o filme: " + tituloExtraido);
-                        for (String sessao : sessoesFormatadas) {
-                            System.out.println(sessao);
-                            System.out.println("----------------------------");
-                        }
-                    }
-                } catch (SessaoNaoEncontradaException e) {
-                    System.out.println("Nenhuma sessão encontrada para o filme: " + tituloExtraido);
+            if (sessoesFormatadas.isEmpty()) {
+                System.err.println("Nenhuma sessão encontrada para o filme: " + tituloInput);
+            } else {
+                System.out.println("Sessões para o filme: " + tituloInput);
+                for (String sessao : sessoesFormatadas) {
+                    System.out.println(sessao);
+                    System.out.println("----------------------------");
                 }
-                break;
             }
-        }
 
-        if (!encontrouFilme) {
-            System.out.println("Filme não encontrado no catálogo.");
+        } catch (FilmeNaoEstaCadastradoException e) {
+            System.err.println("Filme não encontrado no catálogo: " + tituloInput);
+        } catch (SessaoNaoEncontradaException e) {
+            System.err.println("Nenhuma sessão encontrada para o filme: " + tituloInput);
+        } catch (Exception e) {
+            System.err.println("Erro inesperado ao buscar o filme.");
         }
     }
+
 
 }
