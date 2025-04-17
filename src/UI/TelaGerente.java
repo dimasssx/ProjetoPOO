@@ -23,31 +23,22 @@ public class TelaGerente {
             System.out.println("3 - Gerenciar Sessoes");
             System.out.println("4 - Logout");
 
-            int opcao = -1;
-
-            try {
-                opcao = scanner.nextInt();
-                scanner.nextLine();
-            } catch (Exception e) {
-                System.err.println("Digite um número");
-                scanner.nextLine();
-                continue;
-            }
+            String opcao = scanner.nextLine();
 
             switch (opcao){
-                case 1:
-//                    TelaCadastroFilme telacadastro = new TelaCadastroFilme(fachadaGerente);
-//                    telacadastro.iniciar();
+                case "1":
+                    TelaCadastroFilme telacadastro = new TelaCadastroFilme(fachadaGerente);
+                    telacadastro.iniciar();
                     break;
-                case 2:
-//                    TelaCadastroSalas telaCadastrosala = new TelaCadastroSalas(fachadaGerente);
-//                    telaCadastrosala.iniciar();
+                case "2":
+                    TelaGerenciamentodeSalas telaCadastrosala = new TelaGerenciamentodeSalas(fachadaGerente);
+                    telaCadastrosala.iniciar();
                     break;
-                case 3:
+                case "3":
 //                    TelaCadastroSessoes telacadastrosessoes = new TelaCadastroSessoes(fachadaGerente);
 //                    telacadastrosessoes.iniciar();
                     break;
-                case 4:
+                case "4":
                     System.out.println("Saindo...");
                     return;
                 default:

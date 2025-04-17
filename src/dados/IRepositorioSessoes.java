@@ -12,6 +12,7 @@ public interface IRepositorioSessoes {
     void removerSessao(Sessao sessao);
     void atualizarSessao(Sessao sessao);
     Sessao procurarSessao(Sessao sessao);
+    Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia);
     ArrayList<Sessao> buscarSessoesDoDia(MonthDay dia);
     ArrayList<Sessao> procurarSessaoPorFilme(String filme);
     ArrayList<Sessao> retornarTodas();

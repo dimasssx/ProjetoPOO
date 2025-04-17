@@ -18,21 +18,29 @@ public class SalasNegocio {
         this.salas = salas;
     }
 
-    public void adicionarSala(Sala sala) throws CodigoSalaJaExisteException, LimiteDeSalasExcedidoException {
+    public void adicionarSala(String codigo,String tipo, int linhas, int colunas) throws CodigoSalaJaExisteException, LimiteDeSalasExcedidoException {
+
+        Sala sala;
+
+        if (tipo.equalsIgnoreCase("2D")){
+            sala = new Sala2D(codigo,linhas, colunas);
+        }else if (tipo.equalsIgnoreCase("3D")){
+            sala = new Sala3D(codigo,linhas, colunas);
+        }else{
+            throw new IllegalArgumentException("Tipo de sala inválido. Use 2D ou 3D.");
+        }
 
         if (salas.listarSalas().stream().anyMatch(s -> s.getCodigo().equals(sala.getCodigo()))) {
             throw new CodigoSalaJaExisteException("O código " + sala.getCodigo() + " já existe.");
         }
-
         if (sala instanceof Sala2D && salas.listarSalas().stream().filter(s -> s instanceof Sala2D).count() >= 2) {
-            throw new LimiteDeSalasExcedidoException("O limite de 2 salas 2D já foi atingido.");
+                throw new LimiteDeSalasExcedidoException("O limite de 2 salas 2D já foi atingido.");
         }
-
         if (sala instanceof Sala3D && salas.listarSalas().stream().filter(s -> s instanceof Sala3D).count() >= 1) {
             throw new LimiteDeSalasExcedidoException("O limite de 1 sala 3D já foi atingido.");
         }
-
         salas.adicionarSala(sala);
+
     }
 
     public void removerSala(String codigo) throws SalaNaoEncontradaException {
@@ -49,8 +57,18 @@ public class SalasNegocio {
             return saladesejada;
         }else throw new SalaNaoEncontradaException("Sala nao foi encontrada");
     }
-    public void atualizarSala(Sala sala) throws SalaNaoEncontradaException{
-        Sala s = salas.procurarSala(sala.getCodigo());
+    public void atualizarSala(String codigo,String tipo, int linhas, int colunas) throws SalaNaoEncontradaException{
+        
+        Sala s = null;
+        
+        if (tipo.equalsIgnoreCase("2D")){
+            s = new Sala2D(codigo,linhas, colunas);
+            s = salas.procurarSala(s.getCodigo());
+        }else if (tipo.equalsIgnoreCase("3D")){
+            s = new Sala3D(codigo,linhas, colunas);
+            s = salas.procurarSala(s.getCodigo());
+        }
+
         if (s != null){
             salas.atualizarSala(s);
         }else {
@@ -63,4 +81,5 @@ public class SalasNegocio {
         }else return salas.listarSalas();
     }
 
-}
+ }
+

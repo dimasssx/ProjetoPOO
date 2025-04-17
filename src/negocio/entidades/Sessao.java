@@ -69,9 +69,10 @@ public class Sessao implements Serializable {
 
     @Override
     public String toString() {
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM");
-
-        return filme + "| Horario: " + horario + " "+sala + getDiaFormatado();
+        return "Filme: " + filme.getTitulo() +
+                " | Sala: " + sala.getCodigo() + " (" + sala.getTipo() + ")" +
+                " | Horário: " + horario +
+                " | Data: " + getDiaFormatado();
     }
 
     @Override
