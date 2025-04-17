@@ -90,6 +90,7 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     //retornar todos os clientes cadastrados
     @Override
     public ArrayList<Cliente> listarClientes() {
+        lerClientes();
         return new ArrayList<>(clientes);
     }
 

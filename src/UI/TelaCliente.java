@@ -15,12 +15,10 @@ import java.util.Scanner;
 
 public class TelaCliente {
     MonthDay hoje;
-    private Cliente cliente;
     private FachadaCliente clienteFachada;
     private Scanner scanner;
 
-    public TelaCliente(FachadaCliente clienteFachada, Cliente cliente) {
-        this.cliente = cliente;
+    public TelaCliente(FachadaCliente clienteFachada) {
         this.clienteFachada = clienteFachada;
         scanner = new Scanner(System.in);
         hoje = MonthDay.now();
@@ -28,7 +26,7 @@ public class TelaCliente {
 
     public void iniciar() {
 
-        System.out.println("Bem-vindo ao MovieTime, " + cliente.getNome() + "!");
+        System.out.println("Bem-vindo ao MovieTime!");
         System.out.println("---------------------------");
         exibicaoSessoesDeHoje(); //exibe os filmes em cartaz e as sessões de hoje
 
@@ -142,12 +140,10 @@ public class TelaCliente {
         String tituloInput = scanner.nextLine().trim();
 
         ArrayList<String> filmesFormatados;
-        try {
-            filmesFormatados = clienteFachada.verCatalogo();
-        } catch (NenhumFilmeEncontradoException e) {
-            System.out.println("Nenhum filme encontrado no catálogo.");
-            return;
-        }
+            filmesFormatados = clienteFachada.procurarSessaoPorTituloDoFilme(tituloInput);
+            for (String filmesFormatado : filmesFormatados) {
+                System.out.println(filmesFormatado);
+            }
 
         boolean encontrouFilme = false;
 
@@ -177,4 +173,5 @@ public class TelaCliente {
             System.out.println("Filme não encontrado no catálogo.");
         }
     }
+
 }

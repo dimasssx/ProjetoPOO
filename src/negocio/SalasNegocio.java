@@ -1,6 +1,7 @@
 package negocio;
 
 import dados.*;
+import negocio.entidades.Sessao;
 import negocio.exceptions.CodigoSalaJaExisteException;
 import negocio.exceptions.LimiteDeSalasExcedidoException;
 import negocio.exceptions.NenhumaSalaEncontradaException;
@@ -13,9 +14,12 @@ import java.util.ArrayList;
 
 public class SalasNegocio {
     IRepositorioSalas salas;
+    IRepositorioSessoes sessoes;
 
-    public SalasNegocio(IRepositorioSalas salas){
+    public SalasNegocio(IRepositorioSalas salas,IRepositorioSessoes sessoes){
+
         this.salas = salas;
+        this.sessoes = sessoes;
     }
 
     public void adicionarSala(String codigo,String tipo, int linhas, int colunas) throws CodigoSalaJaExisteException, LimiteDeSalasExcedidoException {
@@ -45,8 +49,14 @@ public class SalasNegocio {
 
     public void removerSala(String codigo) throws SalaNaoEncontradaException {
         Sala salaDesejada = salas.procurarSala(codigo);
+        ArrayList<Sessao> sessoesremovidas;
         if (salaDesejada != null){
-            salas.removerSala(salaDesejada);
+            sessoesremovidas = sessoes.procurarSessaoporSala(codigo);
+            if(sessoesremovidas!= null){
+                for (Sessao s :sessoesremovidas){
+                    sessoes.removerSessao(s);
+                }
+            }salas.removerSala(salaDesejada);
         }else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
 
     }

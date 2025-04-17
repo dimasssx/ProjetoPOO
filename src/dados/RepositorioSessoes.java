@@ -94,7 +94,16 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
         }
         return null;
     }
-
+    @Override
+    public ArrayList<Sessao> procurarSessaoporSala(String codigo){
+        ArrayList<Sessao> sessaoporSala = new ArrayList<>();
+        for(Sessao s:sessoes){
+            if(s.getSala().getCodigo().equalsIgnoreCase(codigo)){
+                sessaoporSala.add(s);
+            }
+        }
+        return sessaoporSala;
+    }
     // metodo para procurar sessoes no repositorio a partir do nome do filme
     public ArrayList<Sessao> procurarSessaoPorFilme(String filme) {
         ArrayList<Sessao> sessoesFilmes = new ArrayList<>();
@@ -125,6 +134,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     // metodo para retornar todas as sessoes do repositorio
     @Override
     public ArrayList<Sessao> retornarTodas() {
+        lerSessoes();
         ArrayList<Sessao> sessoesFilmes = new ArrayList<>();
         for (Sessao s : sessoes) {
             if (s != null) {

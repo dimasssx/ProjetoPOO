@@ -18,7 +18,7 @@ public class FachadaGerente {
 
     public FachadaGerente(){
         cadastroFilmes = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
-        cadastroSalas = new SalasNegocio(new RepositorioSalas());
+        cadastroSalas = new SalasNegocio(new RepositorioSalas(),new RepositorioSessoes());
         cadastroSessoes = new SessoesNegocio(new RepositorioSessoes(),cadastroSalas,cadastroFilmes);
     }
 
