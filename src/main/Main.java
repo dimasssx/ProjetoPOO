@@ -8,7 +8,9 @@ import negocio.entidades.ClientePadrao;
 
 public class Main{
     public static void main(String[] args) {
-        TelaGerente telaGerente = new TelaGerente(new FachadaGerente());
-        telaGerente.iniciar();
+//        TelaGerente telaGerente = new TelaGerente(new FachadaGerente());
+//        telaGerente.iniciar();
+        TelaCliente telaCliente = new TelaCliente(new FachadaCliente());
+        telaCliente.iniciar();
     }
 }
