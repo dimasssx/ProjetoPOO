@@ -1,7 +1,6 @@
 package negocio;
 
 import dados.IRepositorioClientes;
-import dados.RepositorioClientesArquivoBinario;
 import negocio.entidades.*;
 import negocio.exceptions.*;
 

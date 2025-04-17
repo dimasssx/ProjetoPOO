@@ -14,7 +14,7 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     private File file;
 
     public RepositorioClientesArquivoBinario() {
-        file = new File("MovieTime/arquivos/clientes.dat");
+        file = new File("clientes.dat");
         if (file.exists()) {
             lerClientes();
         } else {

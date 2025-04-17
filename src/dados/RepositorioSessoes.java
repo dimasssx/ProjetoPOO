@@ -15,7 +15,8 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
 
 
     public RepositorioSessoes() {
-        file = new File("MovieTime/arquivos/sessoes.dat");
+        file = new File("sessoes.dat");
+
         if (file.exists()) {
             lerSessoes();
         } else {

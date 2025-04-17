@@ -35,14 +35,14 @@ public class TelaGerente {
                     telaCadastrosala.iniciar();
                     break;
                 case "3":
-//                    TelaCadastroSessoes telacadastrosessoes = new TelaCadastroSessoes(fachadaGerente);
-//                    telacadastrosessoes.iniciar();
+                    TelaGerenciamentoSessoes telacadastrosessoes = new TelaGerenciamentoSessoes(fachadaGerente);
+                    telacadastrosessoes.iniciar();
                     break;
                 case "4":
                     System.out.println("Saindo...");
                     return;
                 default:
-                    System.out.println("Opção Inválida");
+                    System.err.println("Opção Inválida");
             }
 
 

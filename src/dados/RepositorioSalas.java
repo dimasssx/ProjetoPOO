@@ -13,7 +13,8 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
     private File file;
 
     public RepositorioSalas() {
-        file = new File("MovieTime/arquivos/salas.dat");
+        file = new File("salas.dat");
+
         if (file.exists()) {
             lerSalas();
         } else {

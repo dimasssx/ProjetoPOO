@@ -1,7 +1,13 @@
 package UI;
 
 import fachada.FachadaGerente;
+import negocio.exceptions.*;
 
+import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TelaGerenciamentoSessoes {
@@ -35,7 +41,7 @@ public class TelaGerenciamentoSessoes {
                     removerSessao();
                     break;
                 case "3":
-                    atualizarSessoes();
+                    atualizarSessao();
                     break;
                 case "4":
                     buscarSessaoporTitulo();
@@ -46,15 +52,174 @@ public class TelaGerenciamentoSessoes {
                 case "6":
                     imprimeTodasSessoes();
                     break;
-                case 7:
+                case "7":
                     return;
                 default:
                     System.out.println("Opção Invalida");
-
             }
         }
     }
     private void adicionarSessao(){
+        String horario,filme,sala,dia;
+        horario = lerHorario();
+        filme = scanner.nextLine();
+        try {
+            fachada.procurarFilme(filme);
+        } catch (FilmeNaoEstaCadastradoException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+        sala = scanner.nextLine();
+        try{
+            fachada.procuraSala(sala);
+        } catch (SalaNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+        dia = lerData();
 
+        try{
+            fachada.adicionarSessao(horario,filme,sala,dia);
+        } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void removerSessao(){
+        String horario,sala,dia;
+        horario = lerHorario();
+        sala = scanner.nextLine();
+        try{
+            fachada.procuraSala(sala);
+        } catch (SalaNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+        dia = lerData();
+
+        try{
+            fachada.removerSessao(horario,sala,dia);
+        } catch (SessaoNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void atualizarSessao(){
+        String horario,filme,sala,dia;
+        horario = lerHorario();
+        filme = scanner.nextLine();
+        try {
+            fachada.procurarFilme(filme);
+        } catch (FilmeNaoEstaCadastradoException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+        sala = scanner.nextLine();
+        try{
+            fachada.procuraSala(sala);
+        } catch (SalaNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+        dia= lerData();
+
+        try {
+            fachada.atualizarSessao(horario,filme,sala,dia);
+        } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void buscarSessaoporTitulo(){
+        String filme = scanner.nextLine();
+        ArrayList<String> sessoes;
+        try{
+            fachada.procurarSessaoTitulo(filme);
+        } catch (SessaoNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+        try {
+            sessoes = fachada.procurarSessaoTitulo(filme);
+            for (String sessoe : sessoes) {
+                System.out.println(sessoe);
+            }
+        } catch (SessaoNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+
+    private void buscarSessaoDia(){
+        String dia = lerData();
+        ArrayList<String> sessoes;
+
+        try{
+            sessoes = fachada.procurarSessaoporDia(dia);
+            for (String sessoe : sessoes) {
+                System.out.println(sessoe);
+            }
+        } catch (SessaoNaoEncontradaException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void imprimeTodasSessoes(){
+        ArrayList<String> sessoes;
+
+        try{
+            sessoes = fachada.listarTodas();
+            for (String sessoe : sessoes) {
+                System.out.println(sessoe);
+            }
+        } catch (NenhumaSessaoEncontradaException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+
+    private String lerHorario() {
+        String horario;
+        do {
+            System.out.println("Horário da sessão (HH:mm):");
+            horario = scanner.nextLine();
+
+            if (!isHorarioValido(horario)) {
+                System.err.println("Horário inválido! Use formato HH:mm");
+            }
+        } while (!isHorarioValido(horario));
+
+        return horario;
+    }
+    private String lerData() {
+        String data;
+        do {
+            System.out.println("Data da sessão (dd/MM):");
+            data = scanner.nextLine();
+
+            if (!isDataValida(data)) {
+                System.err.println("Data inválida! Use formato dd/MM");
+            }
+        } while (!isDataValida(data));
+
+        return data;
+    }
+    private boolean isDataValida(String data) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
+            MonthDay.parse(data, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+    private boolean isHorarioValido(String horario) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime.parse(horario, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
