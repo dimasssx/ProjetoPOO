@@ -14,7 +14,6 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
 
     public RepositorioSalas() {
         file = new File("salas.dat");
-
         if (file.exists()) {
             lerSalas();
         } else {
@@ -75,6 +74,7 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
     // metodo para procurar uma sala no repositorio a partir do codigo da sala recebido
     @Override
     public Sala procurarSala(String codigo) {
+        lerSalas();
         for(Sala s : salas){
             if(s.getCodigo().equalsIgnoreCase(codigo)){
                 return s;
@@ -92,6 +92,7 @@ public class RepositorioSalas implements IRepositorioSalas, Serializable {
 
     @Override
     public boolean existe(Sala sala) {
+        lerSalas();
         return salas.contains(sala);
     }
 }

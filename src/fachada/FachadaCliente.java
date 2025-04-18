@@ -1,5 +1,6 @@
 package fachada;
 
+import dados.RepositorioClientesArquivoBinario;
 import dados.RepositorioFilmesArquivoBinario;
 import dados.RepositorioSalas;
 import dados.RepositorioSessoes;
@@ -24,7 +25,7 @@ public class FachadaCliente {
     private SessoesNegocio sessoesNegocio;
 
     public FachadaCliente() {
-        this.clienteNegocio = new ClienteNegocio();
+        this.clienteNegocio = new ClienteNegocio(new RepositorioClientesArquivoBinario());
         this.filmeNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
         this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoes(),new SalasNegocio(new RepositorioSalas(),new RepositorioSessoes()), filmeNegocio);
     }

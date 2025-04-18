@@ -72,8 +72,6 @@ public class TelaCliente {
                     }
                     break;
                 case "4":
-                    //gerenciamento de conta
-                case "5":
                     System.out.println("Saindo...");
                     return;
                 default:
@@ -102,7 +100,6 @@ public class TelaCliente {
             } else {
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
-                    System.out.println("----------------------------");
                 }
             }
         } catch (SessaoNaoEncontradaException e) {

@@ -5,7 +5,9 @@ import negocio.exceptions.FilmeJaEstaNoCatalogoException;
 import negocio.exceptions.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.NenhumFilmeEncontradoException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class TelaCadastroFilme {
     private Scanner scanner;
@@ -54,7 +56,6 @@ public class TelaCadastroFilme {
             }
         }
     }
-
     private void adicionarFilme() {
         System.out.println("Detalhes do filme que será adicionado ");
         System.out.println("(digite 0 a qualquer momento para sair)");
@@ -63,30 +64,30 @@ public class TelaCadastroFilme {
         if (nome == null) return;
         String genero = lerDado("Gênero");
         if (genero == null) return;
-        String duracao = lerDado("Duração ");
+        String duracao = lerDado("Duração");
         if (duracao == null) return;
         String classificacao = lerDado("Classificação");
         if (classificacao == null) return;
 
         try {
             fachada.adicionarFilme(nome, genero, duracao, classificacao);
+            System.out.println("\033[92m Filme Adicionado com Sucesso! \033[0m");
         } catch (FilmeJaEstaNoCatalogoException e) {
             System.err.println(e.getMessage());
 
         }
     }
-
     private void removerFilme() {
         System.out.println("(digite 0 a qualquer momento para sair)");
         String nome = lerDado("Nome do Filme que será removido");
         if (nome == null) return;
         try {
             fachada.removerFilme(nome);
+            System.out.println("Filme removido com Sucesso");
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
         }
     }
-
     private void atualizarFilme() {
 
         System.out.println("(digite 0 a qualquer momento para sair)");
@@ -101,19 +102,19 @@ public class TelaCadastroFilme {
         System.out.println("Caracteristicas que serão atualizadas");
         String genero = lerDado("Gênero");
         if (genero == null) return;
-        String duracao = lerDado("Duração ");
+        String duracao = lerDado("Duração");
         if (duracao == null) return;
         String classificacao = lerDado("Classificação");
         if (classificacao == null) return;
 
         try {
             fachada.atualizarFilme(nome, genero, duracao, classificacao);
+            System.out.println("Filme atualizado com sucesso!");
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
         }
 
     }
-
     private void buscarFilme() {
         System.out.println("(digite 0 a qualquer momento para sair)");
         String nome = lerDado("Nome do Filme");
@@ -124,7 +125,6 @@ public class TelaCadastroFilme {
             System.err.println(e.getMessage());
         }
     }
-
     private void listarFilmes(){
         try {
             ArrayList<String> filmes = fachada.imprimirCatalogo();
@@ -149,8 +149,54 @@ public class TelaCadastroFilme {
                 System.err.println(campo + " não pode ser vazio!");
                 continue;
             }
+            if(campo.equals("Duração")){
+                String duracaoValida = verificarDuracao(dado);
+                if (duracaoValida == null){
+                    continue;
+                }
+                return duracaoValida;
+            }
+            if(campo.equals("Classificação")){
+                String classvalida = verificarClassificacao(dado);
+                if (classvalida == null){
+                    continue;
+                }
+                return classvalida;
+            }
+
             return dado;
         }
 
     }
+    private String verificarDuracao(String dado){
+        if (!dado.matches("\\d{1}h\\d{2}|\\d{1}h")) {
+            System.err.println("Formato inválido! Deve ser no formato xhxx ou xh.");
+            return null;
+        }
+        if (dado.matches("\\d{1}h\\d{2}")) {
+            String minutosStr = dado.substring(dado.indexOf('h') + 1);
+            int minutos = Integer.parseInt(minutosStr);
+            if (minutos > 59) {
+                System.err.println("Os minutos não podem ser maiores que 59.");
+                return null;
+            }
+        }
+        return dado;
+    }
+    private String verificarClassificacao(String dado) {
+        Set<String> classificacoesValidas = new HashSet<>();
+        classificacoesValidas.add("Livre");
+        classificacoesValidas.add("10");
+        classificacoesValidas.add("12");
+        classificacoesValidas.add("14");
+        classificacoesValidas.add("16");
+        classificacoesValidas.add("18");
+
+        if (classificacoesValidas.contains(dado.trim())) {
+            return dado.trim();
+        }
+        System.err.println("Classificação inválida! As opções válidas são: Livre, 10, 12, 14, 16, 18");
+        return null;
+    }
+
 }

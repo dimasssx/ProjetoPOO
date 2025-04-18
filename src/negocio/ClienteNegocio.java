@@ -7,8 +7,8 @@ import negocio.exceptions.*;
 public class ClienteNegocio {
     private IRepositorioClientes repositorio;
 
-    public ClienteNegocio() {
-        IRepositorioClientes repositorio;
+    public ClienteNegocio(IRepositorioClientes repositorio) {
+        this.repositorio = repositorio;
     }
 
     //gerenciamento do cliente
