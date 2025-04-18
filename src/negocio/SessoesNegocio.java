@@ -129,24 +129,4 @@ public class SessoesNegocio {
             }
         }
     }
-    public int assentosDisponiveis(Sessao sessao) throws SessaoNaoEncontradaException {
-        Sessao s = repositorioSessoes.procurarSessao(sessao);
-        if (s != null) {
-            return contarAssentosDisponiveis(s);
-        } else {
-            throw new SessaoNaoEncontradaException();
-        }
-    }
-    private int contarAssentosDisponiveis(Sessao sessao) {
-        Assento[][] assentos = sessao.getAssentos();
-        int disponiveis = 0;
-        for (int i = 0; i < assentos.length; i++) {
-            for (int j = 0; j < assentos[i].length; j++) {
-                if (!assentos[i][j].isReservado()) {
-                    disponiveis++;
-                }
-            }
-        }
-        return disponiveis;
-    }
 }

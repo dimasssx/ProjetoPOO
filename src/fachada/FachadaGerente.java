@@ -22,6 +22,16 @@ public class FachadaGerente {
         cadastroSessoes = new SessoesNegocio(new RepositorioSessoesArquivoBinario(),cadastroSalas,cadastroFilmes);
     }
 
+    public FilmesNegocio getCadastroFilmes() {
+        return cadastroFilmes;
+    }
+    public SalasNegocio getCadastroSalas() {
+        return cadastroSalas;
+    }
+    public SessoesNegocio getCadastroSessoes() {
+        return cadastroSessoes;
+    }
+
     //operacoes de gerenciamento de filmes
 
     public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
@@ -107,9 +117,7 @@ public class FachadaGerente {
     public void removerSala(String codigo) throws SalaNaoEncontradaException {
         cadastroSalas.removerSala(codigo);
     }
-//    public void atualizarSala(String codigo,String tipo, int linhas, int colunas) throws SalaNaoEncontradaException {
-//        cadastroSalas.atualizarSala(codigo,tipo,linhas,colunas);
-//    }
+
     public Sala procuraSala(String codigo) throws SalaNaoEncontradaException {
         return cadastroSalas.procurarSala(codigo);
     }
@@ -124,6 +132,4 @@ public class FachadaGerente {
 
         return salasformatadas;
     }
-
-
 }

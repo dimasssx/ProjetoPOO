@@ -28,6 +28,16 @@ public class FachadaCliente {
         this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(),new SalasNegocio(new RepositorioSalasArquivoBinario(),new RepositorioSessoesArquivoBinario()), filmeNegocio);
     }
 
+    public ClienteNegocio getClienteNegocio() {
+        return clienteNegocio;
+    }
+    public FilmesNegocio getFilmeNegocio() {
+        return filmeNegocio;
+    }
+    public SessoesNegocio getSessoesNegocio() {
+        return sessoesNegocio;
+    }
+
     //Visualizacao de filmes e sessoes
 
     public Filme consultarFilme(String nomeFilme) throws FilmeNaoEstaCadastradoException {

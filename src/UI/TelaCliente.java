@@ -34,6 +34,7 @@ public class TelaCliente {
             System.out.println("1 - Comprar ingresso");
             System.out.println("2 - Buscar sessões por dia");
             System.out.println("3 - Buscar sessoes por filme");
+            System.out.println("4 - Gerenciamento de conta");
             System.out.println("4 - Logout");
 
             String opcao;
@@ -72,6 +73,8 @@ public class TelaCliente {
                     }
                     break;
                 case "4":
+                    //implementar a tela de gerenciamento, instanciando um cliente para conseguir fazer alterações
+                case "5":
                     System.out.println("Saindo...");
                     return;
                 default:
