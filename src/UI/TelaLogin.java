@@ -1,7 +1,9 @@
 package UI;
-
-
+import fachada.FachadaCliente;
 import fachada.Movietime;
+import negocio.entidades.Cliente;
+import negocio.entidades.ClientePadrao;
+import negocio.entidades.ClienteVIP;
 import negocio.exceptions.ClienteJaExisteException;
 import negocio.exceptions.ClienteNaoEncontradoException;
 
@@ -10,7 +12,6 @@ import java.util.Scanner;
 public class TelaLogin {
 
         private Scanner scanner;
-        private boolean autenticou = false;
         private Movietime fachada;
 
         public TelaLogin(Movietime fachada) {
@@ -34,7 +35,8 @@ public class TelaLogin {
                         try {
                             fazerLogin();
                         }catch (ClienteNaoEncontradoException e){
-                            System.err.println("Usuário ou senha incorreto");
+                            System.err.println("Usuário ou senha incorreto\n");
+
                         }
                         break;
                     case "2":
@@ -81,17 +83,22 @@ public class TelaLogin {
         }
 
         public void checarCredenciais(String login, String senha) throws ClienteNaoEncontradoException {
-            int tipologin = fachada.autenticar(login,senha);
-
-            switch (tipologin){
-                case 1:
-                    new TelaGerente(fachada.getFachadaGerente()).iniciar();
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    new TelaCliente(fachada.getFachadaCliente()).iniciar();
-                    break;
+            if(login.equals("admin") && senha.equals("123")){
+                TelaGerente telaGerente = new TelaGerente(fachada.getFachadaGerente());
+                telaGerente.iniciar();
+            }else{
+                Cliente tipologin = fachada.autenticar(login,senha);
+                if (tipologin instanceof ClientePadrao){
+                    FachadaCliente fachadaCliente = fachada.getFachadaCliente();
+                    TelaCliente telaCliente = new TelaCliente(fachadaCliente,tipologin,fachada);
+                    telaCliente.iniciar();
+                } else if (tipologin instanceof ClienteVIP) {
+                    FachadaCliente fachadaCliente = fachada.getFachadaCliente();
+                    TelaCliente telaCliente = new TelaCliente(fachadaCliente,tipologin,fachada);
+                    telaCliente.iniciar();
+                } else if (tipologin ==null){
+                    throw new ClienteNaoEncontradoException();
+                }
             }
             System.out.println("Logout Concluido!");
         }

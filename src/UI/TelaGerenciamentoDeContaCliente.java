@@ -1,5 +1,6 @@
 package UI;
 
+import fachada.FachadaCliente;
 import fachada.Movietime;
 import negocio.entidades.Cliente;
 import negocio.entidades.ClientePadrao;
@@ -49,7 +50,7 @@ public class TelaGerenciamentoDeContaCliente {
                     } else if (cliente instanceof ClienteVIP) {
                         cancelarVIP();
                     }
-                    break;
+                    return;
                 case "4":
                     return;
                 default:
@@ -87,10 +88,12 @@ public class TelaGerenciamentoDeContaCliente {
     private void tornarVIP() {
         fachada.getFachadaCliente().getClienteNegocio().tornarVIP(cliente);
         System.out.println("Parabéns! Agora você é um cliente VIP e tem 35% de desconto na compra de ingressos!");
+
     }
 
     private void cancelarVIP() {
         fachada.getFachadaCliente().getClienteNegocio().cancelarVIP(cliente);
         System.out.println("Você voltou a ser um cliente padrão.");
+
     }
 }

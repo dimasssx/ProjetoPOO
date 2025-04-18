@@ -30,7 +30,6 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             sessoes = (ArrayList<Sessao>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println(e.getMessage());
             sessoes = new ArrayList<>();
         }
     }
@@ -40,7 +39,6 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
             ObjectOutput oos = new ObjectOutputStream(fos)) {
             oos.writeObject(sessoes);
         } catch (IOException e) {
-            System.err.println(e.getMessage());
             sessoes = new ArrayList<>();
         }
     }

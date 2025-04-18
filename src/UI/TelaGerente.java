@@ -1,5 +1,7 @@
 package UI;
 
+import dados.IRepositorioClientes;
+import dados.RepositorioClientesArquivoBinario;
 import fachada.FachadaGerente;
 
 import java.util.Scanner;
@@ -22,6 +24,7 @@ public class TelaGerente {
             System.out.println("2 - Gerenciar Salas");
             System.out.println("3 - Gerenciar Sessoes");
             System.out.println("4 - Logout");
+            System.out.println("5 remover depois- listar usuarios");
 
             String opcao = scanner.nextLine().trim();
 
@@ -41,6 +44,10 @@ public class TelaGerente {
                 case "4":
                     System.out.println("Saindo...");
                     return;
+                case "5":
+                    IRepositorioClientes repositorioClientes = new RepositorioClientesArquivoBinario();
+                    repositorioClientes.imprimir();
+                    break;
                 default:
                     System.err.println("Opção Inválida");
             }

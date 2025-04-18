@@ -22,12 +22,10 @@ public class ClienteNegocio {
         }
     }
 
-    public void imprimirClientes() {
-        repositorioClientes.imprimir();
-    }
-
-    public Cliente buscarCliente(String login, String senha) {
-        return repositorioClientes.retornarCliente(login, senha);
+    public Cliente buscarCliente(String login, String senha) throws ClienteNaoEncontradoException {
+        Cliente cliente = repositorioClientes.retornarCliente(login,senha);
+        if(cliente == null) throw new ClienteNaoEncontradoException();
+        return cliente;
     }
 
     public boolean validarCliente(String login, String senha) throws ClienteNaoEncontradoException {
@@ -38,17 +36,21 @@ public class ClienteNegocio {
         }
     }
 
-    public void tornarVIP(Cliente cliente){
+    public Cliente tornarVIP(Cliente cliente){
         Cliente seTornarVIP = new ClienteVIP(cliente.getNome(), cliente.getLogin(), cliente.getSenha(), cliente.getIngressosComprados());
         repositorioClientes.adicionarCliente(seTornarVIP);
         repositorioClientes.removerCliente(cliente);
+        return seTornarVIP;
     }
 
-    public void cancelarVIP(Cliente cliente){
+    public Cliente cancelarVIP(Cliente cliente){
         Cliente voltarAoPadrao = new ClientePadrao(cliente.getNome(), cliente.getLogin(), cliente.getSenha(), cliente.getIngressosComprados());
         repositorioClientes.adicionarCliente(voltarAoPadrao);
         repositorioClientes.removerCliente(cliente);
+        return voltarAoPadrao;
     }
+
+    //public void atualizarSenha()
 
     //compra de ingressos
 

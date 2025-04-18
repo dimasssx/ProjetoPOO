@@ -38,7 +38,7 @@ public class FilmesNegocio {
         Filme filmeprocurado = repositorioFilmes.procurarFilme(filme);
         if (filmeprocurado == null){
             throw new FilmeNaoEstaCadastradoException();
-        }else return filmeprocurado;
+        } else return filmeprocurado;
     }
     public ArrayList<Filme> listarCatalogo() throws NenhumFilmeEncontradoException {
         if(repositorioFilmes.listarFilmes().isEmpty()){
