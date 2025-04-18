@@ -83,6 +83,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
     }
     //procurar um filme no repositorio a partir do nome do filme recebido
     public Filme procurarFilme(String nome){
+        lerFilmes();
         Filme filmeDesejado = null;
         for (Filme filme: catalogo){
             if(filme.getTitulo().equalsIgnoreCase(nome)){
@@ -105,10 +106,10 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
         }
         return filmes;
     }
-
     //verificar se um filme ja existe no repositorio a partir de um objeto de filme recebido
     @Override
     public boolean existe(Filme filme){
+        lerFilmes();
         return catalogo.contains(filme);
     }
 }

@@ -85,14 +85,13 @@ public class TelaGerenciamentoSessoes {
 
         try{
             fachada.adicionarSessao(horario,filme,sala,dia);
+            System.out.println("Sessao adicionada com sucesso");
         } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException e) {
             System.err.println(e.getMessage());
         }
     }
-
     private void removerSessao(){
         String horario,sala,dia;
-
 
         sala = lerDado("Codigo da sala");
         if (sala == null) return;
@@ -108,14 +107,13 @@ public class TelaGerenciamentoSessoes {
         if (dia==null) return;
         try{
             fachada.removerSessao(horario,sala,dia);
+            System.out.println("Sessao removida com sucesso");
         } catch (SessaoNaoEncontradaException e) {
             System.err.println(e.getMessage());
         }
     }
-
     private void atualizarSessao(){
         String horario,filme,sala,dia;
-
 
         sala = lerDado("Código da sala");
         if (sala == null) return;
@@ -139,11 +137,11 @@ public class TelaGerenciamentoSessoes {
         }
         try {
             fachada.atualizarSessao(horario,filme,sala,dia);
+            System.out.println("Sessao atualizada com sucesso");
         } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
             System.err.println(e.getMessage());
         }
     }
-
     private void buscarSessaoporTitulo(){
         String filme = lerDado("Nome do Filme");
         if (filme==null)return;
@@ -157,7 +155,6 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
-
     private void buscarSessaoDia(){
         String dia = lerData();
         if (dia==null)return;
@@ -171,7 +168,6 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
-
     private void imprimeTodasSessoes(){
         ArrayList<String> sessoes;
         try{
@@ -183,8 +179,6 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
-
-
     private String lerHorario() {
         String horario;
         do {
@@ -238,7 +232,6 @@ public class TelaGerenciamentoSessoes {
             return false;
         }
     }
-
     private String lerDado(String campo) {
         System.out.print(campo + ": ");
         while(true){

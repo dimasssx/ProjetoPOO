@@ -59,7 +59,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     public void adicionarCliente(Cliente cliente) {
         clientes.add(cliente);
         escritaClientes();
-        lerClientes();
     }
 
     //validar o login do cliente, a partir do seu nome de usuario e senha
@@ -79,6 +78,7 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     //retornar o cliente a partir do seu nome de usuario e senha para o funcionamento das operacoes
     @Override
     public Cliente retornarCliente(String login, String senha) {
+        lerClientes();
         for (Cliente c : clientes) {
             if (c.getLogin().equals(login) && c.getSenha().equals(senha)) {
                 return c;
@@ -97,6 +97,7 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     //imprimir todos os clientes cadastrados
     @Override
     public void imprimir() {
+        lerClientes();
         for (Cliente c : clientes) {
             System.out.println(c);
         }
@@ -105,6 +106,7 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     //verifica se o cliente ja existe no sistema, a partir do seu nome de usuario
     @Override
     public boolean existe(String login) {
+        lerClientes();
         for (Cliente cliente : clientes) {
             if (cliente.getLogin().equals(login)) {
                 return true;

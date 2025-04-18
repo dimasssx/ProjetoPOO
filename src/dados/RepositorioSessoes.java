@@ -74,6 +74,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     // metodo para procurar uma sessao no repositorio a partir de um objeto de sessao recebido
     @Override
     public Sessao procurarSessao(Sessao sessao) {
+        lerSessoes();
         Sessao sessaodesejada = null;
         for (Sessao s : sessoes) {
             if (s.equals(sessao)) {
@@ -85,6 +86,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     }
     @Override
     public Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia){
+        lerSessoes();
         for (Sessao s : sessoes) {
             if (s.getHorario().equals(horario) &&
                     s.getSala().getCodigo().equals(sala) &&
@@ -96,6 +98,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     }
     @Override
     public ArrayList<Sessao> procurarSessaoporSala(String codigo){
+        lerSessoes();
         ArrayList<Sessao> sessaoporSala = new ArrayList<>();
         for(Sessao s:sessoes){
             if(s.getSala().getCodigo().equalsIgnoreCase(codigo)){
@@ -106,6 +109,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     }
     // metodo para procurar sessoes no repositorio a partir do nome do filme
     public ArrayList<Sessao> procurarSessaoPorFilme(String filme) {
+        lerSessoes();
         ArrayList<Sessao> sessoesFilmes = new ArrayList<>();
         for (Sessao s : sessoes) {
             if (s.getFilme().getTitulo().equalsIgnoreCase(filme)) {
@@ -117,6 +121,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
 
     // metodo para procurar sessoes no repositorio a partir do dia
     public ArrayList<Sessao> buscarSessoesDoDia(MonthDay dia) {
+        lerSessoes();
         ArrayList<Sessao> sessoesDoDia = new ArrayList<Sessao>();
         for (Sessao s : sessoes) {
             if (s.getDia().equals(dia)) {
@@ -128,6 +133,7 @@ public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
     // metodo para verificar se uma sessao existe no repositorio
     @Override
     public boolean existe(Sessao sessao) {
+        lerSessoes();
         return sessoes.contains(sessao);
     }
 

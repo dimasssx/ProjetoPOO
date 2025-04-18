@@ -66,9 +66,7 @@ public class TelaGerenciamentodeSalas {
             }
             break;
         }
-
         int linhas, colunas;
-
         while (true) {
             try {
                 System.out.println("Quantidade de linhas de poltronas:");
@@ -86,7 +84,6 @@ public class TelaGerenciamentodeSalas {
                 scanner.nextLine();
             }
         }
-
         while (true) {
             try {
                 System.out.println("Quantidade de colunas de poltronas:");
@@ -104,21 +101,22 @@ public class TelaGerenciamentodeSalas {
                 scanner.nextLine();
             }
         }
-
         try {
             fachada.adicionarSala(codigo, tipo, linhas, colunas);
+            System.out.println("Sala adicionada com Sucesso!");
         } catch (CodigoSalaJaExisteException | LimiteDeSalasExcedidoException e) {
             System.err.println(e.getMessage());
         }
     }
 
-        private void removerSala(){
+    private void removerSala(){
         System.out.println("(digite 0 a qualquer momento para sair)");
         System.out.println("O código da sala que será removida");
         String codigo = lerCodigo();
         if (codigo == null) return;
         try {
             fachada.removerSala(codigo);
+            System.out.println("Sala removida com Sucesso!");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -149,9 +147,5 @@ public class TelaGerenciamentodeSalas {
             return dado;
         }
     }
-
-//    private int lerFileiras(){
-//
-//    }
 
 }

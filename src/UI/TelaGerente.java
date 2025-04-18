@@ -27,16 +27,16 @@ public class TelaGerente {
 
             switch (opcao){
                 case "1":
-                    TelaCadastroFilme telacadastro = new TelaCadastroFilme(fachadaGerente);
-                    telacadastro.iniciar();
+                    TelaCadastroFilme telacadastroFilme = new TelaCadastroFilme(fachadaGerente);
+                    telacadastroFilme.iniciar();
                     break;
                 case "2":
-                    TelaGerenciamentodeSalas telaCadastrosala = new TelaGerenciamentodeSalas(fachadaGerente);
-                    telaCadastrosala.iniciar();
+                    TelaGerenciamentodeSalas telaGerenciamentosalas = new TelaGerenciamentodeSalas(fachadaGerente);
+                    telaGerenciamentosalas.iniciar();
                     break;
                 case "3":
-                    TelaGerenciamentoSessoes telacadastrosessoes = new TelaGerenciamentoSessoes(fachadaGerente);
-                    telacadastrosessoes.iniciar();
+                    TelaGerenciamentoSessoes telaGerenciamentoSessoes = new TelaGerenciamentoSessoes(fachadaGerente);
+                    telaGerenciamentoSessoes.iniciar();
                     break;
                 case "4":
                     System.out.println("Saindo...");
@@ -44,8 +44,6 @@ public class TelaGerente {
                 default:
                     System.err.println("Opção Inválida");
             }
-
-
         }
 
     }
