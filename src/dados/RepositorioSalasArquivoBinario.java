@@ -5,14 +5,14 @@ import negocio.entidades.Sala;
 import java.util.ArrayList;
 
 
-public class RepositorioSalas implements IRepositorioSalas, Serializable {
+public class RepositorioSalasArquivoBinario implements IRepositorioSalas, Serializable {
 
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
     private ArrayList<Sala> salas;
     private File file;
 
-    public RepositorioSalas() {
+    public RepositorioSalasArquivoBinario() {
         file = new File("salas.dat");
         if (file.exists()) {
             lerSalas();

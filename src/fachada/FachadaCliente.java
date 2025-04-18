@@ -2,18 +2,16 @@ package fachada;
 
 import dados.RepositorioClientesArquivoBinario;
 import dados.RepositorioFilmesArquivoBinario;
-import dados.RepositorioSalas;
-import dados.RepositorioSessoes;
+import dados.RepositorioSalasArquivoBinario;
+import dados.RepositorioSessoesArquivoBinario;
 import negocio.ClienteNegocio;
 import negocio.FilmesNegocio;
 import negocio.SalasNegocio;
 import negocio.SessoesNegocio;
-import negocio.entidades.Cliente;
 import negocio.entidades.Filme;
 import negocio.entidades.Sessao;
 import negocio.exceptions.*;
 
-import java.time.LocalDate;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class FachadaCliente {
     public FachadaCliente() {
         this.clienteNegocio = new ClienteNegocio(new RepositorioClientesArquivoBinario());
         this.filmeNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
-        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoes(),new SalasNegocio(new RepositorioSalas(),new RepositorioSessoes()), filmeNegocio);
+        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(),new SalasNegocio(new RepositorioSalasArquivoBinario(),new RepositorioSessoesArquivoBinario()), filmeNegocio);
     }
 
     //Visualizacao de filmes e sessoes

@@ -7,14 +7,14 @@ import java.time.MonthDay;
 import java.util.ArrayList;
 
 
-public class RepositorioSessoes implements IRepositorioSessoes, Serializable {
+public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Serializable {
     @Serial
     private static final long serialVersionUID = 5527816120194523955L;
     ArrayList<Sessao> sessoes;
     private File file;
 
 
-    public RepositorioSessoes() {
+    public RepositorioSessoesArquivoBinario() {
         file = new File("sessoes.dat");
 
         if (file.exists()) {

@@ -59,7 +59,7 @@ public class TelaCliente {
                 case "2":
                     try {
                         buscarporDia();
-                    } catch (NenhumaSessaoEncontradaException e) {
+                    } catch (SessaoNaoEncontradaException e) {
                         System.err.println(e.getMessage());
                     }
                     break;
@@ -80,14 +80,6 @@ public class TelaCliente {
         }
     }
 
-//    private String extrairTituloDoToString(String filmeFormatado) {
-//        String[] partes = filmeFormatado.split("\\|");
-//        if (partes.length > 0) {
-//            return partes[0].replace("Título:", "").trim();
-//        }
-//        return "";
-//    }
-
     public void exibicaoSessoesDeHoje() {
         System.out.println("Filmes em Cartaz Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
         System.out.println("-------------------");
@@ -107,40 +99,42 @@ public class TelaCliente {
         }
     }
 
-    public void buscarporDia() throws NenhumaSessaoEncontradaException {
-        System.out.println("Digite a Data: (dd-MM)");
-        String datainput = scanner.nextLine();
+    public void buscarporDia() throws SessaoNaoEncontradaException {
+        System.out.println("(digite 0 a qualquer momento para sair)");
+        String dataInput = lerData();
+        if (dataInput == null) return;
 
         try {
-            ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoporDia(datainput);
+            ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoporDia(dataInput);
 
             if (sessoesFormatadas.isEmpty()) {
                 System.out.println("Nenhuma sessão encontrada para esta data.");
             } else {
+                System.out.println("Sessões para o dia " + dataInput + ":");
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
+                    System.out.println("----------------------------");
                 }
             }
 
-        } catch (SessaoNaoEncontradaException e) {
-            System.out.println("Nenhuma sessão encontrada para esta data.");
-        } catch (Exception e) {
-            System.err.println("Formato de data inválido. Use dd-MM.");
+        } catch ( SessaoNaoEncontradaException e) {
+            System.out.println(e.getMessage());
         }
     }
 
 
     public void buscarPorFilme() throws SessaoNaoEncontradaException {
-        System.out.println("Digite o nome do Filme:");
-        String tituloInput = scanner.nextLine().trim();
+        System.out.println("(digite 0 a qualquer momento para sair)");
+        String tituloInput = lerTituloFilme();
+        if (tituloInput == null) return;
 
         try {
-            clienteFachada.consultarFilme(tituloInput);
+            clienteFachada.consultarFilme(tituloInput); // validação do catálogo
 
             ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoPorTituloDoFilme(tituloInput);
 
             if (sessoesFormatadas.isEmpty()) {
-                System.err.println("Nenhuma sessão encontrada para o filme: " + tituloInput);
+                System.out.println("Nenhuma sessão encontrada para o filme: " + tituloInput);
             } else {
                 System.out.println("Sessões para o filme: " + tituloInput);
                 for (String sessao : sessoesFormatadas) {
@@ -148,14 +142,60 @@ public class TelaCliente {
                     System.out.println("----------------------------");
                 }
             }
-
         } catch (FilmeNaoEstaCadastradoException e) {
-            System.err.println("Filme não encontrado no catálogo: " + tituloInput);
+            System.err.println(e.getMessage());
         } catch (SessaoNaoEncontradaException e) {
-            System.err.println("Nenhuma sessão encontrada para o filme: " + tituloInput);
-        } catch (Exception e) {
-            System.err.println("Erro inesperado ao buscar o filme.");
+            System.err.println(e.getMessage());
         }
+    }
+
+    private String lerData() {
+        String data;
+        do {
+            System.out.println("Digite a data da sessão (dd-MM):");
+            data = scanner.nextLine().trim();
+
+            if (data.equals("0")) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+
+            if (!isDataValida(data)) {
+                System.err.println("Formato inválido! Use dd-MM (ex: 17-04).");
+            }
+        } while (!isDataValida(data));
+
+        return data;
+    }
+
+    private boolean isDataValida(String data) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
+            MonthDay.parse(data, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private String lerTituloFilme() {
+        String titulo;
+        do {
+            System.out.println("Digite o nome do Filme:");
+            titulo = scanner.nextLine().trim();
+
+            if (titulo.equals("0")) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+
+            if (titulo.isEmpty()) {
+                System.err.println("O título não pode estar vazio!");
+            }
+
+        } while (titulo.isEmpty());
+
+        return titulo;
     }
 
 
