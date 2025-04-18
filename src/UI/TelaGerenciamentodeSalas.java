@@ -128,7 +128,7 @@ public class TelaGerenciamentodeSalas {
                 System.out.println(sala);
             }
         } catch (NenhumaSalaEncontradaException e) {
-            System.out.println(e.getMessage());
+            System.err.println("Nenhuma sala encontrada");
 
         }
     }

@@ -79,10 +79,6 @@ public class FachadaCliente {
         return formatadas;
     }
 
-    public ArrayList<String> verCatalogo() throws NenhumFilmeEncontradoException {
-        return filmeNegocio.filmesFormatados();
-    }
-
     //Parte de compra de ingressos
 
     public void visuzalizarAssentosDaSessao(Sessao s) throws SessaoNaoEncontradaException {

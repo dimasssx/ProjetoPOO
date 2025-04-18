@@ -46,14 +46,5 @@ public class FilmesNegocio {
         }
         return repositorioFilmes.listarFilmes();
     }
-    public ArrayList<String> filmesFormatados() throws NenhumFilmeEncontradoException {
-        ArrayList<Filme> filmes = listarCatalogo();
-        ArrayList<String> formatados = new ArrayList<>();
 
-        for (Filme filme : filmes) {
-            formatados.add(filme.toString());
-        }
-
-        return formatados;
-    }
 }

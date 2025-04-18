@@ -1,6 +1,8 @@
 package dados;
 
 import java.io.*;
+
+import negocio.entidades.Filme;
 import negocio.entidades.Sala;
 import java.util.ArrayList;
 
@@ -87,7 +89,13 @@ public class RepositorioSalasArquivoBinario implements IRepositorioSalas, Serial
     @Override
     public ArrayList<Sala> listarSalas() {
         lerSalas();
-        return new ArrayList<>(salas);
+        ArrayList<Sala> sala = new ArrayList<>();
+        for (Sala s : salas) {
+            if (s != null) {
+                sala.add(s);
+            }
+        }
+        return sala;
     }
 
     @Override
