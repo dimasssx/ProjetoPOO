@@ -51,8 +51,9 @@ public class SessoesNegocio {
         else throw new SessaoNaoEncontradaException();
 
     }
-    public Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia) throws SessaoNaoEncontradaException, SalaNaoEncontradaException {
-        Sessao sessaoprocurada = repositorioSessoes.procurarSessao(horario, sala, dia);
+    public Sessao procurarSessao(LocalTime horario, String filme, MonthDay dia) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException {
+        Filme ofilme = filmesNegocio.procurarFilme(filme);
+        Sessao sessaoprocurada = repositorioSessoes.procurarSessao(horario,ofilme, dia);
         if (sessaoprocurada != null) return sessaoprocurada;
         else throw new SessaoNaoEncontradaException();
 

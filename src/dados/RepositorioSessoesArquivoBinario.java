@@ -1,5 +1,6 @@
 package dados;
 
+import negocio.entidades.Filme;
 import negocio.entidades.Sessao;
 import java.io.*;
 import java.time.LocalTime;
@@ -88,6 +89,18 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
         for (Sessao s : sessoes) {
             if (s.getHorario().equals(horario) &&
                     s.getSala().getCodigo().equals(sala) &&
+                    s.getDia().equals(dia)) {
+                return s;
+            }
+        }
+        return null;
+    }
+    @Override
+    public Sessao procurarSessao(LocalTime horario, Filme filme, MonthDay dia){
+        lerSessoes();
+        for (Sessao s : sessoes) {
+            if (s.getHorario().equals(horario) &&
+                    s.getFilme().equals(filme) &&
                     s.getDia().equals(dia)) {
                 return s;
             }

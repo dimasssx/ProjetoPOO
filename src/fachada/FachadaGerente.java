@@ -71,11 +71,7 @@ public class FachadaGerente {
     public void atualizarSessao(String horario, String filme,String sala,String dia) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
         cadastroSessoes.atualizarSessao(horario,filme,sala,dia);
     }
-    public String procurarSessao(String shorario,String sala,String sdia) throws SessaoNaoEncontradaException, SalaNaoEncontradaException {
-        LocalTime horario = LocalTime.parse(shorario);
-        MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
-        return cadastroSessoes.procurarSessao(horario,sala,dia).toString();
-    }
+
 
     public ArrayList<String> procurarSessaoTitulo(String titulo) throws SessaoNaoEncontradaException {
         ArrayList<Sessao> sessoes = cadastroSessoes.procurarSessaoTitulo(titulo);

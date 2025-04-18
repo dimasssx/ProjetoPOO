@@ -12,6 +12,7 @@ import negocio.entidades.Filme;
 import negocio.entidades.Sessao;
 import negocio.exceptions.*;
 
+import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -56,8 +57,6 @@ public class FachadaCliente {
 
         return formatadas;
     }
-
-
     public ArrayList<String> procurarSessaoPorTituloDoFilme(String titulo) throws SessaoNaoEncontradaException {
         ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaoTitulo(titulo);
         ArrayList<String> formatadas = new ArrayList<>();
@@ -66,7 +65,6 @@ public class FachadaCliente {
         }
         return formatadas;
     }
-
     public ArrayList<String> procurarSessoesHoje() throws SessaoNaoEncontradaException {
         MonthDay hoje = MonthDay.now();
         ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaodoDia(hoje);
@@ -78,10 +76,15 @@ public class FachadaCliente {
 
         return formatadas;
     }
+    public String procurarSessao(String shorario,String filme,String sdia) throws SessaoNaoEncontradaException,FilmeNaoEstaCadastradoException {
+        LocalTime horario = LocalTime.parse(shorario);
+        MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
+        return sessoesNegocio.procurarSessao(horario,filme,dia).toString();
+    }
 
     //Parte de compra de ingressos
 
-    public void visuzalizarAssentosDaSessao(Sessao s) throws SessaoNaoEncontradaException {
+    public void visualizarAssentosDaSessao(Sessao s) throws SessaoNaoEncontradaException {
         sessoesNegocio.mostrarAssentosDaSessao(s);
     }
 

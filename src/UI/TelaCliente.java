@@ -53,14 +53,10 @@ public class TelaCliente {
             }
 
             switch (opcao){
-//                case "1":
-//                    TelaComprarIngresso comprar = new TelaComprarIngresso(clienteFachada);
-//                    try {
-//                        comprar.iniciar();
-//                    } catch (AssentoIndisponivelException | SessaoNaoEncontradaException e) {
-//                        System.err.println(e);
-//                    }
-//                    break;
+                case "1":
+                    TelaComprarIngresso comprar = new TelaComprarIngresso(clienteFachada,cliente);
+                    comprar.iniciar();
+                    break;
 
                 case "2":
                     try {

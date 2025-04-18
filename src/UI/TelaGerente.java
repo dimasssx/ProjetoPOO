@@ -1,5 +1,7 @@
 package UI;
 
+import dados.IRepositorioClientes;
+import dados.RepositorioClientesArquivoBinario;
 import fachada.FachadaGerente;
 
 import java.util.Scanner;
