@@ -30,7 +30,6 @@ public class RepositorioSalasArquivoBinario implements IRepositorioSalas, Serial
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             salas = (ArrayList<Sala>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println(e.getMessage());
             salas = new ArrayList<Sala>();
         }
     }
@@ -41,7 +40,6 @@ public class RepositorioSalasArquivoBinario implements IRepositorioSalas, Serial
              ObjectOutput oos = new ObjectOutputStream(fos)) {
             oos.writeObject(salas);
         } catch (IOException e) {
-            System.err.println(e.getMessage());
             salas = new ArrayList<Sala>();
         }
     }

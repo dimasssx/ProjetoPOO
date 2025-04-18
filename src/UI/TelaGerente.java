@@ -1,7 +1,5 @@
 package UI;
 
-import dados.IRepositorioClientes;
-import dados.RepositorioClientesArquivoBinario;
 import fachada.FachadaGerente;
 
 import java.util.Scanner;
@@ -25,6 +23,8 @@ public class TelaGerente {
             System.out.println("3 - Gerenciar Sessoes");
             System.out.println("4 - Logout");
             System.out.println("5 remover depois- listar usuarios");
+
+
             String opcao = scanner.nextLine().trim();
 
             switch (opcao){

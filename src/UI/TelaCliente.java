@@ -3,6 +3,7 @@ package UI;
 
 //import fachada.Cinema;
 import fachada.FachadaCliente;
+import fachada.Movietime;
 import negocio.exceptions.*;
 import negocio.SessoesNegocio;
 import negocio.entidades.Cliente;
@@ -14,14 +15,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TelaCliente {
-    MonthDay hoje;
+    private MonthDay hoje;
     private FachadaCliente clienteFachada;
     private Scanner scanner;
+    private Cliente cliente;
+    private Movietime fachadaPrincipal;
 
-    public TelaCliente(FachadaCliente clienteFachada) {
+    public TelaCliente(FachadaCliente clienteFachada,Cliente cliente,Movietime fachadaPrincipal) {
         this.clienteFachada = clienteFachada;
         scanner = new Scanner(System.in);
         hoje = MonthDay.now();
+        this.cliente = cliente;
+        this.fachadaPrincipal = fachadaPrincipal;
     }
 
     public void iniciar() {
@@ -35,7 +40,7 @@ public class TelaCliente {
             System.out.println("2 - Buscar sessões por dia");
             System.out.println("3 - Buscar sessoes por filme");
             System.out.println("4 - Gerenciamento de conta");
-            System.out.println("4 - Logout");
+            System.out.println("5 - Logout");
 
             String opcao;
 
@@ -73,7 +78,9 @@ public class TelaCliente {
                     }
                     break;
                 case "4":
-                    //implementar a tela de gerenciamento, instanciando um cliente para conseguir fazer alterações
+                    TelaGerenciamentoDeContaCliente telaGerenciamentoDeContaCliente = new TelaGerenciamentoDeContaCliente(fachadaPrincipal,cliente);
+                    telaGerenciamentoDeContaCliente.iniciar();
+                    break;
                 case "5":
                     System.out.println("Saindo...");
                     return;

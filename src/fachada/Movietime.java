@@ -23,7 +23,7 @@ public class Movietime {
         //this.fachadaClienteVIP = new FachadaClienteVIP();
 
     }
-    public int autenticar(String login, String senha) throws ClienteNaoEncontradoException {
+    public Cliente autenticar(String login, String senha) throws ClienteNaoEncontradoException {
         return autenticacao.autenticar(login, senha);
     }
     public void cadastrarCliente(String nome, String login, String senha) throws ClienteJaExisteException {

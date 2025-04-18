@@ -29,7 +29,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             clientes = (ArrayList<Cliente>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println(e.getMessage());
             clientes = new ArrayList<Cliente>();
         }
     }
@@ -40,7 +39,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
              ObjectOutput oos = new ObjectOutputStream(fos)) {
             oos.writeObject(clientes);
         } catch (IOException e) {
-            System.err.println(e.getMessage());
             clientes = new ArrayList<Cliente>();
         }
     }
@@ -99,7 +97,7 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     public void imprimir() {
         lerClientes();
         for (Cliente c : clientes) {
-            System.out.println(c);
+            if (c!= null)System.out.println(c);
         }
     }
 

@@ -39,7 +39,6 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
             ObjectInputStream ois = new ObjectInputStream(fis)){
             catalogo = (ArrayList<Filme>) ois.readObject();
         }catch (IOException | ClassNotFoundException e){
-            System.err.println(e.getMessage());
             catalogo = new ArrayList<Filme>();
         }
     }
@@ -48,10 +47,8 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
     public void escritaFilmes(){
         try(FileOutputStream fos = new FileOutputStream(file);
             ObjectOutput oos = new ObjectOutputStream(fos)){
-
             oos.writeObject(catalogo);
         }catch (IOException e){
-            System.err.println(e.getMessage());
             catalogo = new ArrayList<Filme>();
         }
     }
