@@ -4,6 +4,7 @@ import fachada.Movietime;
 import negocio.entidades.Cliente;
 import negocio.entidades.ClientePadrao;
 import negocio.entidades.ClienteVIP;
+import negocio.exceptions.usuario.SenhaInvalidaException;
 import negocio.exceptions.usuario.ClienteJaExisteException;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
@@ -44,6 +45,8 @@ public class TelaLogin {
                         cadastrarCliente();
                     } catch (ClienteJaExisteException e) {
                         System.err.println(e.getMessage());;
+                    } catch (SenhaInvalidaException e) {
+                        System.err.println(e.getMessage());;
                     }
                     break;
                 case "3":
@@ -56,26 +59,26 @@ public class TelaLogin {
         }
     }
 
-    public void cadastrarCliente() throws ClienteJaExisteException{
+    public void cadastrarCliente() throws ClienteJaExisteException, SenhaInvalidaException {
         System.out.println("-------------");
         System.out.println("Cadastro (Digite 0 a qualquer momento para sair)");
         System.out.println("-------------");
-        String login = lerDado("Usuário");
-        if (login==null) return;
+        String nomeDeUsuario = lerDado("Nome de Usuário (será utilizado para realizar seu login)");
+        if (nomeDeUsuario==null) return;
         String senha = lerDado("Senha");
         if (senha==null) return;
         String nome = lerDado("Nome");
         if (nome==null) return;
 
-        fachada.cadastrarCliente(nome, login, senha);
-        System.out.println("Cadastro realizado!");
+        fachada.cadastrarCliente(nome, nomeDeUsuario, senha);
+        System.out.println("\033[92m Cadastro Realizado! \033[0m");
     }
 
     public void fazerLogin() throws ClienteNaoEncontradoException {
         System.out.println("-------------");
         System.out.println("Login (Digite 0 a qualquer momento para sair)");
         System.out.println("-----------------------");
-        String login = lerDado("Login");
+        String login = lerDado("Nome de usuário");
         if (login ==null) return;
         String senha = lerDado("Senha");
         if (senha ==null) return;
@@ -83,7 +86,7 @@ public class TelaLogin {
     }
 
     public void checarCredenciais(String login, String senha) throws ClienteNaoEncontradoException {
-        if(login.equals("admin") && senha.equals("123")){
+        if(login.equals("admin") && senha.equals("admin123")){
             TelaGerente telaGerente = new TelaGerente(fachada.getFachadaGerente());
             telaGerente.iniciar();
         }else{
@@ -100,7 +103,7 @@ public class TelaLogin {
                 throw new ClienteNaoEncontradoException();
             }
         }
-        System.out.println("Logout Concluido!");
+        System.out.println("\033[92m Logout Concluído! \033[0m");
     }
 
     private String lerDado(String campo) {
@@ -117,7 +120,6 @@ public class TelaLogin {
             }
             return dado;
         }
-
     }
 }
 

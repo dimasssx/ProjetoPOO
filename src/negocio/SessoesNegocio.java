@@ -85,6 +85,7 @@ public class SessoesNegocio {
             throw new SessaoNaoEncontradaException();
         }
     }
+
     public void mostrarAssentos(Sessao sessao) {
         Assento[][] assentos = sessao.getAssentos();
         System.out.println("Mapa de assentos - " + sessao.getFilme().getTitulo() + " às " + sessao.getHorario() + " (" + sessao.getDiaFormatado() + ")");
@@ -105,6 +106,7 @@ public class SessoesNegocio {
         }
         System.out.println("\nLegenda: [ ] disponível | [X] reservado");
     }
+
     //utiliza o metodo marcarAssentoReserrvado para reservar um assento, fazendo algumas outras verificações
     public void reservarAssento(Sessao sessao, int fileira, int poltrona) throws AssentoIndisponivelException, SessaoNaoEncontradaException {
         Sessao s = repositorioSessoes.procurarSessao(sessao);
@@ -120,6 +122,7 @@ public class SessoesNegocio {
             throw new SessaoNaoEncontradaException();
         }
     }
+
     private void marcarAssentoComoReservado(Sessao sessao, int fileira, int numero) throws AssentoIndisponivelException {
         Assento[][] assentos = sessao.getAssentos();
         if (fileira >= 0 && fileira < assentos.length && numero >= 0 && numero < assentos[0].length) {

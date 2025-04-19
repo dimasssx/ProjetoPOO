@@ -12,24 +12,24 @@ public abstract class Cliente implements Serializable {
     private static final long serialVersionUID = -4009776605163947716L;
     private String id;
     private String nome;
-    private String login;
+    private String nomeDeUsuario;
     private String senha;
     private ArrayList<Ingresso> ingressosComprados;
 
-    public Cliente(String nome,String login, String senha){
+    public Cliente(String nome, String nomeDeUsuario, String senha){
         this.id = GeradorIDNegocio.getInstancia().gerarId(GeradorIDNegocio.getInstancia().getPrefixoCliente());
         this.nome = nome;
-        this.login = login;
+        this.nomeDeUsuario = nomeDeUsuario;
         this.senha = senha;
         this.ingressosComprados = new ArrayList<>();
     }
 
     /*construtor alternativo passando ingressos comprados, pois na situação de tornar o cliente vip, é necessário utilizar
     esse construtor alternativo*/
-    public Cliente(String nome,String login, String senha, ArrayList<Ingresso> ingressosComprados){
+    public Cliente(String nome, String nomeDeUsuario, String senha, ArrayList<Ingresso> ingressosComprados){
         this.id = GeradorIDNegocio.getInstancia().gerarId(GeradorIDNegocio.getInstancia().getPrefixoCliente());
         this.nome = nome;
-        this.login = login;
+        this.nomeDeUsuario = nomeDeUsuario;
         this.senha = senha;
         this.ingressosComprados = ingressosComprados;
     }
@@ -42,8 +42,8 @@ public abstract class Cliente implements Serializable {
         return nome;
     }
 
-    public String getLogin() {
-        return login;
+    public String getNomeDeUsuario() {
+        return nomeDeUsuario;
     }
 
     public String getSenha() {
@@ -70,11 +70,11 @@ public abstract class Cliente implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(id, cliente.id) || Objects.equals(login, cliente.login);
+        return Objects.equals(id, cliente.id) || Objects.equals(nomeDeUsuario, cliente.nomeDeUsuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login);
+        return Objects.hash(id, nomeDeUsuario);
     }
 }

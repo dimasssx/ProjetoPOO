@@ -8,7 +8,6 @@ import negocio.entidades.Filme;
 import negocio.entidades.Sessao;
 
 public interface IRepositorioSessoes {
-
     void adicionarSessao(Sessao sessao);
     void removerSessao(Sessao sessao);
     void atualizarSessao(Sessao sessao);

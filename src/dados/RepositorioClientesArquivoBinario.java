@@ -59,11 +59,11 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
 
     //validar o login do cliente, a partir do seu nome de usuario e senha
     @Override
-    public boolean validarCliente(String login, String senha) {
+    public boolean validarCliente(String nomeDeUsuario, String senha) {
         lerClientes();
         boolean clienteEncontrado = false;
         for(Cliente u : clientes){
-            if(u.getLogin().equals(login) && u.getSenha().equals(senha)){
+            if(u.getNomeDeUsuario().equals(nomeDeUsuario) && u.getSenha().equals(senha)){
                 clienteEncontrado = true;
                 return clienteEncontrado;
             }
@@ -73,10 +73,10 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
 
     //retornar o cliente a partir do seu nome de usuario e senha para o funcionamento das operacoes
     @Override
-    public Cliente retornarCliente(String login, String senha) {
+    public Cliente retornarCliente(String nomeDeUsuario, String senha) {
         lerClientes();
         for (Cliente c : clientes) {
-            if (c.getLogin().equals(login) && c.getSenha().equals(senha)) {
+            if (c.getNomeDeUsuario().equals(nomeDeUsuario) && c.getSenha().equals(senha)) {
                 return c;
             }
         }
@@ -87,7 +87,7 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     public void atualizarCliente(Cliente clienteAtualizado) {
         for (int i = 0; i < clientes.size(); i++) {
             Cliente c = clientes.get(i);
-            if (c.getLogin().equals(clienteAtualizado.getLogin())) {
+            if (c.getNomeDeUsuario().equals(clienteAtualizado.getNomeDeUsuario())) {
                 clientes.set(i, clienteAtualizado); // substitui o cliente antigo
                 escritaClientes(); // persiste no arquivo
                 return;
@@ -113,10 +113,10 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
 
     //verifica se o cliente ja existe no sistema, a partir do seu nome de usuario
     @Override
-    public boolean existe(String login) {
+    public boolean existe(String nomeDeUsuario) {
         lerClientes();
         for (Cliente cliente : clientes) {
-            if (cliente.getLogin().equals(login)) {
+            if (cliente.getNomeDeUsuario().equals(nomeDeUsuario)) {
                 return true;
             }
         }

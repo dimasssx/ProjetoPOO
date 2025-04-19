@@ -56,6 +56,7 @@ public class TelaCadastroFilme {
             }
         }
     }
+
     private void adicionarFilme() {
         System.out.println("Detalhes do filme que será adicionado ");
         System.out.println("(digite 0 a qualquer momento para sair)");
@@ -71,23 +72,25 @@ public class TelaCadastroFilme {
 
         try {
             fachada.adicionarFilme(nome, genero, duracao, classificacao);
-            System.out.println("\033[92m Filme Adicionado com Sucesso! \033[0m");
+            System.out.println("\033[92m Filme adicionado com Sucesso! \033[0m");
         } catch (FilmeJaEstaNoCatalogoException e) {
             System.err.println(e.getMessage());
 
         }
     }
+
     private void removerFilme() {
         System.out.println("(digite 0 a qualquer momento para sair)");
         String nome = lerDado("Nome do Filme que será removido");
         if (nome == null) return;
         try {
             fachada.removerFilme(nome);
-            System.out.println("Filme removido com Sucesso");
+            System.out.println("\033[92m Filme removido com Sucesso! \033[0m");
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
         }
     }
+
     private void atualizarFilme() {
 
         System.out.println("(digite 0 a qualquer momento para sair)");
@@ -109,12 +112,13 @@ public class TelaCadastroFilme {
 
         try {
             fachada.atualizarFilme(nome, genero, duracao, classificacao);
-            System.out.println("Filme atualizado com sucesso!");
+            System.out.println("\033[92m Filme adicionado com Sucesso! \033[0m");
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
         }
 
     }
+
     private void buscarFilme() {
         System.out.println("(digite 0 a qualquer momento para sair)");
         String nome = lerDado("Nome do Filme");
@@ -125,6 +129,7 @@ public class TelaCadastroFilme {
             System.err.println(e.getMessage());
         }
     }
+
     private void listarFilmes(){
         try {
             ArrayList<String> filmes = fachada.imprimirCatalogo();
@@ -136,6 +141,7 @@ public class TelaCadastroFilme {
             System.err.println(e.getMessage());
         }
     }
+
     private String lerDado(String campo) {
         System.out.print(campo + ": ");
         while(true){
@@ -168,6 +174,7 @@ public class TelaCadastroFilme {
         }
 
     }
+
     private String verificarDuracao(String dado){
         if (!dado.matches("\\d{1}h\\d{2}|\\d{1}h")) {
             System.err.println("Formato inválido! Deve ser no formato xhxx ou xh.");
@@ -183,6 +190,7 @@ public class TelaCadastroFilme {
         }
         return dado;
     }
+
     private String verificarClassificacao(String dado) {
         Set<String> classificacoesValidas = new HashSet<>();
         classificacoesValidas.add("Livre");
@@ -198,5 +206,4 @@ public class TelaCadastroFilme {
         System.err.println("Classificação inválida! As opções válidas são: Livre, 10, 12, 14, 16, 18");
         return null;
     }
-
 }

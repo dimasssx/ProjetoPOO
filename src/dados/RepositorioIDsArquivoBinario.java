@@ -17,7 +17,7 @@ public class RepositorioIDsArquivoBinario implements IRepositorioIDs, Serializab
             lerIDs();
         } else {
             idsGerados = new HashMap<>();
-            salvarIDs();
+            escreverIDs();
         }
     }
     
@@ -30,7 +30,7 @@ public class RepositorioIDsArquivoBinario implements IRepositorioIDs, Serializab
         }
     }
     
-    private void salvarIDs() {
+    private void escreverIDs() {
         try (FileOutputStream fos = new FileOutputStream(arquivo);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(idsGerados);
@@ -56,7 +56,7 @@ public class RepositorioIDsArquivoBinario implements IRepositorioIDs, Serializab
             idsGerados.put(prefixo, new HashMap<>());
         }
         idsGerados.get(prefixo).put(id, true);
-        salvarIDs();
+        escreverIDs();
     }
     
     @Override

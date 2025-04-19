@@ -6,19 +6,19 @@ import java.util.ArrayList;
 public class ClientePadrao extends Cliente{
     @Serial
     private static final long serialVersionUID = 5873192035879321047L;
-    public ClientePadrao(String nome, String login, String senha) {
-        super(nome, login, senha);
+    public ClientePadrao(String nome, String nomeDeUsuario, String senha) {
+        super(nome, nomeDeUsuario, senha);
     }
 
-    public ClientePadrao(String nome, String login, String senha, ArrayList<Ingresso> ingressosComprados){
-        super(nome, login, senha, new ArrayList<>(ingressosComprados));
+    public ClientePadrao(String nome, String nomeDeUsuario, String senha, ArrayList<Ingresso> ingressosComprados){
+        super(nome, nomeDeUsuario, senha, new ArrayList<>(ingressosComprados));
     }
     @Override
     public String toString() {
         return "Cliente:" +
                 " | ID: " + getId() +
                 " | Nome: " + getNome() +
-                " | Login: " + getLogin() +
+                " | Nome de Usuário: " + getNomeDeUsuario() +
                 " | Senha: " + getSenha()  +
                 " | Tipo: " + "Padrao" +
                 " |";

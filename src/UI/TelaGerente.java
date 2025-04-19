@@ -53,6 +53,5 @@ public class TelaGerente {
                     System.err.println("Opção Inválida");
             }
         }
-
     }
 }

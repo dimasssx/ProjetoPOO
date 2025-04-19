@@ -20,6 +20,7 @@ public class TelaComprarIngresso {
         this.scanner = new Scanner(System.in);
         this.cliente = cliente;
     }
+
     public void iniciar(){
 
         String dia;
@@ -50,6 +51,7 @@ public class TelaComprarIngresso {
             }
         }
     }
+
     private String lerHorario() {
         String horario;
         do {
@@ -67,6 +69,7 @@ public class TelaComprarIngresso {
 
         return horario;
     }
+
     private boolean isHorarioValido(String horario) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -76,6 +79,7 @@ public class TelaComprarIngresso {
             return false;
         }
     }
+
     private String lerData() {
         String data;
         do {
@@ -94,6 +98,7 @@ public class TelaComprarIngresso {
 
         return data;
     }
+
     private boolean isDataValida(String data) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
@@ -103,6 +108,7 @@ public class TelaComprarIngresso {
             return false;
         }
     }
+
     private String lerDado(String campo) {
         System.out.print(campo + ": ");
         while(true){
@@ -118,6 +124,5 @@ public class TelaComprarIngresso {
             }
             return dado;
         }
-
     }
 }

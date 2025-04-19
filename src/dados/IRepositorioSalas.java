@@ -5,7 +5,6 @@ import negocio.entidades.Sala;
 import java.util.ArrayList;
 
 public interface IRepositorioSalas {
-
     void adicionarSala(Sala sala);
     void removerSala(Sala sala);
     void atualizarSala(Sala sala);

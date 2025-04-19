@@ -4,6 +4,7 @@ import dados.RepositorioClientesArquivoBinario;
 import negocio.Autenticacao;
 import negocio.ClienteNegocio;
 import negocio.entidades.Cliente;
+import negocio.exceptions.usuario.SenhaInvalidaException;
 import negocio.exceptions.usuario.ClienteJaExisteException;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
@@ -28,11 +29,14 @@ public class Movietime {
         return fachadaCliente;
     }
 
-    public Cliente autenticar(String login, String senha) throws ClienteNaoEncontradoException {
-        return autenticacao.autenticar(login, senha);
+    public Cliente autenticar(String nomeDeUsuario, String senha) throws ClienteNaoEncontradoException {
+        return autenticacao.autenticar(nomeDeUsuario, senha);
     }
 
-    public void cadastrarCliente(String nome, String login, String senha) throws ClienteJaExisteException {
-        negocioCliente.adicionarCliente(nome, login, senha);
+    public void cadastrarCliente(String nome, String nomeDeUsuario, String senha) throws ClienteJaExisteException, SenhaInvalidaException {
+        if(senha.length() < 8){
+           throw new SenhaInvalidaException();
+        }
+        negocioCliente.adicionarCliente(nome, nomeDeUsuario, senha);
     }
 }

@@ -63,6 +63,7 @@ public class TelaGerenciamentoSessoes {
             }
         }
     }
+
     private void adicionarSessao(){
         String horario,filme,sala,dia;
         double valorIngresso;
@@ -92,7 +93,7 @@ public class TelaGerenciamentoSessoes {
 
         try{
             fachada.adicionarSessao(horario,filme,sala,dia,valorIngresso);
-            System.out.println("Sessao adicionada com sucesso");
+            System.out.println("\033[92m Sessão adicionada com Sucesso! \033[0m");
         } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException e) {
             System.err.println(e.getMessage());
         }
@@ -115,7 +116,7 @@ public class TelaGerenciamentoSessoes {
         if (dia==null) return;
         try{
             fachada.removerSessao(horario,sala,dia);
-            System.out.println("Sessao removida com sucesso");
+            System.out.println("\033[92m Sessão removida com Sucesso! \033[0m");
         } catch (SessaoNaoEncontradaException e) {
             System.err.println(e.getMessage());
         }
@@ -149,7 +150,7 @@ public class TelaGerenciamentoSessoes {
         valorIngresso = scanner.nextDouble();
         try {
             fachada.atualizarSessao(horario,filme,sala,dia,valorIngresso);
-            System.out.println("Sessao atualizada com sucesso");
+            System.out.println("\033[92m Sessão atualizada com Sucesso! \033[0m");
         } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
             System.err.println(e.getMessage());
         }

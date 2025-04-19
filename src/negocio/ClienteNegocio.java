@@ -14,23 +14,23 @@ public class ClienteNegocio {
 
     //gerenciamento do cliente
 
-    public void adicionarCliente(String nome, String login, String senha) throws ClienteJaExisteException {
-        if (!repositorioClientes.existe(login)) {
-            Cliente cliente = new ClientePadrao(nome, login, senha);
+    public void adicionarCliente(String nome, String nomeDeUsuario, String senha) throws ClienteJaExisteException {
+        if (!repositorioClientes.existe(nomeDeUsuario)) {
+            Cliente cliente = new ClientePadrao(nome, nomeDeUsuario, senha);
             repositorioClientes.adicionarCliente(cliente);
         } else {
             throw new ClienteJaExisteException();
         }
     }
 
-    public Cliente buscarCliente(String login, String senha) throws ClienteNaoEncontradoException {
-        Cliente cliente = repositorioClientes.retornarCliente(login,senha);
+    public Cliente buscarCliente(String nomeDeUsuario, String senha) throws ClienteNaoEncontradoException {
+        Cliente cliente = repositorioClientes.retornarCliente(nomeDeUsuario, senha);
         if(cliente == null) throw new ClienteNaoEncontradoException();
         return cliente;
     }
 
-    public boolean validarCliente(String login, String senha) throws ClienteNaoEncontradoException {
-        if (repositorioClientes.validarCliente(login, senha)) {
+    public boolean validarCliente(String nomeDeUsuario, String senha) throws ClienteNaoEncontradoException {
+        if (repositorioClientes.validarCliente(nomeDeUsuario, senha)) {
             return true;
         } else {
             throw new ClienteNaoEncontradoException();
@@ -38,14 +38,14 @@ public class ClienteNegocio {
     }
 
     public Cliente tornarVIP(Cliente cliente){
-        Cliente seTornarVIP = new ClienteVIP(cliente.getNome(), cliente.getLogin(), cliente.getSenha(), cliente.getIngressosComprados());
+        Cliente seTornarVIP = new ClienteVIP(cliente.getNome(), cliente.getNomeDeUsuario(), cliente.getSenha(), cliente.getIngressosComprados());
         repositorioClientes.adicionarCliente(seTornarVIP);
         repositorioClientes.removerCliente(cliente);
         return seTornarVIP;
     }
 
     public Cliente cancelarVIP(Cliente cliente){
-        Cliente voltarAoPadrao = new ClientePadrao(cliente.getNome(), cliente.getLogin(), cliente.getSenha(), cliente.getIngressosComprados());
+        Cliente voltarAoPadrao = new ClientePadrao(cliente.getNome(), cliente.getNomeDeUsuario(), cliente.getSenha(), cliente.getIngressosComprados());
         repositorioClientes.adicionarCliente(voltarAoPadrao);
         repositorioClientes.removerCliente(cliente);
         return voltarAoPadrao;

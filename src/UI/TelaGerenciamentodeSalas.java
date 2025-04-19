@@ -50,14 +50,15 @@ public class TelaGerenciamentodeSalas {
             }
         }
     }
+
     private void adicionarSala() {
-        System.out.println("(digite 0 a qualquer momento para sair)");
-        System.out.println("Código da Sala:");
+        System.out.println("(Digite 0 a qualquer momento para sair)");
+        System.out.println("Código da Sala: (Sala 1/ Sala 2/ Sala 3)");
         String codigo = lerCodigo();
         if (codigo == null) return;
         String tipo;
         while (true) {
-            System.out.println("Tipo da Sala (2D/3D)");
+            System.out.println("Tipo da Sala: (2D/3D)");
             tipo = scanner.nextLine().toUpperCase();
 
             if (!tipo.equals("2D") && !tipo.equals("3D")) {
@@ -103,24 +104,25 @@ public class TelaGerenciamentodeSalas {
         }
         try {
             fachada.adicionarSala(codigo, tipo, linhas, colunas);
-            System.out.println("Sala adicionada com Sucesso!");
+            System.out.println("\033[92m Sala adicionada com Sucesso! \033[0m");
         } catch (CodigoSalaJaExisteException | LimiteDeSalasExcedidoException e) {
             System.err.println(e.getMessage());
         }
     }
 
     private void removerSala(){
-        System.out.println("(digite 0 a qualquer momento para sair)");
+        System.out.println("(Digite 0 a qualquer momento para sair)");
         System.out.println("O código da sala que será removida");
         String codigo = lerCodigo();
         if (codigo == null) return;
         try {
             fachada.removerSala(codigo);
-            System.out.println("Sala removida com Sucesso!");
+            System.out.println("\033[92m Sala removida com Sucesso! \033[0m");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
+
     private void listarSalas(){
         try {
             ArrayList<String> salas = fachada.listarSalas();
@@ -132,6 +134,7 @@ public class TelaGerenciamentodeSalas {
 
         }
     }
+
     private String lerCodigo(){
         while (true) {
             String dado = scanner.nextLine().trim();
@@ -147,5 +150,4 @@ public class TelaGerenciamentodeSalas {
             return dado;
         }
     }
-
 }

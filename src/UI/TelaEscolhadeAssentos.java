@@ -41,8 +41,6 @@ public class TelaEscolhadeAssentos {
         }
     }
 
-
-
     private String lerDado(String campo) {
         System.out.print(campo + ": ");
         while(true){
