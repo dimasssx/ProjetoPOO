@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.ingressos;
 
 public class IngressoIndisponivelException extends Exception {
     public IngressoIndisponivelException() {

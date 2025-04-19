@@ -20,5 +20,4 @@ public interface IRepositorioSessoes {
     ArrayList<Sessao> retornarTodas();
     ArrayList<Sessao> procurarSessaoporSala(String codigo);
     boolean existe(Sessao sessao);
-
 }

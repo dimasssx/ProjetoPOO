@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.geral;
 
 public class OpcaoInvalidaException extends Exception{
     public OpcaoInvalidaException() {

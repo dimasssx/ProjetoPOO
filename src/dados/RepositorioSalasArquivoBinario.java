@@ -2,7 +2,6 @@ package dados;
 
 import java.io.*;
 
-import negocio.entidades.Filme;
 import negocio.entidades.Sala;
 import java.util.ArrayList;
 

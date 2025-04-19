@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.sessoes;
 
 public class NenhumaSessaoEncontradaException extends Exception {
     public NenhumaSessaoEncontradaException(){

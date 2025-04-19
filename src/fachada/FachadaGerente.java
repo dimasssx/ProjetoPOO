@@ -2,8 +2,17 @@ package fachada;
 
 import dados.*;
 import negocio.entidades.*;
-import negocio.exceptions.*;
 import negocio.*;
+import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
+import negocio.exceptions.salas.CodigoSalaJaExisteException;
+import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
+import negocio.exceptions.salas.NenhumaSalaEncontradaException;
+import negocio.exceptions.salas.SalaNaoEncontradaException;
+import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
+import negocio.exceptions.sessoes.SessaoJaExisteException;
+import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 import java.time.LocalTime;
 import java.time.MonthDay;
@@ -12,43 +21,49 @@ import java.util.ArrayList;
 
 public class FachadaGerente {
 
-    private FilmesNegocio cadastroFilmes;
-    private SalasNegocio cadastroSalas;
-    private SessoesNegocio cadastroSessoes;
+    private FilmesNegocio filmesNegocio;
+    private SalasNegocio salasNegocio;
+    private SessoesNegocio sessoesNegocio;
 
     public FachadaGerente(){
-        cadastroFilmes = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
-        cadastroSalas = new SalasNegocio(new RepositorioSalasArquivoBinario(),new RepositorioSessoesArquivoBinario());
-        cadastroSessoes = new SessoesNegocio(new RepositorioSessoesArquivoBinario(),cadastroSalas,cadastroFilmes);
+        filmesNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
+        salasNegocio = new SalasNegocio(new RepositorioSalasArquivoBinario(),new RepositorioSessoesArquivoBinario());
+        sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(),salasNegocio,filmesNegocio);
     }
 
-    public FilmesNegocio getCadastroFilmes() {
-        return cadastroFilmes;
+    public FilmesNegocio getFilmesNegocio() {
+        return filmesNegocio;
     }
-    public SalasNegocio getCadastroSalas() {
-        return cadastroSalas;
+
+    public SalasNegocio getSalasNegocio() {
+        return salasNegocio;
     }
-    public SessoesNegocio getCadastroSessoes() {
-        return cadastroSessoes;
+
+    public SessoesNegocio getSessoesNegocio() {
+        return sessoesNegocio;
     }
 
     //operacoes de gerenciamento de filmes
 
     public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
-        cadastroFilmes.adicionarFilme(nome, genero, duracao, classificacao);
+        filmesNegocio.adicionarFilme(nome, genero, duracao, classificacao);
     }
+
     public void removerFilme(String filme) throws FilmeNaoEstaCadastradoException {
-        cadastroFilmes.removerFilme(filme);
+        filmesNegocio.removerFilme(filme);
     }
+
     public void atualizarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeNaoEstaCadastradoException {
-        cadastroFilmes.atualizarFilme(nome, genero, duracao, classificacao);
+        filmesNegocio.atualizarFilme(nome, genero, duracao, classificacao);
     }
+
     public Filme procurarFilme(String filme) throws FilmeNaoEstaCadastradoException {
-        return cadastroFilmes.procurarFilme(filme);
+        return filmesNegocio.procurarFilme(filme);
     }
+
     public ArrayList<String> imprimirCatalogo() throws NenhumFilmeEncontradoException {
         ArrayList<String> filmesFormatados = new ArrayList<>();
-        ArrayList<Filme> filmesCatalogo = cadastroFilmes.listarCatalogo();
+        ArrayList<Filme> filmesCatalogo = filmesNegocio.listarCatalogo();
         if (filmesCatalogo.isEmpty()) throw new NenhumFilmeEncontradoException();
         for (Filme filme:filmesCatalogo ){
             String filmeformatado = filme.toString();
@@ -60,21 +75,23 @@ public class FachadaGerente {
 
     //Gerenciamento de sessoes
 
-    public void adicionarSessao(String horario, String filme,String sala,String dia) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-        cadastroSessoes.adicionarSessao(horario,filme,sala,dia);
+    public void adicionarSessao(String horario, String filme,String sala,String dia, double valorIngresso) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+        sessoesNegocio.adicionarSessao(horario,filme,sala,dia,valorIngresso);
     }
+
     public void removerSessao(String shorario,String sala,String sdia) throws SessaoNaoEncontradaException {
         MonthDay dia = MonthDay.parse(sdia, DateTimeFormatter.ofPattern("dd-MM"));
         LocalTime horario = LocalTime.parse(shorario);
-        cadastroSessoes.removerSessao(horario,sala,dia);
+        sessoesNegocio.removerSessao(horario,sala,dia);
     }
-    public void atualizarSessao(String horario, String filme,String sala,String dia) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-        cadastroSessoes.atualizarSessao(horario,filme,sala,dia);
+
+    public void atualizarSessao(String horario, String filme,String sala,String dia, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+        sessoesNegocio.atualizarSessao(horario,filme,sala,dia,valorIngresso);
     }
 
 
     public ArrayList<String> procurarSessaoTitulo(String titulo) throws SessaoNaoEncontradaException {
-        ArrayList<Sessao> sessoes = cadastroSessoes.procurarSessaoTitulo(titulo);
+        ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaoTitulo(titulo);
         ArrayList<String> formatadas = new ArrayList<>();
         for (Sessao s : sessoes) {
             formatadas.add(s.toString());
@@ -85,7 +102,7 @@ public class FachadaGerente {
     public ArrayList<String> procurarSessaoporDia(String sdia) throws SessaoNaoEncontradaException {
 
         MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
-        ArrayList<Sessao> sessoes = cadastroSessoes.procurarSessaodoDia(dia);
+        ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaodoDia(dia);
         ArrayList<String> formatadas = new ArrayList<>();
 
         for (Sessao s : sessoes) {
@@ -95,8 +112,8 @@ public class FachadaGerente {
         return formatadas;
     }
 
-    public ArrayList<String> listarTodas() throws NenhumaSessaoEncontradaException{
-        ArrayList<Sessao> sessoes = cadastroSessoes.listarSessoes();
+    public ArrayList<String> listarTodas() throws NenhumaSessaoEncontradaException {
+        ArrayList<Sessao> sessoes = sessoesNegocio.listarSessoes();
         ArrayList<String> sessoesFormat = new ArrayList<>();
 
         for (Sessao s : sessoes){
@@ -108,18 +125,20 @@ public class FachadaGerente {
     //gerenciamento de salas
 
     public void adicionarSala(String codigo,String tipo, int linhas, int colunas) throws CodigoSalaJaExisteException, LimiteDeSalasExcedidoException {
-        cadastroSalas.adicionarSala(codigo,tipo,linhas,colunas);
+        salasNegocio.adicionarSala(codigo,tipo,linhas,colunas);
     }
+
     public void removerSala(String codigo) throws SalaNaoEncontradaException {
-        cadastroSalas.removerSala(codigo);
+        salasNegocio.removerSala(codigo);
     }
 
     public Sala procuraSala(String codigo) throws SalaNaoEncontradaException {
-        return cadastroSalas.procurarSala(codigo);
+        return salasNegocio.procurarSala(codigo);
     }
+
     public ArrayList<String> listarSalas() throws NenhumaSalaEncontradaException {
         ArrayList<String> salasformatadas = new ArrayList<>();
-        ArrayList<Sala> salasarray = cadastroSalas.listarSalas();
+        ArrayList<Sala> salasarray = salasNegocio.listarSalas();
         if (salasarray.isEmpty()) throw new NenhumaSalaEncontradaException();
         for (Sala sala: salasarray ){
             String salaformt = sala.toString();

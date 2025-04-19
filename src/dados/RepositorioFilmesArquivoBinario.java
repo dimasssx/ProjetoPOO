@@ -1,7 +1,5 @@
 package dados;
 
-//import negocio.Exceptions.FilmeJaEstanoCatalogoException;
-//import negocio.Exceptions.FilmeNaoEstaNoCatalogoException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -79,6 +77,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
         }
     }
     //procurar um filme no repositorio a partir do nome do filme recebido
+    @Override
     public Filme procurarFilme(String nome){
         lerFilmes();
         Filme filmeDesejado = null;

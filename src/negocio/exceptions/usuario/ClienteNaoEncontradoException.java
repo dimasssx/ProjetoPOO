@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.usuario;
 
 public class ClienteNaoEncontradoException extends Exception {
     public ClienteNaoEncontradoException() {

@@ -2,12 +2,11 @@ package negocio;
 
 import dados.IRepositorioFilmes;
 import negocio.entidades.Filme;
-import negocio.exceptions.FilmeJaEstaNoCatalogoException;
-import negocio.exceptions.FilmeNaoEstaCadastradoException;
-import negocio.exceptions.NenhumFilmeEncontradoException;
+import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 public class FilmesNegocio {
     IRepositorioFilmes repositorioFilmes;

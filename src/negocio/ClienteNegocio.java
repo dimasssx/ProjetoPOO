@@ -2,7 +2,8 @@ package negocio;
 
 import dados.IRepositorioClientes;
 import negocio.entidades.*;
-import negocio.exceptions.*;
+import negocio.exceptions.usuario.ClienteJaExisteException;
+import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class ClienteNegocio {
     private IRepositorioClientes repositorioClientes;
@@ -50,7 +51,10 @@ public class ClienteNegocio {
         return voltarAoPadrao;
     }
 
-    //public void atualizarSenha()
+    public void alterarSenha(Cliente cliente, String novaSenha) {
+        cliente.setSenha(novaSenha);
+        repositorioClientes.atualizarCliente(cliente);
+    }
 
     //compra de ingressos
 

@@ -1,10 +1,10 @@
+
 package UI;
 
 import fachada.FachadaCliente;
-import negocio.entidades.Cliente;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import negocio.entidades.Cliente;
 
 public class TelaEscolhadeAssentos {
     FachadaCliente fachada;
@@ -36,7 +36,7 @@ public class TelaEscolhadeAssentos {
                 System.err.println("Digite um numero valido");
                 scanner.nextLine();
             }
-           fachada.visualizarAssentosDaSessao(sessao);
+           //fachada.visualizarAssentosDaSessao(sessao);
 
         }
     }

@@ -15,10 +15,12 @@ public class ClientePadrao extends Cliente{
     }
     @Override
     public String toString() {
-        return "Cliente{" +
-                "nome='" + getNome() + '\'' +
-                ", login='" + getLogin() + '\'' +
-                ", senha='" + getSenha() + '\'' +
-                "Tipo" +"´Padrao";
+        return "Cliente:" +
+                " | ID: " + getId() +
+                " | Nome: " + getNome() +
+                " | Login: " + getLogin() +
+                " | Senha: " + getSenha()  +
+                " | Tipo: " + "Padrao" +
+                " |";
     }
 }

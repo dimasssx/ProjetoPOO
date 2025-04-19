@@ -1,7 +1,11 @@
 package UI;
 
 import fachada.FachadaGerente;
-import negocio.exceptions.*;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.salas.SalaNaoEncontradaException;
+import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
+import negocio.exceptions.sessoes.SessaoJaExisteException;
+import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 import java.time.LocalTime;
 import java.time.MonthDay;
@@ -61,6 +65,7 @@ public class TelaGerenciamentoSessoes {
     }
     private void adicionarSessao(){
         String horario,filme,sala,dia;
+        double valorIngresso;
 
         filme = lerDado("Nome do Filme");
         if (filme== null)return;
@@ -82,14 +87,17 @@ public class TelaGerenciamentoSessoes {
         if (horario== null)return;
         dia = lerData();
         if (dia== null)return;
+        System.out.println("Valor do Ingresso: ");
+        valorIngresso = scanner.nextDouble();
 
         try{
-            fachada.adicionarSessao(horario,filme,sala,dia);
+            fachada.adicionarSessao(horario,filme,sala,dia,valorIngresso);
             System.out.println("Sessao adicionada com sucesso");
         } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException e) {
             System.err.println(e.getMessage());
         }
     }
+
     private void removerSessao(){
         String horario,sala,dia;
 
@@ -112,8 +120,10 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
+
     private void atualizarSessao(){
         String horario,filme,sala,dia;
+        double valorIngresso;
 
         sala = lerDado("Código da sala");
         if (sala == null) return;
@@ -135,13 +145,16 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
             return;
         }
+        System.out.println("valor do Ingresso: ");
+        valorIngresso = scanner.nextDouble();
         try {
-            fachada.atualizarSessao(horario,filme,sala,dia);
+            fachada.atualizarSessao(horario,filme,sala,dia,valorIngresso);
             System.out.println("Sessao atualizada com sucesso");
         } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
             System.err.println(e.getMessage());
         }
     }
+
     private void buscarSessaoporTitulo(){
         String filme = lerDado("Nome do Filme");
         if (filme==null)return;
@@ -155,6 +168,7 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
+
     private void buscarSessaoDia(){
         String dia = lerData();
         if (dia==null)return;
@@ -168,6 +182,7 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
+
     private void imprimeTodasSessoes(){
         ArrayList<String> sessoes;
         try{
@@ -179,6 +194,7 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
+
     private String lerHorario() {
         String horario;
         do {
@@ -196,6 +212,7 @@ public class TelaGerenciamentoSessoes {
 
         return horario;
     }
+
     private boolean isHorarioValido(String horario) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -205,6 +222,7 @@ public class TelaGerenciamentoSessoes {
             return false;
         }
     }
+
     private String lerData() {
         String data;
         do {
@@ -223,6 +241,7 @@ public class TelaGerenciamentoSessoes {
 
         return data;
     }
+
     private boolean isDataValida(String data) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
@@ -232,6 +251,7 @@ public class TelaGerenciamentoSessoes {
             return false;
         }
     }
+
     private String lerDado(String campo) {
         System.out.print(campo + ": ");
         while(true){
@@ -247,7 +267,6 @@ public class TelaGerenciamentoSessoes {
             }
             return dado;
         }
-
     }
 }
 

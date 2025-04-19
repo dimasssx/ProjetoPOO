@@ -1,6 +1,5 @@
 package UI;
 
-import fachada.FachadaCliente;
 import fachada.Movietime;
 import negocio.entidades.Cliente;
 import negocio.entidades.ClientePadrao;
@@ -70,7 +69,8 @@ public class TelaGerenciamentoDeContaCliente {
             System.err.println("A senha não pode estar vazia.");
             return;
         }
-        cliente.setSenha(novaSenha);
+
+        fachada.getFachadaCliente().alterarSenha(cliente, novaSenha);
         System.out.println("Senha atualizada com sucesso!");
     }
 
@@ -81,7 +81,7 @@ public class TelaGerenciamentoDeContaCliente {
         }
         System.out.println("Ingressos comprados:");
         for (Ingresso ingresso : cliente.getIngressosComprados()) {
-            ingresso.gerarIngresso();
+            ingresso.toString();
         }
     }
 

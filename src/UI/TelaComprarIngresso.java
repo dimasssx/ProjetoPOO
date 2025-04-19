@@ -1,17 +1,14 @@
 package UI;
 
 import fachada.FachadaCliente;
-import negocio.entidades.Cliente;
-import negocio.exceptions.FilmeNaoEstaCadastradoException;
-import negocio.exceptions.SalaNaoEncontradaException;
-import negocio.exceptions.SessaoJaExisteException;
-import negocio.exceptions.SessaoNaoEncontradaException;
-
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import negocio.entidades.Cliente;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class TelaComprarIngresso {
     private FachadaCliente fachada;
@@ -25,7 +22,9 @@ public class TelaComprarIngresso {
     }
     public void iniciar(){
 
-        String dia,horario,filme;
+        String dia;
+        String horario;
+        String filme;
 
         System.out.println("Escolha o dia,horario e filme   (digite 0 a qualquer momento para sair)");
         while(true){
@@ -44,13 +43,12 @@ public class TelaComprarIngresso {
 
             try {
                 String sessao = fachada.procurarSessao(horario,filme,dia);
-               TelaEscolhadeAssentos telaEscolhadeAssentos = new TelaEscolhadeAssentos(fachada,cliente,sessao);
-                telaEscolhadeAssentos.iniciar();
+                TelaEscolhadeAssentos telaEscolhadeAssentos = new TelaEscolhadeAssentos(fachada,cliente,sessao);
+                //telaEscolhadeAssentos.iniciar();
             } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException e) {
                 System.err.println(e.getMessage());
             }
         }
-
     }
     private String lerHorario() {
         String horario;

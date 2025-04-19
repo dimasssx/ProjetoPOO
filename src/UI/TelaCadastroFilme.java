@@ -1,9 +1,9 @@
 package UI;
 
 import fachada.FachadaGerente;
-import negocio.exceptions.FilmeJaEstaNoCatalogoException;
-import negocio.exceptions.FilmeNaoEstaCadastradoException;
-import negocio.exceptions.NenhumFilmeEncontradoException;
+import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;

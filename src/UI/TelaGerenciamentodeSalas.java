@@ -1,9 +1,9 @@
 package UI;
 
 import fachada.FachadaGerente;
-import negocio.exceptions.CodigoSalaJaExisteException;
-import negocio.exceptions.LimiteDeSalasExcedidoException;
-import negocio.exceptions.NenhumaSalaEncontradaException;
+import negocio.exceptions.salas.CodigoSalaJaExisteException;
+import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
+import negocio.exceptions.salas.NenhumaSalaEncontradaException;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;

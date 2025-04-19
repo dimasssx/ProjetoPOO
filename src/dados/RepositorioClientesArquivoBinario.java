@@ -23,7 +23,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
         }
     }
 
-
     public void lerClientes() {
         try (FileInputStream fis = new FileInputStream(file);
              ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -32,7 +31,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
             clientes = new ArrayList<Cliente>();
         }
     }
-
 
     public void escritaClientes() {
         try (FileOutputStream fos = new FileOutputStream(file);
@@ -83,6 +81,18 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
             }
         }
         return null;
+    }
+
+    @Override
+    public void atualizarCliente(Cliente clienteAtualizado) {
+        for (int i = 0; i < clientes.size(); i++) {
+            Cliente c = clientes.get(i);
+            if (c.getLogin().equals(clienteAtualizado.getLogin())) {
+                clientes.set(i, clienteAtualizado); // substitui o cliente antigo
+                escritaClientes(); // persiste no arquivo
+                return;
+            }
+        }
     }
 
     //retornar todos os clientes cadastrados

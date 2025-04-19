@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.filmes;
 
 public class NenhumFilmeEncontradoException extends Exception {
     public NenhumFilmeEncontradoException(){

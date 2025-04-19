@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.salas;
 
 public class LimiteDeSalasExcedidoException extends Exception {
     public LimiteDeSalasExcedidoException(String mensagem) {

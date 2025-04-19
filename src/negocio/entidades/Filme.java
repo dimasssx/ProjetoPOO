@@ -2,21 +2,28 @@ package negocio.entidades;
 
 import java.io.Serial;
 import java.io.Serializable;
+import negocio.GeradorIDNegocio;
 
 public class Filme implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
+    private String id;
     private String titulo;
     private String genero;
     private String duracao;
     private String classificacao;
 
     public Filme(String titulo,String genero,String duracao,String classificacao){
+        this.id = GeradorIDNegocio.getInstancia().gerarId(GeradorIDNegocio.getInstancia().getPrefixoFilme());
         this.titulo = titulo;
         this.genero = genero;
         this.duracao = duracao;
         this.classificacao = classificacao;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getDuracao() {
@@ -53,10 +60,13 @@ public class Filme implements Serializable {
 
     @Override
     public String toString() {
-        return "Titulo: " + titulo +
-                ", Genero: " + genero +
-                ", Duração: " + duracao +
-                ", Classificação: " + classificacao;
+        return "Filme:" +
+                " | ID: " + id +
+                " | Titulo: " + titulo +
+                " | Genero: " + genero +
+                " | Duração: " + duracao +
+                " | Classificação: " + classificacao +
+                " |";
     }
 
     @Override
@@ -65,8 +75,12 @@ public class Filme implements Serializable {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Filme filme = (Filme) obj;
-        return titulo.equalsIgnoreCase(filme.getTitulo());
+        return id.equals(filme.id) || titulo.equalsIgnoreCase(filme.getTitulo());
     }
 
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
 

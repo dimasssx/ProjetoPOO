@@ -5,11 +5,12 @@ import java.util.ArrayList;
 
 public interface IRepositorioClientes {
 
-    public void adicionarCliente(Cliente cliente);
-    public Cliente retornarCliente(String login, String senha);
-    public boolean validarCliente(String login, String senha);
-    public ArrayList<Cliente> listarClientes();
-    public void imprimir();
-    public boolean existe(String login);
-    public void removerCliente(Cliente cliente) ;
+    void adicionarCliente(Cliente cliente);
+    Cliente retornarCliente(String login, String senha);
+    boolean validarCliente(String login, String senha);
+    ArrayList<Cliente> listarClientes();
+    void imprimir();
+    boolean existe(String login);
+    void removerCliente(Cliente cliente);
+    void atualizarCliente(Cliente cliente);
 }

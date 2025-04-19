@@ -1,6 +1,6 @@
 package negocio.entidades;
 
-import negocio.exceptions.AssentoIndisponivelException;
+import negocio.exceptions.assentos.AssentoIndisponivelException;
 import java.io.Serial;
 import java.io.Serializable;
 

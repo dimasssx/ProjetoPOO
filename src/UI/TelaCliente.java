@@ -4,11 +4,10 @@ package UI;
 //import fachada.Cinema;
 import fachada.FachadaCliente;
 import fachada.Movietime;
-import negocio.exceptions.*;
-import negocio.SessoesNegocio;
 import negocio.entidades.Cliente;
-import negocio.entidades.*;
-import java.time.LocalDate;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
+
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -87,7 +86,7 @@ public class TelaCliente {
     }
 
     public void exibicaoSessoesDeHoje() {
-        System.out.println("Filmes em Cartaz Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
+        System.out.println("Filmes em Exibição Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
         System.out.println("-------------------");
 
         try {

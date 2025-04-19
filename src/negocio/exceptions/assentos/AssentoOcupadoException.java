@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.assentos;
 
 public class AssentoOcupadoException extends Exception {
     public AssentoOcupadoException(String codigoAssento) {

@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.assentos;
 
 public class AssentoIndisponivelException extends Exception {
     public AssentoIndisponivelException() {

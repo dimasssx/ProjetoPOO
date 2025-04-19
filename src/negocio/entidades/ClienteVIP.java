@@ -10,10 +10,12 @@ public class ClienteVIP extends Cliente{
         super(nome, login, senha, new ArrayList<>(ingressosComprados));
     }
     public String toString() {
-        return "Cliente{" +
-                "nome='" + getNome() + '\'' +
-                ", login='" + getLogin() + '\'' +
-                ", senha='" + getSenha() + '\'' +
-                "Tipo" +"´VIP";
+        return "Cliente:" +
+                " | ID: " + getId() +
+                " | Nome: " + getNome() +
+                " | Login: " + getLogin() +
+                " | Senha: " + getSenha() +
+                " | Tipo: " + "VIP" +
+                " |";
     }
 }

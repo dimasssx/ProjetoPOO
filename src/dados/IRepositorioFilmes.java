@@ -1,9 +1,6 @@
 package dados;
 
-//import negocio.exceptions.FilmeJaEstaNoCatalogoException;
-//import negocio.exceptions.FilmeNaoEstaCadastradoException;
 import java.util.ArrayList;
-
 import negocio.entidades.Filme;
 
 public interface IRepositorioFilmes {

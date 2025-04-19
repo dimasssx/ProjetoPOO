@@ -2,8 +2,7 @@ package negocio;
 
 import dados.RepositorioClientesArquivoBinario;
 import negocio.entidades.Cliente;
-import negocio.entidades.ClienteVIP;
-import negocio.exceptions.ClienteNaoEncontradoException;
+import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class Autenticacao {
     private ClienteNegocio negocioCliente;

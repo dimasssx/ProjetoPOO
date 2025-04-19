@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.filmes;
 
 public class FilmeNaoEstaCadastradoException extends Exception {
     public FilmeNaoEstaCadastradoException() {

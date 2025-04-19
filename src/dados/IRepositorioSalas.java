@@ -3,7 +3,6 @@ package dados;
 import negocio.entidades.Sala;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface IRepositorioSalas {
 

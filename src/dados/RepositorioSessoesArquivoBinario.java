@@ -62,6 +62,7 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
     }
 
     // metodo para atualizar uma sessao do repositorio a partir de um objeto de sessao recebido
+    @Override
     public void atualizarSessao(Sessao sessao) {
         int index = sessoes.indexOf(sessao);
         if (index != -1) {
@@ -83,6 +84,7 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
         return sessaodesejada;
 
     }
+
     @Override
     public Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia){
         lerSessoes();
@@ -95,6 +97,7 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
         }
         return null;
     }
+
     @Override
     public Sessao procurarSessao(LocalTime horario, Filme filme, MonthDay dia){
         lerSessoes();
@@ -107,6 +110,7 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
         }
         return null;
     }
+
     @Override
     public ArrayList<Sessao> procurarSessaoporSala(String codigo){
         lerSessoes();
@@ -118,7 +122,9 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
         }
         return sessaoporSala;
     }
+
     // metodo para procurar sessoes no repositorio a partir do nome do filme
+    @Override
     public ArrayList<Sessao> procurarSessaoPorFilme(String filme) {
         lerSessoes();
         ArrayList<Sessao> sessoesFilmes = new ArrayList<>();
@@ -131,6 +137,7 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
     }
 
     // metodo para procurar sessoes no repositorio a partir do dia
+    @Override
     public ArrayList<Sessao> buscarSessoesDoDia(MonthDay dia) {
         lerSessoes();
         ArrayList<Sessao> sessoesDoDia = new ArrayList<Sessao>();
@@ -141,6 +148,7 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
         }
         return sessoesDoDia;
     }
+
     // metodo para verificar se uma sessao existe no repositorio
     @Override
     public boolean existe(Sessao sessao) {

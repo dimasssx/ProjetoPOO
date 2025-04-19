@@ -26,14 +26,11 @@ public class Ingresso {
         this.assento = assento;
     }
 
-    public void gerarIngresso(){
-        System.out.println("Seu Ingresso:");
-        System.out.println("-----------------");
-        System.out.println("Filme: " + sessao.getFilme());
-        System.out.println("Fileira: " + assento.getFileira());
-        System.out.println("Poltrona: " + assento.getPoltrona());
-        System.out.println("Dia: " + sessao.getDia());
-        System.out.println("Horario " + sessao.getHorario());
-        System.out.println("-----------------");
+    public String toString() {
+        return "Filme: " + sessao.getFilme() +
+                "| Fileira:" + assento.getFileira() +
+                "| Poltrona da Fileira:" + assento.getPoltrona() +
+                "| Dia:" + sessao.getDia() +
+                "| Horário:" + sessao.getHorario();
     }
 }

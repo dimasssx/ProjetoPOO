@@ -2,14 +2,16 @@ package negocio.entidades;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.MonthDay;
 import java.time.LocalTime;
+import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
+import negocio.GeradorIDNegocio;
 
 public class Sessao implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
+    private String id;
     private LocalTime horario;
     private MonthDay dia;
     private Filme filme;
@@ -17,20 +19,16 @@ public class Sessao implements Serializable {
     private Assento[][] assentos;
     private double valorIngresso;
 
-    public Sessao(Filme filme, String horario,Sala sala,String dia){
+    public Sessao(Filme filme, String horario, Sala sala, String dia, double valorIngresso) {
+        this.id = GeradorIDNegocio.getInstancia().gerarId(GeradorIDNegocio.getInstancia().getPrefixoSessao());
         this.filme = filme;
+        this.valorIngresso = valorIngresso;
         this.sala = sala;
         this.horario = LocalTime.parse(horario);
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM");
         this.dia = MonthDay.parse(dia, formater);
         this.assentos = new Assento[sala.getFileiras()][sala.getAssentosPorFileira()];
         inicializarAssentos();
-    }
-    public Sessao(String horario, Sala sala,String dia){
-        this.horario = LocalTime.parse(horario);
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM");
-        this.dia = MonthDay.parse(dia, formater);
-        this.sala = sala;
     }
 
     private void inicializarAssentos() {
@@ -39,6 +37,10 @@ public class Sessao implements Serializable {
                 assentos[i][j] = new Assento(i + 1, j + 1);
             }
         }
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Assento getAssento(int fileira, int poltrona) {
@@ -75,10 +77,14 @@ public class Sessao implements Serializable {
 
     @Override
     public String toString() {
-        return "Filme: " + filme.getTitulo() +
+        return "Sessao: " +
+                "| ID: " + id +
+                " | Filme: " + filme.getTitulo() +
                 " | Sala: " + sala.getCodigo() + " (" + sala.getTipo() + ")" +
                 " | Horário: " + horario +
-                " | Data: " + getDiaFormatado();
+                " | Data: " + getDiaFormatado() +
+                " | Valor do Ingresso: " + valorIngresso +
+                " |";
     }
 
     @Override
@@ -87,13 +93,14 @@ public class Sessao implements Serializable {
         if (obj == null || getClass() != obj.getClass()) return false;
 
         Sessao sessao = (Sessao) obj;
-        return horario.equals(sessao.horario) &&
+        return id.equals(sessao.id) || 
+               (horario.equals(sessao.horario) &&
                 dia.equals(sessao.dia) &&
-                sala.getCodigo().equals(sessao.sala.getCodigo());
+                sala.getCodigo().equals(sessao.sala.getCodigo()));
     }
 
     @Override
     public int hashCode() {
-        return horario.hashCode() + dia.hashCode() + sala.getCodigo().hashCode();
+        return id.hashCode();
     }
 }

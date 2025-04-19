@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.salas;
 
 public class SalaNaoEncontradaException extends Exception {
     public SalaNaoEncontradaException(String mensagem) {

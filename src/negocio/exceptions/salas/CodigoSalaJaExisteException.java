@@ -1,4 +1,4 @@
-package negocio.exceptions;
+package negocio.exceptions.salas;
 
 public class CodigoSalaJaExisteException extends Exception {
     public CodigoSalaJaExisteException(String s) {

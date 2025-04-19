@@ -2,10 +2,10 @@ package negocio;
 
 import dados.*;
 import negocio.entidades.Sessao;
-import negocio.exceptions.CodigoSalaJaExisteException;
-import negocio.exceptions.LimiteDeSalasExcedidoException;
-import negocio.exceptions.NenhumaSalaEncontradaException;
-import negocio.exceptions.SalaNaoEncontradaException;
+import negocio.exceptions.salas.CodigoSalaJaExisteException;
+import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
+import negocio.exceptions.salas.NenhumaSalaEncontradaException;
+import negocio.exceptions.salas.SalaNaoEncontradaException;
 import negocio.entidades.Sala;
 import negocio.entidades.Sala2D;
 import negocio.entidades.Sala3D;
@@ -43,7 +43,6 @@ public class SalasNegocio {
             throw new LimiteDeSalasExcedidoException("O limite de 1 sala 3D já foi atingido.");
         }
         repositorioSalas.adicionarSala(sala);
-
     }
 
     public void removerSala(String codigo) throws SalaNaoEncontradaException {
@@ -56,22 +55,21 @@ public class SalasNegocio {
                     repositorioSessoes.removerSessao(s);
                 }
             }repositorioSalas.removerSala(salaDesejada);
-        }else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
-
+        } else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
     }
 
     public Sala procurarSala(String codigo) throws SalaNaoEncontradaException {
         Sala saladesejada = repositorioSalas.procurarSala(codigo);
         if (saladesejada != null){
             return saladesejada;
-        }else throw new SalaNaoEncontradaException("Sala nao foi encontrada");
+        } else throw new SalaNaoEncontradaException("Sala nao foi encontrada");
     }
 
     public ArrayList<Sala> listarSalas() throws NenhumaSalaEncontradaException {
         ArrayList<Sala> salas = repositorioSalas.listarSalas();
         if (salas.isEmpty()){
             throw new NenhumaSalaEncontradaException();
-        }else return repositorioSalas.listarSalas();
+        } else return repositorioSalas.listarSalas();
     }
 
  }
