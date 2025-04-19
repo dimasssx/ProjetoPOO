@@ -1,16 +1,16 @@
 package UI;
 
+import java.util.Scanner;
+
 import dados.IRepositorioClientes;
 import dados.RepositorioClientesArquivoBinario;
 import fachada.FachadaGerente;
 
-import java.util.Scanner;
-
-public class TelaGerente {
+public class TelaPrincipalGerente {
     private FachadaGerente fachadaGerente;
     private Scanner scanner;
 
-    public TelaGerente(FachadaGerente fachadaGerente){
+    public TelaPrincipalGerente(FachadaGerente fachadaGerente){
         this.scanner = new Scanner(System.in);
         this.fachadaGerente = fachadaGerente;
 
@@ -19,7 +19,9 @@ public class TelaGerente {
     public void iniciar(){
 
         while(true){
+            System.out.println("------------------------------------");
             System.out.println("Tela Gerente");
+            System.out.println("------------------------------------");
             System.out.println("1 - Gerenciar Filmes");
             System.out.println("2 - Gerenciar Salas");
             System.out.println("3 - Gerenciar Sessoes");
@@ -31,8 +33,8 @@ public class TelaGerente {
 
             switch (opcao){
                 case "1":
-                    TelaCadastroFilme telacadastroFilme = new TelaCadastroFilme(fachadaGerente);
-                    telacadastroFilme.iniciar();
+                    TelaGerenciamentoDeFilmes telaGerenciamentoFilmes = new TelaGerenciamentoDeFilmes(fachadaGerente);
+                    telaGerenciamentoFilmes.iniciar();
                     break;
                 case "2":
                     TelaGerenciamentodeSalas telaGerenciamentosalas = new TelaGerenciamentodeSalas(fachadaGerente);

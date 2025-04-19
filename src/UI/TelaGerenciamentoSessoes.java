@@ -1,18 +1,18 @@
 package UI;
 
-import fachada.FachadaGerente;
-import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
-import negocio.exceptions.salas.SalaNaoEncontradaException;
-import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
-import negocio.exceptions.sessoes.SessaoJaExisteException;
-import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
-
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import fachada.FachadaGerente;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.salas.SalaNaoEncontradaException;
+import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
+import negocio.exceptions.sessoes.SessaoJaExisteException;
+import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class TelaGerenciamentoSessoes {
     private Scanner scanner;
@@ -24,7 +24,9 @@ public class TelaGerenciamentoSessoes {
     }
 
     public void iniciar() {
-        System.out.println("Tela Cadastro Sessoes");
+        System.out.println("------------------------------------");
+        System.out.println("Tela de Gerenciamento de Sessoes");
+        System.out.println("------------------------------------");
 
         while (true) {
             System.out.println("1 - Adicionar Sessao");
@@ -54,7 +56,7 @@ public class TelaGerenciamentoSessoes {
                     buscarSessaoDia();
                     break;
                 case "6":
-                    imprimeTodasSessoes();
+                    listarSessoes();
                     break;
                 case "7":
                     return;
@@ -90,7 +92,7 @@ public class TelaGerenciamentoSessoes {
         if (dia== null)return;
         System.out.println("Valor do Ingresso: ");
         valorIngresso = scanner.nextDouble();
-
+        scanner.nextLine();
         try{
             fachada.adicionarSessao(horario,filme,sala,dia,valorIngresso);
             System.out.println("\033[92m Sessão adicionada com Sucesso! \033[0m");
@@ -184,15 +186,33 @@ public class TelaGerenciamentoSessoes {
         }
     }
 
-    private void imprimeTodasSessoes(){
+    private void listarSessoes(){
         ArrayList<String> sessoes;
         try{
             sessoes = fachada.listarTodas();
+            System.out.println("=== Sessões Cadastradas ===");
             for (String sessoe : sessoes) {
                 System.out.println(sessoe);
             }
         } catch (NenhumaSessaoEncontradaException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    private String lerDado(String campo) {
+        System.out.print(campo + ": ");
+        while(true){
+            String dado = scanner.nextLine().trim();
+
+            if (dado.equals("0")) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+            if (dado.isEmpty()) {
+                System.err.println(campo + " não pode ser vazio!");
+                continue;
+            }
+            return dado;
         }
     }
 
@@ -250,23 +270,6 @@ public class TelaGerenciamentoSessoes {
             return true;
         } catch (DateTimeParseException e) {
             return false;
-        }
-    }
-
-    private String lerDado(String campo) {
-        System.out.print(campo + ": ");
-        while(true){
-            String dado = scanner.nextLine().trim();
-
-            if (dado.equals("0")) {
-                System.out.println("Operação cancelada.");
-                return null;
-            }
-            if (dado.isEmpty()) {
-                System.err.println(campo + " não pode ser vazio!");
-                continue;
-            }
-            return dado;
         }
     }
 }

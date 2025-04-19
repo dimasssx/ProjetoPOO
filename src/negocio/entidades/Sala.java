@@ -3,6 +3,7 @@ package negocio.entidades;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+
 import negocio.GeradorIDNegocio;
 
 public abstract class Sala implements Serializable {

@@ -19,10 +19,12 @@ public class Sala3D extends Sala implements Serializable {
 
     @Override
     public String toString() {
-        return "Sala: " + getCodigo() + "| Tipo: 3D" +
+        return "Sala: " + getCodigo() + " | ID: " + getId() +
+                " | Tipo: 3D" +
                 " | Fileiras: " + getFileiras() +
                 " | Assentos por Fileiras:" + getAssentosPorFileira() +
-                " | ID: " + getId();
+                " |";
+
     }
 
     public String getTipo(){

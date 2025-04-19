@@ -1,25 +1,28 @@
 package UI;
 
-import fachada.FachadaGerente;
-import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
-import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
-import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class TelaCadastroFilme {
+import fachada.FachadaGerente;
+import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
+
+public class TelaGerenciamentoDeFilmes {
     private Scanner scanner;
     private FachadaGerente fachada;
 
-    public TelaCadastroFilme(FachadaGerente fachada) {
+    public TelaGerenciamentoDeFilmes(FachadaGerente fachada) {
         this.scanner = new Scanner(System.in);
         this.fachada = fachada;
     }
 
     public void iniciar() {
-        System.out.println("Tela Cadastro Filmes");
+        System.out.println("------------------------------------");
+        System.out.println("Tela de Gerenciamento de Filmes");
+        System.out.println("------------------------------------");
         while (true) {
             System.out.println("1 - Adicionar Filme");
             System.out.println("2 - Remover Filme");

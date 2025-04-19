@@ -1,26 +1,24 @@
-
 package UI;
-
-//import fachada.Cinema;
-import fachada.FachadaCliente;
-import fachada.Movietime;
-import negocio.entidades.Cliente;
-import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
-import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TelaCliente {
+import fachada.FachadaCliente;
+import fachada.Movietime;
+import negocio.entidades.Cliente;
+import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
+
+public class TelaPrincipalCliente {
     private MonthDay hoje;
     private FachadaCliente clienteFachada;
     private Scanner scanner;
     private Cliente cliente;
     private Movietime fachadaPrincipal;
 
-    public TelaCliente(FachadaCliente clienteFachada,Cliente cliente,Movietime fachadaPrincipal) {
+    public TelaPrincipalCliente(FachadaCliente clienteFachada, Cliente cliente, Movietime fachadaPrincipal) {
         this.clienteFachada = clienteFachada;
         scanner = new Scanner(System.in);
         hoje = MonthDay.now();
@@ -30,9 +28,9 @@ public class TelaCliente {
 
     public void iniciar() {
 
-        System.out.println("Bem-vindo ao MovieTime!");
-        System.out.println("---------------------------");
-        exibicaoSessoesDeHoje(); //exibe os filmes em cartaz e as sessões de hoje
+        System.out.println("=== Bem-vindo ao MovieTime, " + cliente.getNome().split(" ")[0] + "!" + " ===");
+        System.out.println("------------------------------------");
+        exibicaoSessoesDeHoje(); //exibe as sessões de hoje
 
         while(true){
             System.out.println("1 - Comprar ingresso");
@@ -86,8 +84,8 @@ public class TelaCliente {
     }
 
     public void exibicaoSessoesDeHoje() {
-        System.out.println("Filmes em Exibição Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
-        System.out.println("-------------------");
+        System.out.println("Sessões em Exibição Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
+        System.out.println("------------------------------------");
 
         try {
             ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessoesHoje();
@@ -98,6 +96,7 @@ public class TelaCliente {
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
                 }
+                System.out.println("------------------------------------");
             }
         } catch (SessaoNaoEncontradaException e) {
             System.out.println("Nenhuma sessão encontrada para hoje.");
@@ -115,7 +114,8 @@ public class TelaCliente {
             if (sessoesFormatadas.isEmpty()) {
                 System.out.println("Nenhuma sessão encontrada para esta data.");
             } else {
-                System.out.println("Sessões para o dia " + dataInput + ":");
+                System.out.println("=== Sessões para o dia: " + dataInput + " ===");
+                System.out.println("------------------------------------");
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
                     System.out.println("----------------------------");
@@ -141,7 +141,8 @@ public class TelaCliente {
             if (sessoesFormatadas.isEmpty()) {
                 System.out.println("Nenhuma sessão encontrada para o filme: " + tituloInput);
             } else {
-                System.out.println("Sessões para o filme: " + tituloInput);
+                System.out.println("=== Sessões para o filme: " + tituloInput + " ===");
+                System.out.println("------------------------------------");
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
                     System.out.println("----------------------------");

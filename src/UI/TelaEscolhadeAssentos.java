@@ -1,9 +1,9 @@
-
 package UI;
 
-import fachada.FachadaCliente;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import fachada.FachadaCliente;
 import negocio.entidades.Cliente;
 
 public class TelaEscolhadeAssentos {

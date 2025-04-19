@@ -1,5 +1,10 @@
 package fachada;
 
+import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import dados.RepositorioClientesArquivoBinario;
 import dados.RepositorioFilmesArquivoBinario;
 import dados.RepositorioSalasArquivoBinario;
@@ -14,11 +19,6 @@ import negocio.entidades.Cliente;
 import negocio.exceptions.assentos.AssentoIndisponivelException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
-
-import java.time.LocalTime;
-import java.time.MonthDay;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class FachadaCliente {
 

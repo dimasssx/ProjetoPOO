@@ -1,8 +1,9 @@
 package negocio.entidades;
 
-import negocio.exceptions.assentos.AssentoIndisponivelException;
 import java.io.Serial;
 import java.io.Serializable;
+
+import negocio.exceptions.assentos.AssentoIndisponivelException;
 
 public class Assento implements Serializable {
 

@@ -1,10 +1,9 @@
 package dados;
 
-import negocio.entidades.Cliente;
-import negocio.entidades.Sala;
-
 import java.io.*;
 import java.util.ArrayList;
+
+import negocio.entidades.Cliente;
 
 public class RepositorioClientesArquivoBinario implements IRepositorioClientes, Serializable {
 

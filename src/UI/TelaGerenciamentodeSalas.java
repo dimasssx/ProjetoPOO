@@ -1,14 +1,13 @@
 package UI;
 
-import fachada.FachadaGerente;
-import negocio.exceptions.salas.CodigoSalaJaExisteException;
-import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
-import negocio.exceptions.salas.NenhumaSalaEncontradaException;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import fachada.FachadaGerente;
+import negocio.exceptions.salas.CodigoSalaJaExisteException;
+import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
+import negocio.exceptions.salas.NenhumaSalaEncontradaException;
 
 //mt codigo repetido, fazer metodos pra leitura
 
@@ -22,7 +21,9 @@ public class TelaGerenciamentodeSalas {
     }
 
     public void iniciar(){
-        System.out.println("Tela Cadastro Salas");
+        System.out.println("------------------------------------");
+        System.out.println("Tela de Gerenciamento de Salas");
+        System.out.println("------------------------------------");
         while (true){
             System.out.println("1 - Adicionar Sala");
             System.out.println("2 - Remover Sala");
@@ -53,6 +54,7 @@ public class TelaGerenciamentodeSalas {
 
     private void adicionarSala() {
         System.out.println("(Digite 0 a qualquer momento para sair)");
+        System.out.println("AVISO: Lembre-se que só possuímos espaço físico para DUAS salas 2D e UMA sala 3D");
         System.out.println("Código da Sala: (Sala 1/ Sala 2/ Sala 3)");
         String codigo = lerCodigo();
         if (codigo == null) return;
@@ -70,7 +72,7 @@ public class TelaGerenciamentodeSalas {
         int linhas, colunas;
         while (true) {
             try {
-                System.out.println("Quantidade de linhas de poltronas:");
+                System.out.println("Quantidade de fileiras de poltronas na sala:");
                 linhas = scanner.nextInt();
                 scanner.nextLine();
                 if (linhas < 0) {
@@ -87,7 +89,7 @@ public class TelaGerenciamentodeSalas {
         }
         while (true) {
             try {
-                System.out.println("Quantidade de colunas de poltronas:");
+                System.out.println("Quantidade de poltronas por fileiras na sala:");
                 colunas = scanner.nextInt();
                 scanner.nextLine();
                 if (colunas < 0) {
@@ -126,6 +128,7 @@ public class TelaGerenciamentodeSalas {
     private void listarSalas(){
         try {
             ArrayList<String> salas = fachada.listarSalas();
+            System.out.println("=== Salas Cadastradas ===");
             for (String sala : salas) {
                 System.out.println(sala);
             }

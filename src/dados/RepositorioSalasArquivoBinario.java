@@ -1,10 +1,9 @@
 package dados;
 
 import java.io.*;
-
-import negocio.entidades.Sala;
 import java.util.ArrayList;
 
+import negocio.entidades.Sala;
 
 public class RepositorioSalasArquivoBinario implements IRepositorioSalas, Serializable {
 

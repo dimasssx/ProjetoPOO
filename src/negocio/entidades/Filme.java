@@ -2,6 +2,7 @@ package negocio.entidades;
 
 import java.io.Serial;
 import java.io.Serializable;
+
 import negocio.GeradorIDNegocio;
 
 public class Filme implements Serializable {

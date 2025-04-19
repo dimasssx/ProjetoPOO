@@ -22,9 +22,11 @@ public class Sala2D extends Sala implements Serializable {
 
     @Override
     public String toString() {
-        return "Sala: " + getCodigo() + "| Tipo: 2D"+
-                        " | Fileiras: " + getFileiras() +
-                        " | Assentos por fileira:" + getAssentosPorFileira() +
-                        " | ID: " + getId();
+        return "Sala: " + getCodigo() + " | ID: " + getId() +
+                " | Tipo: 2D" +
+                " | Fileiras: " + getFileiras() +
+                " | Assentos por Fileiras:" + getAssentosPorFileira() +
+                " |";
+
     }
 }

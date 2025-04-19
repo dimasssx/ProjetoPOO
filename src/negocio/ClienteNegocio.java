@@ -2,7 +2,7 @@ package negocio;
 
 import dados.IRepositorioClientes;
 import negocio.entidades.*;
-import negocio.exceptions.usuario.ClienteJaExisteException;
+import negocio.exceptions.usuario.UsuarioJaExisteException;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class ClienteNegocio {
@@ -14,12 +14,12 @@ public class ClienteNegocio {
 
     //gerenciamento do cliente
 
-    public void adicionarCliente(String nome, String nomeDeUsuario, String senha) throws ClienteJaExisteException {
+    public void adicionarCliente(String nome, String nomeDeUsuario, String senha) throws UsuarioJaExisteException {
         if (!repositorioClientes.existe(nomeDeUsuario)) {
             Cliente cliente = new ClientePadrao(nome, nomeDeUsuario, senha);
             repositorioClientes.adicionarCliente(cliente);
         } else {
-            throw new ClienteJaExisteException();
+            throw new UsuarioJaExisteException();
         }
     }
 

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
+
 import negocio.GeradorIDNegocio;
 
 public class Sessao implements Serializable {
@@ -39,15 +40,15 @@ public class Sessao implements Serializable {
         }
     }
 
-    public String getId() {
-        return id;
-    }
-
     public Assento getAssento(int fileira, int poltrona) {
         if (fileira < 0 || fileira >= assentos.length || poltrona < 0 || poltrona >= assentos[0].length) {
             return null;
         }
         return assentos[fileira][poltrona];
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Sala getSala() {

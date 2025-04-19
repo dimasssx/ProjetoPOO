@@ -5,7 +5,7 @@ import negocio.Autenticacao;
 import negocio.ClienteNegocio;
 import negocio.entidades.Cliente;
 import negocio.exceptions.usuario.SenhaInvalidaException;
-import negocio.exceptions.usuario.ClienteJaExisteException;
+import negocio.exceptions.usuario.UsuarioJaExisteException;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class Movietime {
@@ -33,7 +33,7 @@ public class Movietime {
         return autenticacao.autenticar(nomeDeUsuario, senha);
     }
 
-    public void cadastrarCliente(String nome, String nomeDeUsuario, String senha) throws ClienteJaExisteException, SenhaInvalidaException {
+    public void cadastrarCliente(String nome, String nomeDeUsuario, String senha) throws UsuarioJaExisteException, SenhaInvalidaException {
         if(senha.length() < 8){
            throw new SenhaInvalidaException();
         }

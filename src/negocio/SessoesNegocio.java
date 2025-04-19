@@ -1,5 +1,9 @@
 package negocio;
 
+import java.time.LocalTime;
+import java.time.MonthDay;
+import java.util.ArrayList;
+
 import dados.IRepositorioSessoes;
 import negocio.entidades.Assento;
 import negocio.entidades.Filme;
@@ -11,10 +15,6 @@ import negocio.exceptions.salas.SalaNaoEncontradaException;
 import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
 import negocio.exceptions.sessoes.SessaoJaExisteException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
-
-import java.time.LocalTime;
-import java.time.MonthDay;
-import java.util.ArrayList;
 
 public class SessoesNegocio {
     private IRepositorioSessoes repositorioSessoes;

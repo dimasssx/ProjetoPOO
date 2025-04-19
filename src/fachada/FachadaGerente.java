@@ -1,5 +1,10 @@
 package fachada;
 
+import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import dados.*;
 import negocio.entidades.*;
 import negocio.*;
@@ -13,11 +18,6 @@ import negocio.exceptions.salas.SalaNaoEncontradaException;
 import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
 import negocio.exceptions.sessoes.SessaoJaExisteException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
-
-import java.time.LocalTime;
-import java.time.MonthDay;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class FachadaGerente {
 

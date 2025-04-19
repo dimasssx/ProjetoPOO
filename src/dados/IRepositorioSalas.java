@@ -1,8 +1,8 @@
 package dados;
 
-import negocio.entidades.Sala;
-
 import java.util.ArrayList;
+
+import negocio.entidades.Sala;
 
 public interface IRepositorioSalas {
     void adicionarSala(Sala sala);

@@ -1,6 +1,7 @@
 package dados;
 
 import java.util.ArrayList;
+
 import negocio.entidades.*;
 
 public interface IRepositorioClientes {

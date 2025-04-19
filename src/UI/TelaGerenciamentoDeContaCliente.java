@@ -1,12 +1,12 @@
 package UI;
 
+import java.util.Scanner;
+
 import fachada.Movietime;
 import negocio.entidades.Cliente;
 import negocio.entidades.ClientePadrao;
 import negocio.entidades.ClienteVIP;
 import negocio.entidades.Ingresso;
-
-import java.util.Scanner;
 
 public class TelaGerenciamentoDeContaCliente {
 
@@ -87,13 +87,13 @@ public class TelaGerenciamentoDeContaCliente {
 
     private void tornarVIP() {
         fachada.getFachadaCliente().getClienteNegocio().tornarVIP(cliente);
-        System.out.println("Parabéns! Agora você é um cliente VIP e tem 35% de desconto na compra de ingressos!");
-
+        System.out.println("\033[92m Parabéns! Agora você é um cliente VIP e tem 35% de desconto na compra de ingressos! \033[0m");
+        System.out.println("AVISO: Seu status como Cliente VIP será atualizado ao realizar novamente seu login!");
     }
 
     private void cancelarVIP() {
         fachada.getFachadaCliente().getClienteNegocio().cancelarVIP(cliente);
-        System.out.println("Você voltou a ser um cliente padrão.");
-
+        System.out.println("\033[92m Você voltou a ser um Cliente Padrão. \033[0m");
+        System.out.println("AVISO: Seu status como Cliente Padrão será atualizado ao realizar novamente seu login!");
     }
 }

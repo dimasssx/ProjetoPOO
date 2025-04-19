@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+
 import negocio.GeradorIDNegocio;
 
 public abstract class Cliente implements Serializable {

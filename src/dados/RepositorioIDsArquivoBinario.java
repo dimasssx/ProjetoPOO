@@ -1,9 +1,10 @@
 package dados;
 
-import negocio.entidades.GeradorID;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import negocio.entidades.GeradorID;
 
 public class RepositorioIDsArquivoBinario implements IRepositorioIDs, Serializable {
     private static final long serialVersionUID = -4009776605163947718L;
