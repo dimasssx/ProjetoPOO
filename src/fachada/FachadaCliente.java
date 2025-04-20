@@ -1,6 +1,5 @@
 package fachada;
 
-import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,31 +8,34 @@ import dados.RepositorioClientesArquivoBinario;
 import dados.RepositorioFilmesArquivoBinario;
 import dados.RepositorioSalasArquivoBinario;
 import dados.RepositorioSessoesArquivoBinario;
-import negocio.ClienteNegocio;
+import negocio.ClientesNegocio;
 import negocio.FilmesNegocio;
 import negocio.SalasNegocio;
 import negocio.SessoesNegocio;
 import negocio.entidades.Filme;
 import negocio.entidades.Sessao;
 import negocio.entidades.Cliente;
-import negocio.exceptions.assentos.AssentoIndisponivelException;
+import negocio.entidades.pagamento.CartaoCredito;
+import negocio.entidades.pagamento.CartaoDebito;
+import negocio.entidades.pagamento.MetodoPagamento;
+import negocio.entidades.pagamento.Pix;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class FachadaCliente {
 
-    private ClienteNegocio clienteNegocio;
+    private ClientesNegocio clientesNegocio;
     private FilmesNegocio filmeNegocio;
     private SessoesNegocio sessoesNegocio;
 
     public FachadaCliente() {
-        this.clienteNegocio = new ClienteNegocio(new RepositorioClientesArquivoBinario());
-        this.filmeNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario());
-        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(),new SalasNegocio(new RepositorioSalasArquivoBinario(),new RepositorioSessoesArquivoBinario()), filmeNegocio);
+        this.clientesNegocio = new ClientesNegocio(new RepositorioClientesArquivoBinario());
+        this.filmeNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario(), new RepositorioSessoesArquivoBinario());
+        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(), new SalasNegocio(new RepositorioSalasArquivoBinario(), new RepositorioSessoesArquivoBinario()), filmeNegocio);
     }
 
-    public ClienteNegocio getClienteNegocio() {
-        return clienteNegocio;
+    public ClientesNegocio getClienteNegocio() {
+        return clientesNegocio;
     }
 
     public FilmesNegocio getFilmeNegocio() {
@@ -47,7 +49,7 @@ public class FachadaCliente {
     //Visualizacao de filmes e sessoes
 
     public Filme consultarFilme(String nomeFilme) throws FilmeNaoEstaCadastradoException {
-        return filmeNegocio.procurarFilme(nomeFilme);
+        return filmeNegocio.procurarFilmePorTitulo(nomeFilme);
     }
 
     public ArrayList<String> procurarSessaoporDia(String sdia) throws SessaoNaoEncontradaException {
@@ -64,7 +66,7 @@ public class FachadaCliente {
     }
 
     public ArrayList<String> procurarSessaoPorTituloDoFilme(String titulo) throws SessaoNaoEncontradaException {
-        ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaoTitulo(titulo);
+        ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaoTituloFilme(titulo);
         ArrayList<String> formatadas = new ArrayList<>();
         for (Sessao s : sessoes) {
             formatadas.add(s.toString());
@@ -84,26 +86,28 @@ public class FachadaCliente {
         return formatadas;
     }
 
-    public String procurarSessao(String shorario,String filme,String sdia) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException {
-        LocalTime horario = LocalTime.parse(shorario);
-        MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
-        return sessoesNegocio.procurarSessao(horario,filme,dia).toString();
+    public Sessao procurarSessao(String ID) throws SessaoNaoEncontradaException {
+        return sessoesNegocio.procurarSessao(ID);
+    }
+
+    public String pagarComPIX(double valor){
+        Pix pix = new Pix();
+        return pix.pagar(valor);
+    }
+
+    public String pagarComDebito(String numero, String titularCartao, double valor){
+        CartaoDebito debito = new CartaoDebito(numero, titularCartao);
+        return debito.pagar(valor);
+    }
+
+    public String pagarComCredito(String numero, String titularCartao, double valor){
+        CartaoCredito credito = new CartaoCredito(numero, titularCartao);
+        return credito.pagar(valor);
     }
 
     public void alterarSenha(Cliente cliente, String novaSenha) {
-        clienteNegocio.alterarSenha(cliente, novaSenha);
+        clientesNegocio.alterarSenha(cliente, novaSenha);
     }
 
-    //Parte de compra de ingressos
-
-    public void visualizarAssentosDaSessao(Sessao s) throws SessaoNaoEncontradaException {
-        sessoesNegocio.mostrarAssentosDaSessao(s);
-    }
-
-    public void reservarAssento(Sessao s, String assento) throws AssentoIndisponivelException, SessaoNaoEncontradaException {
-        int fileira = assento.charAt(0) - 'A';
-        int poltrona = Integer.parseInt(assento.substring(1)) - 1;
-        sessoesNegocio.reservarAssento(s, fileira, poltrona);
-    }
 }
 

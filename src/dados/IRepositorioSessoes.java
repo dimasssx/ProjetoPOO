@@ -12,11 +12,11 @@ public interface IRepositorioSessoes {
     void removerSessao(Sessao sessao);
     void atualizarSessao(Sessao sessao);
     Sessao procurarSessao(Sessao sessao);
-    Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia);
-    Sessao procurarSessao(LocalTime horario, Filme filme, MonthDay dia);
-    ArrayList<Sessao> buscarSessoesDoDia(MonthDay dia);
-    ArrayList<Sessao> procurarSessaoPorFilme(String filme);
-    ArrayList<Sessao> retornarTodas();
+    Sessao procurarSessaoPorId(String ID);
     ArrayList<Sessao> procurarSessaoporSala(String codigo);
+    ArrayList<Sessao> procurarSessoesPorNomeDoFilme(String filme);
+    ArrayList<Sessao> procurarSessoesPorIdDoFilme(String filme);
+    ArrayList<Sessao> buscarSessoesDoDia(MonthDay dia);
+    ArrayList<Sessao> retornarTodas();
     boolean existe(Sessao sessao);
 }

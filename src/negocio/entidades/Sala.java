@@ -14,7 +14,6 @@ public abstract class Sala implements Serializable {
     private final String codigo;
     private final int fileiras;
     private final int assentosPorFileira;
-    protected double precoBaseIngresso;
 
     public Sala(String codigo, int fileiras, int assentosPorFileira) {
         this.id = GeradorIDNegocio.getInstancia().gerarId(GeradorIDNegocio.getInstancia().getPrefixoSala());
@@ -46,8 +45,7 @@ public abstract class Sala implements Serializable {
         return assentosPorFileira;
     }
 
-    public abstract double calcularPrecoIngresso();
-
+    //metodo abstrato
     public abstract String getTipo();
 
     @Override

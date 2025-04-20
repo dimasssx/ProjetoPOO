@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
-
 import negocio.GeradorIDNegocio;
 
 public class Sessao implements Serializable {
@@ -50,13 +49,25 @@ public class Sessao implements Serializable {
     public String getId() {
         return id;
     }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Sala getSala() {
         return this.sala;
     }
 
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
     public Filme getFilme() {
         return this.filme;
+    }
+
+    public void setFilme(Filme filme) {
+        this.filme = filme;
     }
 
     public LocalTime getHorario() {
@@ -74,6 +85,14 @@ public class Sessao implements Serializable {
 
     public Assento[][] getAssentos() {
         return assentos;
+    }
+    
+    public void setAssentos(Assento[][] assentos) {
+        this.assentos = assentos;
+    }
+
+    public double getValorIngresso() {
+        return valorIngresso;
     }
 
     @Override

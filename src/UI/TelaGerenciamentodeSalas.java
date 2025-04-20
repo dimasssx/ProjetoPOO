@@ -25,7 +25,7 @@ public class TelaGerenciamentodeSalas {
         System.out.println("Tela de Gerenciamento de Salas");
         System.out.println("------------------------------------");
         while (true){
-            System.out.println("1 - Adicionar Sala");
+            System.out.println("\n1 - Adicionar Sala");
             System.out.println("2 - Remover Sala");
             System.out.println("3 - Listar Salas");
             System.out.println("4 - Voltar");
@@ -114,12 +114,12 @@ public class TelaGerenciamentodeSalas {
 
     private void removerSala(){
         System.out.println("(Digite 0 a qualquer momento para sair)");
-        System.out.println("O código da sala que será removida");
-        String codigo = lerCodigo();
-        if (codigo == null) return;
+        System.out.println("O ID da sala que será removida");
+        String ID = lerCodigo();
+        if (ID == null) return;
         try {
-            fachada.removerSala(codigo);
-            System.out.println("\033[92m Sala removida com Sucesso! \033[0m");
+            fachada.removerSala(ID);
+            System.out.println("\033[92m Sala removida com Sucesso, as sessões vinculadas a sala, também foram removidas! \033[0m");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

@@ -9,6 +9,7 @@ public class ClienteVIP extends Cliente{
     public ClienteVIP(String nome, String nomeDeUsuario, String senha, ArrayList<Ingresso> ingressosComprados) {
         super(nome, nomeDeUsuario, senha, new ArrayList<>(ingressosComprados));
     }
+
     public String toString() {
         return "Cliente:" +
                 " | ID: " + getId() +

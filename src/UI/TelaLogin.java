@@ -23,7 +23,7 @@ public class TelaLogin {
 
     public void iniciar() {
         while (true) {
-            System.out.println("------------------------------------");
+            System.out.println("\n------------------------------------");
             System.out.println("Faça o seu Login ou Cadastre-se!");
             System.out.println("------------------------------------");
             System.out.println("\n1 - Fazer Login");

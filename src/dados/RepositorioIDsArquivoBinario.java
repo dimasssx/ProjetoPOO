@@ -4,8 +4,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import negocio.entidades.GeradorID;
-
 public class RepositorioIDsArquivoBinario implements IRepositorioIDs, Serializable {
     private static final long serialVersionUID = -4009776605163947718L;
     private static final String ARQUIVO_IDS = "ids_gerados.dat";
@@ -58,16 +56,5 @@ public class RepositorioIDsArquivoBinario implements IRepositorioIDs, Serializab
         }
         idsGerados.get(prefixo).put(id, true);
         escreverIDs();
-    }
-    
-    @Override
-    public String gerarNovoId(String prefixo) {
-        String id;
-        do {
-            id = GeradorID.getInstancia().gerarId(prefixo);
-        } while (verificarIdExistente(prefixo, id));
-        
-        registrarId(prefixo, id);
-        return id;
     }
 } 

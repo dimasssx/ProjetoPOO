@@ -2,7 +2,6 @@ package negocio.entidades;
 
 import java.io.Serial;
 import java.io.Serializable;
-
 import negocio.GeradorIDNegocio;
 
 public class Filme implements Serializable {
@@ -76,7 +75,12 @@ public class Filme implements Serializable {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Filme filme = (Filme) obj;
-        return id.equals(filme.id) || titulo.equalsIgnoreCase(filme.getTitulo());
+        
+        // Dois filmes são iguais somente se todas as características forem iguais
+        return titulo.equalsIgnoreCase(filme.titulo) &&
+               genero.equalsIgnoreCase(filme.genero) &&
+               duracao.equals(filme.duracao) &&
+               classificacao.equals(filme.classificacao);
     }
 
     @Override

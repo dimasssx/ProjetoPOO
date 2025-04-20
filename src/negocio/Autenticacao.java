@@ -5,18 +5,10 @@ import negocio.entidades.Cliente;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class Autenticacao {
-    private ClienteNegocio negocioCliente;
+    private ClientesNegocio negocioCliente;
 
     public Autenticacao() {
-        this.negocioCliente = new ClienteNegocio(new RepositorioClientesArquivoBinario());
-    }
-
-    public boolean autenticarGerente(String nomeDeUsuario, String senha) {
-        return nomeDeUsuario.equals("admin") && senha.equals("admin123");
-    }
-
-    public boolean autenticarCliente(String nomeDeUsuario, String senha) throws ClienteNaoEncontradoException {
-        return negocioCliente.validarCliente(nomeDeUsuario, senha);
+        this.negocioCliente = new ClientesNegocio(new RepositorioClientesArquivoBinario());
     }
 
     public Cliente autenticar(String nomeDeUsuario, String senha) throws ClienteNaoEncontradoException {

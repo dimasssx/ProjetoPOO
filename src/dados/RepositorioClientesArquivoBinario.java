@@ -56,20 +56,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
         escritaClientes();
     }
 
-    //validar o login do cliente, a partir do seu nome de usuario e senha
-    @Override
-    public boolean validarCliente(String nomeDeUsuario, String senha) {
-        lerClientes();
-        boolean clienteEncontrado = false;
-        for(Cliente u : clientes){
-            if(u.getNomeDeUsuario().equals(nomeDeUsuario) && u.getSenha().equals(senha)){
-                clienteEncontrado = true;
-                return clienteEncontrado;
-            }
-        }
-        return clienteEncontrado;
-    }
-
     //retornar o cliente a partir do seu nome de usuario e senha para o funcionamento das operacoes
     @Override
     public Cliente retornarCliente(String nomeDeUsuario, String senha) {
@@ -84,6 +70,9 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
 
     @Override
     public void atualizarCliente(Cliente clienteAtualizado) {
+        // Garantir que os dados estejam atualizados antes de modificar
+        lerClientes();
+        
         for (int i = 0; i < clientes.size(); i++) {
             Cliente c = clientes.get(i);
             if (c.getNomeDeUsuario().equals(clienteAtualizado.getNomeDeUsuario())) {
@@ -92,6 +81,10 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
                 return;
             }
         }
+        
+        // Se não encontrou o cliente, adiciona ele
+        clientes.add(clienteAtualizado);
+        escritaClientes();
     }
 
     //retornar todos os clientes cadastrados

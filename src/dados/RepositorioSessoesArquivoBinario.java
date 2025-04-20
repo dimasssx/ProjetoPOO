@@ -87,12 +87,10 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
     }
 
     @Override
-    public Sessao procurarSessao(LocalTime horario, String sala, MonthDay dia){
+    public Sessao procurarSessaoPorId(String ID){
         lerSessoes();
         for (Sessao s : sessoes) {
-            if (s.getHorario().equals(horario) &&
-                    s.getSala().getCodigo().equals(sala) &&
-                    s.getDia().equals(dia)) {
+            if (s.getId().equals(ID)) {
                 return s;
             }
         }
@@ -100,33 +98,20 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
     }
 
     @Override
-    public Sessao procurarSessao(LocalTime horario, Filme filme, MonthDay dia){
+    public ArrayList<Sessao> procurarSessaoporSala(String ID){
         lerSessoes();
-        for (Sessao s : sessoes) {
-            if (s.getHorario().equals(horario) &&
-                    s.getFilme().equals(filme) &&
-                    s.getDia().equals(dia)) {
-                return s;
+        ArrayList<Sessao> sessoesDaSala = new ArrayList<>();
+        for(Sessao s : sessoes){
+            if(s.getSala().getId().equalsIgnoreCase(ID)){
+                sessoesDaSala.add(s);
             }
         }
-        return null;
-    }
-
-    @Override
-    public ArrayList<Sessao> procurarSessaoporSala(String codigo){
-        lerSessoes();
-        ArrayList<Sessao> sessaoporSala = new ArrayList<>();
-        for(Sessao s:sessoes){
-            if(s.getSala().getCodigo().equalsIgnoreCase(codigo)){
-                sessaoporSala.add(s);
-            }
-        }
-        return sessaoporSala;
+        return sessoesDaSala;
     }
 
     // metodo para procurar sessoes no repositorio a partir do nome do filme
     @Override
-    public ArrayList<Sessao> procurarSessaoPorFilme(String filme) {
+    public ArrayList<Sessao> procurarSessoesPorNomeDoFilme(String filme) {
         lerSessoes();
         ArrayList<Sessao> sessoesFilmes = new ArrayList<>();
         for (Sessao s : sessoes) {
@@ -135,6 +120,17 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
             }
         }
         return sessoesFilmes;
+    }
+
+    public ArrayList<Sessao> procurarSessoesPorIdDoFilme(String filme) {
+        lerSessoes();
+        ArrayList<Sessao> sessoesDoFilme = new ArrayList<>();
+        for (Sessao s : sessoes) {
+            if (s.getFilme().getId().equalsIgnoreCase(filme)) {
+                sessoesDoFilme.add(s);
+            }
+        }
+        return sessoesDoFilme;
     }
 
     // metodo para procurar sessoes no repositorio a partir do dia

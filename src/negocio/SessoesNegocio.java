@@ -1,16 +1,15 @@
 package negocio;
 
-import java.time.LocalTime;
+import dados.IRepositorioSessoes;
 import java.time.MonthDay;
 import java.util.ArrayList;
-
-import dados.IRepositorioSessoes;
 import negocio.entidades.Assento;
 import negocio.entidades.Filme;
 import negocio.entidades.Sala;
 import negocio.entidades.Sessao;
 import negocio.exceptions.assentos.AssentoIndisponivelException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.sessoes.ValorInvalidoException;
 import negocio.exceptions.salas.SalaNaoEncontradaException;
 import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
 import negocio.exceptions.sessoes.SessaoJaExisteException;
@@ -21,14 +20,18 @@ public class SessoesNegocio {
     private SalasNegocio salasNegocio;
     private FilmesNegocio filmesNegocio;
 
-    public SessoesNegocio(IRepositorioSessoes sessoes,SalasNegocio salasNegocio,FilmesNegocio filmesNegocio) {
+    public SessoesNegocio(IRepositorioSessoes sessoes, SalasNegocio salasNegocio, FilmesNegocio filmesNegocio) {
         this.repositorioSessoes = sessoes;
         this.salasNegocio = salasNegocio;
         this.filmesNegocio = filmesNegocio;
     }
 
-    public void adicionarSessao(String horario, String sfilme, String ssala, String dia, double valorIngresso) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-        Filme filme = filmesNegocio.procurarFilme(sfilme);
+    public void adicionarSessao(String horario, String sfilme, String ssala, String dia, double valorIngresso) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ValorInvalidoException {
+        if (valorIngresso <= 0) {
+            throw new ValorInvalidoException();
+        }
+        
+        Filme filme = filmesNegocio.procurarFilmePorID(sfilme);
         Sala sala = salasNegocio.procurarSala(ssala);
         Sessao sessao = new Sessao(filme, horario, sala, dia, valorIngresso);
         if (repositorioSessoes.existe(sessao)) {
@@ -36,31 +39,45 @@ public class SessoesNegocio {
         } else repositorioSessoes.adicionarSessao(sessao);
     }
 
-    public void removerSessao(LocalTime horario,String sala,MonthDay dia) throws SessaoNaoEncontradaException {
-        Sessao sessaoprocurada = repositorioSessoes.procurarSessao(horario, sala, dia);
+    public void removerSessao(String ID) throws SessaoNaoEncontradaException {
+        Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(ID);
         if (sessaoprocurada != null) repositorioSessoes.removerSessao(sessaoprocurada);
         else throw new SessaoNaoEncontradaException();
 
     }
 
-    public void atualizarSessao(String horario, String sfilme, String ssala, String dia, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-        Filme filme = filmesNegocio.procurarFilme(sfilme);
-        Sala sala = salasNegocio.procurarSala(ssala);
-        Sessao s = new Sessao(filme,horario,sala,dia, valorIngresso);
-        if (repositorioSessoes.existe(s)) repositorioSessoes.atualizarSessao(s);
-        else throw new SessaoNaoEncontradaException();
-    }
+//    public void atualizarSessao(String horario, String idFilme, String idSala, String dia, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+//        Filme filme = filmesNegocio.procurarFilmePorID(idFilme);
+//        Sala sala = salasNegocio.procurarSala(idSala);
+//        Sessao s = new Sessao(filme,horario,sala,dia, valorIngresso);
+//        if (repositorioSessoes.existe(s)) repositorioSessoes.atualizarSessao(s);
+//        else throw new SessaoNaoEncontradaException();
+//    }
+//
+//    public void atualizarSessaoPorID(String id, String idFilme, String idSala, String dia, String horario) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+//        Sessao sessaoDesejada = repositorioSessoes.procurarSessaoPorId(id);
+//
+//        if (sessaoDesejada == null) {
+//            throw new SessaoNaoEncontradaException();
+//        }
+//        Filme novoFilme = filmesNegocio.procurarFilmePorID(idFilme);
+//        sessaoDesejada.setFilme(novoFilme);
+//        Sala novaSala = salasNegocio.procurarSala(idSala);
+//        sessaoDesejada.setSala(novaSala);
+//        sessaoDesejada.setDia(dia);
+//        filmeExistente.setClassificacao(classificacao);
+//
+//        repositorioFilmes.atualizaFilme(filmeExistente);
+//    }
 
-    public Sessao procurarSessao(LocalTime horario, String filme, MonthDay dia) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException {
-        Filme ofilme = filmesNegocio.procurarFilme(filme);
-        Sessao sessaoprocurada = repositorioSessoes.procurarSessao(horario,ofilme, dia);
+    public Sessao procurarSessao(String ID) throws SessaoNaoEncontradaException {
+        Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(ID);
         if (sessaoprocurada != null) return sessaoprocurada;
         else throw new SessaoNaoEncontradaException();
-
     }
 
-    public ArrayList<Sessao> procurarSessaoTitulo(String titulo) throws SessaoNaoEncontradaException {
-        ArrayList<Sessao> s = repositorioSessoes.procurarSessaoPorFilme(titulo);
+    public ArrayList<Sessao> procurarSessaoTituloFilme(String titulo) throws SessaoNaoEncontradaException {
+        ArrayList<Sessao> s = repositorioSessoes.procurarSessoesPorNomeDoFilme(titulo);
         if (s != null) return s;
         else throw new SessaoNaoEncontradaException();
     }
@@ -77,37 +94,7 @@ public class SessoesNegocio {
         } else return repositorioSessoes.retornarTodas();
     }
 
-    public void mostrarAssentosDaSessao(Sessao sessao) throws SessaoNaoEncontradaException {
-        Sessao s = repositorioSessoes.procurarSessao(sessao);
-        if (s != null) {
-            mostrarAssentos(s);
-        } else {
-            throw new SessaoNaoEncontradaException();
-        }
-    }
-
-    public void mostrarAssentos(Sessao sessao) {
-        Assento[][] assentos = sessao.getAssentos();
-        System.out.println("Mapa de assentos - " + sessao.getFilme().getTitulo() + " às " + sessao.getHorario() + " (" + sessao.getDiaFormatado() + ")");
-        for (int i = 0; i < assentos.length; i++) {
-            System.out.print((char) ('A' + i) + " ");
-            for (int j = 0; j < assentos[i].length; j++) {
-                if (assentos[i][j].isReservado()) {
-                    System.out.print("[X] ");
-                } else {
-                    System.out.print("[ ] ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.print("   ");
-        for (int j = 0; j < assentos[0].length; j++) {
-            System.out.print((j + 1) + "   ");
-        }
-        System.out.println("\nLegenda: [ ] disponível | [X] reservado");
-    }
-
-    //utiliza o metodo marcarAssentoReserrvado para reservar um assento, fazendo algumas outras verificações
+    //utiliza o metodo marcarAssentoReservado para reservar um assento, fazendo algumas outras verificações
     public void reservarAssento(Sessao sessao, int fileira, int poltrona) throws AssentoIndisponivelException, SessaoNaoEncontradaException {
         Sessao s = repositorioSessoes.procurarSessao(sessao);
         if (s != null) {
@@ -123,11 +110,11 @@ public class SessoesNegocio {
         }
     }
 
-    private void marcarAssentoComoReservado(Sessao sessao, int fileira, int numero) throws AssentoIndisponivelException {
+    private void marcarAssentoComoReservado(Sessao sessao, int fileira, int poltrona) throws AssentoIndisponivelException {
         Assento[][] assentos = sessao.getAssentos();
-        if (fileira >= 0 && fileira < assentos.length && numero >= 0 && numero < assentos[0].length) {
-            if (!assentos[fileira][numero].isReservado()) {
-                assentos[fileira][numero].reservar(); // Marca como reservado
+        if (fileira >= 0 && fileira < assentos.length && poltrona >= 0 && poltrona < assentos[0].length) {
+            if (!assentos[fileira][poltrona].isReservado()) {
+                assentos[fileira][poltrona].reservar(); // Marca como reservado
             } else {
                 throw new AssentoIndisponivelException();
             }

@@ -1,14 +1,14 @@
 package UI;
 
+import fachada.FachadaGerente;
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import fachada.FachadaGerente;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
+import negocio.exceptions.sessoes.ValorInvalidoException;
 import negocio.exceptions.salas.SalaNaoEncontradaException;
 import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
 import negocio.exceptions.sessoes.SessaoJaExisteException;
@@ -29,11 +29,11 @@ public class TelaGerenciamentoSessoes {
         System.out.println("------------------------------------");
 
         while (true) {
-            System.out.println("1 - Adicionar Sessao");
+            System.out.println("\n1 - Adicionar Sessao");
             System.out.println("2 - Remover Sessao");
             System.out.println("3 - Atualizar Sessao");
             System.out.println("4 - Buscar Sessoes por titulo de Filme");
-            System.out.println("5 - Listar Sessoes do dia");
+            System.out.println("5 - Listar Sessoes pelo dia");
             System.out.println("6 - Listar Todas as Sessoes");
             System.out.println("7 - Voltar");
 
@@ -47,7 +47,7 @@ public class TelaGerenciamentoSessoes {
                     removerSessao();
                     break;
                 case "3":
-                    atualizarSessao();
+//                    atualizarSessao();
                     break;
                 case "4":
                     buscarSessaoporTitulo();
@@ -67,21 +67,21 @@ public class TelaGerenciamentoSessoes {
     }
 
     private void adicionarSessao(){
-        String horario,filme,sala,dia;
+        String horario,idFilme,idSala,dia;
         double valorIngresso;
 
-        filme = lerDado("Nome do Filme");
-        if (filme== null)return;
+        idFilme = lerDado("ID do Filme");
+        if (idFilme== null)return;
         try {
-            fachada.procurarFilme(filme);
+            fachada.procurarFilmePorID(idFilme);
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
             return;
         }
-        sala = lerDado("Código da Sala");
-        if (sala == null) return;
+        idSala = lerDado("ID da Sala");
+        if (idSala == null) return;
         try{
-            fachada.procuraSala(sala);
+            fachada.procurarSala(idSala);
         } catch (SalaNaoEncontradaException e) {
             System.err.println(e.getMessage());
             return;
@@ -90,73 +90,81 @@ public class TelaGerenciamentoSessoes {
         if (horario== null)return;
         dia = lerData();
         if (dia== null)return;
-        System.out.println("Valor do Ingresso: ");
-        valorIngresso = scanner.nextDouble();
-        scanner.nextLine();
+        
+        valorIngresso = lerValorIngresso();
+        if(valorIngresso <= 0) return;
+        
         try{
-            fachada.adicionarSessao(horario,filme,sala,dia,valorIngresso);
+            fachada.adicionarSessao(horario,idFilme,idSala,dia,valorIngresso);
             System.out.println("\033[92m Sessão adicionada com Sucesso! \033[0m");
-        } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException e) {
+        } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException | ValorInvalidoException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    private void removerSessao(){
-        String horario,sala,dia;
-
-        sala = lerDado("Codigo da sala");
-        if (sala == null) return;
-        try{
-            fachada.procuraSala(sala);
-        } catch (SalaNaoEncontradaException e) {
-            System.err.println(e.getMessage());
-            return;
+    private double lerValorIngresso() {
+        while (true) {
+            System.out.print("Valor do ingresso: ");
+            try {
+                String input = scanner.nextLine().replace(",", ".");
+                double valor = Double.parseDouble(input);
+                
+                if (valor <= 0) {
+                    System.err.println("O valor do ingresso deve ser maior que zero.");
+                    continue;
+                }
+                
+                return valor;
+            } catch (NumberFormatException e) {
+                System.err.println("Por favor, digite um valor numérico válido.");
+            }
         }
-        horario = lerHorario();
-        if (horario ==null) return;
-        dia = lerData();
-        if (dia==null) return;
+    }
+
+    private void removerSessao(){
+        String ID;
+        ID = lerDado("ID da Sessao");
         try{
-            fachada.removerSessao(horario,sala,dia);
+            fachada.removerSessao(ID);
             System.out.println("\033[92m Sessão removida com Sucesso! \033[0m");
         } catch (SessaoNaoEncontradaException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    private void atualizarSessao(){
-        String horario,filme,sala,dia;
-        double valorIngresso;
-
-        sala = lerDado("Código da sala");
-        if (sala == null) return;
-        try{
-            fachada.procuraSala(sala);
-        } catch (SalaNaoEncontradaException e) {
-            System.err.println(e.getMessage());
-            return;
-        }
-        horario = lerHorario();
-        if (horario == null) return;
-        dia= lerData();
-        if (dia == null)return;
-        filme = lerDado("Nome do filme que será colocado nesse horário");
-        if (filme==null)return;
-        try {
-            fachada.procurarFilme(filme);
-        } catch (FilmeNaoEstaCadastradoException e) {
-            System.err.println(e.getMessage());
-            return;
-        }
-        System.out.println("valor do Ingresso: ");
-        valorIngresso = scanner.nextDouble();
-        try {
-            fachada.atualizarSessao(horario,filme,sala,dia,valorIngresso);
-            System.out.println("\033[92m Sessão atualizada com Sucesso! \033[0m");
-        } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
-            System.err.println(e.getMessage());
-        }
-    }
+//    private void atualizarSessao(){
+//        String ID, horario, idFilme, idSala,dia;
+//        double valorIngresso;
+//
+//        ID = lerDado("ID da Sessão");
+//        if (sala == null) return;
+//        try{
+//            fachada.procurarSessaoPorId(ID);
+//        } catch (SessaoNaoEncontradaException e) {
+//            System.err.println(e.getMessage());
+//            return;
+//        }
+//        horario = lerHorario();
+//        if (horario == null) return;
+//        dia= lerData();
+//        if (dia == null)return;
+//        filme = lerDado("Nome do filme que será colocado nesse horário");
+//        if (filme==null)return;
+//        try {
+//            fachada.procurarFilme(filme);
+//        } catch (FilmeNaoEstaCadastradoException e) {
+//            System.err.println(e.getMessage());
+//            return;
+//        }
+//        System.out.println("valor do Ingresso: ");
+//        valorIngresso = scanner.nextDouble();
+//        try {
+//            fachada.atualizarSessao(horario,filme,sala,dia,valorIngresso);
+//            System.out.println("\033[92m Sessão atualizada com Sucesso! \033[0m");
+//        } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
+//            System.err.println(e.getMessage());
+//        }
+//    }
 
     private void buscarSessaoporTitulo(){
         String filme = lerDado("Nome do Filme");

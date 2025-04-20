@@ -2,14 +2,17 @@ package negocio;
 
 import dados.IRepositorioIDs;
 import dados.RepositorioIDsArquivoBinario;
+import java.security.SecureRandom;
 import negocio.entidades.GeradorID;
 
 public class GeradorIDNegocio {
     private static GeradorIDNegocio instancia;
     private final IRepositorioIDs repositorio;
+    private final SecureRandom random;
     
     private GeradorIDNegocio() {
         this.repositorio = new RepositorioIDsArquivoBinario();
+        this.random = new SecureRandom();
     }
     
     public static synchronized GeradorIDNegocio getInstancia() {
@@ -20,27 +23,36 @@ public class GeradorIDNegocio {
     }
     
     public String gerarId(String prefixo) {
-        return repositorio.gerarNovoId(prefixo);
+        String id;
+        do {
+            id = gerarNovoId(prefixo);
+        } while (repositorio.verificarIdExistente(prefixo, id));
+        
+        repositorio.registrarId(prefixo, id);
+        return id;
+    }
+    
+    private String gerarNovoId(String prefixo) {
+        StringBuilder sb = new StringBuilder(prefixo);
+        for (int i = 0; i < 4; i++) {
+            sb.append(random.nextInt(10)); // Números de 0 a 9
+        }
+        return sb.toString();
     }
     
     // Métodos de constantes para expor os prefixos da classe GeradorID
     public String getPrefixoCliente() {
-        return GeradorID.PREFIXO_CLIENTE;
+        return GeradorID.getInstancia().getPrefixoCliente();
     }
     
-    public String getPrefixoSala() {
-        return GeradorID.PREFIXO_SALA;
-    }
+    public String getPrefixoSala() { return GeradorID.getInstancia().getPrefixoSala(); }
     
     public String getPrefixoSessao() {
-        return GeradorID.PREFIXO_SESSAO;
+        return GeradorID.getInstancia().getPrefixoSessao();
     }
     
     public String getPrefixoFilme() {
-        return GeradorID.PREFIXO_FILME;
+        return GeradorID.getInstancia().getPrefixoFilme();
     }
-    
-    public String getPrefixoIngresso() {
-        return GeradorID.PREFIXO_INGRESSO;
-    }
+
 } 

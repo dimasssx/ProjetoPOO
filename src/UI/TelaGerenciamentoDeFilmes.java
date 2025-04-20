@@ -1,11 +1,10 @@
 package UI;
 
+import fachada.FachadaGerente;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-
-import fachada.FachadaGerente;
 import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
@@ -24,7 +23,7 @@ public class TelaGerenciamentoDeFilmes {
         System.out.println("Tela de Gerenciamento de Filmes");
         System.out.println("------------------------------------");
         while (true) {
-            System.out.println("1 - Adicionar Filme");
+            System.out.println("\n1 - Adicionar Filme");
             System.out.println("2 - Remover Filme");
             System.out.println("3 - Atualizar Filme");
             System.out.println("4 - Buscar Filme");
@@ -84,28 +83,31 @@ public class TelaGerenciamentoDeFilmes {
 
     private void removerFilme() {
         System.out.println("(digite 0 a qualquer momento para sair)");
-        String nome = lerDado("Nome do Filme que será removido");
-        if (nome == null) return;
+        String ID = lerDado("ID do Filme que será removido");
+        if (ID == null) return;
         try {
-            fachada.removerFilme(nome);
-            System.out.println("\033[92m Filme removido com Sucesso! \033[0m");
+            fachada.removerFilme(ID);
+            System.out.println("\033[92m Filme removido com Sucesso, as sessões vinculadas ao filme, também foram removidas! \033[0m");
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
         }
     }
 
     private void atualizarFilme() {
-
         System.out.println("(digite 0 a qualquer momento para sair)");
-        String nome = lerDado("Nome do Filme que deseja modificar");
-        if (nome == null) return;
+        String ID = lerDado("ID do Filme que deseja modificar");
+        if (ID == null) return;
+        
         try{
-            fachada.procurarFilme(nome);
+            fachada.procurarFilmePorID(ID);
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
             return;
         }
-        System.out.println("Caracteristicas que serão atualizadas");
+        
+        System.out.println("=== Novas caracteristicas do filme ===");
+        String nome = lerDado("Nome do Filme");
+        if (nome == null) return;
         String genero = lerDado("Gênero");
         if (genero == null) return;
         String duracao = lerDado("Duração");
@@ -114,8 +116,8 @@ public class TelaGerenciamentoDeFilmes {
         if (classificacao == null) return;
 
         try {
-            fachada.atualizarFilme(nome, genero, duracao, classificacao);
-            System.out.println("\033[92m Filme adicionado com Sucesso! \033[0m");
+            fachada.atualizarFilmePorID(ID, nome, genero, duracao, classificacao);
+            System.out.println("\033[92m Filme atualizado com Sucesso! \033[0m");
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
         }
@@ -127,7 +129,7 @@ public class TelaGerenciamentoDeFilmes {
         String nome = lerDado("Nome do Filme");
         if (nome == null) return;
         try {
-            System.out.println(fachada.procurarFilme(nome));
+            System.out.println(fachada.procurarFilmePorTitulo(nome));
         } catch (FilmeNaoEstaCadastradoException e) {
             System.err.println(e.getMessage());
         }
@@ -175,7 +177,6 @@ public class TelaGerenciamentoDeFilmes {
 
             return dado;
         }
-
     }
 
     private String verificarDuracao(String dado){

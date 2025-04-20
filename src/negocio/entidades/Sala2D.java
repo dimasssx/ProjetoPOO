@@ -11,11 +11,6 @@ public class Sala2D extends Sala implements Serializable {
         super(codigo, fileiras, assentosPorFileira);
     }
 
-    @Override
-    public double calcularPrecoIngresso() {
-        return precoBaseIngresso;
-    }
-
     public String getTipo(){
         return "2D";
     }

@@ -12,9 +12,8 @@ public class Sala3D extends Sala implements Serializable {
         super(codigo, fileiras, assentosPorFileira);
     }
 
-    @Override
-    public double calcularPrecoIngresso() {
-        return precoBaseIngresso * 1.8;
+    public String getTipo(){
+        return "3D";
     }
 
     @Override
@@ -25,9 +24,5 @@ public class Sala3D extends Sala implements Serializable {
                 " | Assentos por Fileiras:" + getAssentosPorFileira() +
                 " |";
 
-    }
-
-    public String getTipo(){
-        return "3D";
     }
 }

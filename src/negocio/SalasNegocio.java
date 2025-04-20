@@ -22,7 +22,6 @@ public class SalasNegocio {
     }
 
     public void adicionarSala(String codigo,String tipo, int linhas, int colunas) throws CodigoSalaJaExisteException, LimiteDeSalasExcedidoException {
-
         Sala sala;
 
         if (tipo.equalsIgnoreCase("2D")){
@@ -45,17 +44,19 @@ public class SalasNegocio {
         repositorioSalas.adicionarSala(sala);
     }
 
-    public void removerSala(String codigo) throws SalaNaoEncontradaException {
-        Sala salaDesejada = repositorioSalas.procurarSala(codigo);
+    public void removerSala(String ID) throws SalaNaoEncontradaException {
+        Sala salaDesejada = repositorioSalas.procurarSala(ID);
         ArrayList<Sessao> sessoesremovidas;
         if (salaDesejada != null){
-            sessoesremovidas = repositorioSessoes.procurarSessaoporSala(codigo);
+            sessoesremovidas = repositorioSessoes.procurarSessaoporSala(ID);
             if(sessoesremovidas!= null){
-                for (Sessao s :sessoesremovidas){
+                for (Sessao s : sessoesremovidas){
                     repositorioSessoes.removerSessao(s);
                 }
-            }repositorioSalas.removerSala(salaDesejada);
-        } else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
+            }
+            repositorioSalas.removerSala(salaDesejada);
+        }
+        else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
     }
 
     public Sala procurarSala(String codigo) throws SalaNaoEncontradaException {
@@ -71,6 +72,5 @@ public class SalasNegocio {
             throw new NenhumaSalaEncontradaException();
         } else return repositorioSalas.listarSalas();
     }
-
  }
 

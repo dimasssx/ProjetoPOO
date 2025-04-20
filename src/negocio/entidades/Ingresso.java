@@ -1,7 +1,12 @@
 package negocio.entidades;
 
-public class Ingresso {
+import java.io.Serial;
+import java.io.Serializable;
 
+public class Ingresso implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -4009776605163947717L;
     private Sessao sessao;
     private Assento assento;
 
@@ -26,11 +31,13 @@ public class Ingresso {
         this.assento = assento;
     }
 
+    @Override
     public String toString() {
-        return "Filme: " + sessao.getFilme() +
-                "| Fileira:" + assento.getFileira() +
-                "| Poltrona da Fileira:" + assento.getPoltrona() +
-                "| Dia:" + sessao.getDia() +
-                "| Horário:" + sessao.getHorario();
+        return "Filme: " + sessao.getFilme().getTitulo() +
+               " | Sala: " + sessao.getSala().getCodigo() + 
+               " | Fileira: " + (char)('A' + (assento.getFileira()-1)) +
+               " | Poltrona: " + assento.getPoltrona() +
+               " | Data: " + sessao.getDiaFormatado() +
+               " | Horário: " + sessao.getHorario();
     }
 }

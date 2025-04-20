@@ -1,8 +1,7 @@
 package UI;
 
-import java.util.Scanner;
-
 import fachada.Movietime;
+import java.util.Scanner;
 import negocio.entidades.Cliente;
 import negocio.entidades.ClientePadrao;
 import negocio.entidades.ClienteVIP;
@@ -27,7 +26,7 @@ public class TelaGerenciamentoDeContaCliente {
             System.out.println("2 - Ver meus ingressos comprados");
 
             if (cliente instanceof ClientePadrao) {
-                System.out.println("3 - Tornar-se VIP");
+                System.out.println("3 - Tornar-se VIP (você irá precisar de um cartão de crédito)");
                 System.out.println("4 - Voltar");
             } else if (cliente instanceof ClienteVIP) {
                 System.out.println("3 - Cancelar VIP");
@@ -45,6 +44,10 @@ public class TelaGerenciamentoDeContaCliente {
                     break;
                 case "3":
                     if (cliente instanceof ClientePadrao) {
+                        String numeroCartaoCredito = lerDado("Numero do Cartão");
+                        String titularCartaoCredito = lerDado("Titular do Cartão");
+                        double valorVIP = 57.60;
+                        System.out.println(fachada.getFachadaCliente().pagarComCredito(numeroCartaoCredito,titularCartaoCredito,valorVIP));
                         tornarVIP();
                     } else if (cliente instanceof ClienteVIP) {
                         cancelarVIP();
@@ -79,9 +82,11 @@ public class TelaGerenciamentoDeContaCliente {
             System.out.println("Você ainda não comprou nenhum ingresso.");
             return;
         }
-        System.out.println("Ingressos comprados:");
+        System.out.println("\n=== Ingressos comprados ===");
+        int contador = 1;
         for (Ingresso ingresso : cliente.getIngressosComprados()) {
-            ingresso.toString();
+            System.out.println(contador + ". " + ingresso.toString());
+            contador++;
         }
     }
 
@@ -95,5 +100,22 @@ public class TelaGerenciamentoDeContaCliente {
         fachada.getFachadaCliente().getClienteNegocio().cancelarVIP(cliente);
         System.out.println("\033[92m Você voltou a ser um Cliente Padrão. \033[0m");
         System.out.println("AVISO: Seu status como Cliente Padrão será atualizado ao realizar novamente seu login!");
+    }
+
+    private String lerDado(String campo) {
+        System.out.print(campo + ": ");
+        while(true){
+            String dado = scanner.nextLine().trim();
+
+            if (dado.equals("0")) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+            if (dado.isEmpty()) {
+                System.err.println(campo + " não pode estar vazio!");
+                continue;
+            }
+            return dado;
+        }
     }
 }

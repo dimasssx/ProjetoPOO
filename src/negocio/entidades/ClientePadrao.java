@@ -13,6 +13,7 @@ public class ClientePadrao extends Cliente{
     public ClientePadrao(String nome, String nomeDeUsuario, String senha, ArrayList<Ingresso> ingressosComprados){
         super(nome, nomeDeUsuario, senha, new ArrayList<>(ingressosComprados));
     }
+
     @Override
     public String toString() {
         return "Cliente:" +

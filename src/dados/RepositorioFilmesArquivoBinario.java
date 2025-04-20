@@ -76,9 +76,22 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
             escritaFilmes();
         }
     }
+
     //procurar um filme no repositorio a partir do nome do filme recebido
     @Override
-    public Filme procurarFilme(String nome){
+    public Filme procurarFilmePorID(String ID){
+        lerFilmes();
+        Filme filmeDesejado = null;
+        for (Filme filme: catalogo){
+            if(filme.getId().equals(ID)){
+                filmeDesejado = filme;
+                break;
+            }
+        }
+        return filmeDesejado;
+    }
+
+    public Filme procurarFilmePorTitulo(String nome){
         lerFilmes();
         Filme filmeDesejado = null;
         for (Filme filme: catalogo){

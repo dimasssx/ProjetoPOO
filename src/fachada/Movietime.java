@@ -2,7 +2,7 @@ package fachada;
 
 import dados.RepositorioClientesArquivoBinario;
 import negocio.Autenticacao;
-import negocio.ClienteNegocio;
+import negocio.ClientesNegocio;
 import negocio.entidades.Cliente;
 import negocio.exceptions.usuario.SenhaInvalidaException;
 import negocio.exceptions.usuario.UsuarioJaExisteException;
@@ -10,13 +10,13 @@ import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class Movietime {
     private Autenticacao autenticacao;
-    private ClienteNegocio negocioCliente;
+    private ClientesNegocio negocioCliente;
     private FachadaCliente fachadaCliente;
     private FachadaGerente fachadaGerente;
 
     public Movietime(){
         this.autenticacao = new Autenticacao();
-        this.negocioCliente = new ClienteNegocio(new RepositorioClientesArquivoBinario());
+        this.negocioCliente = new ClientesNegocio(new RepositorioClientesArquivoBinario());
         this.fachadaCliente = new FachadaCliente();
         this.fachadaGerente = new FachadaGerente();
     }

@@ -4,7 +4,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-
 import negocio.GeradorIDNegocio;
 
 public abstract class Cliente implements Serializable {
@@ -63,7 +62,7 @@ public abstract class Cliente implements Serializable {
         return this.ingressosComprados;
     }
 
-    public void adicionarIngresso(Ingresso ingresso){
+    public void adicionarIngressoComprado(Ingresso ingresso) {
         this.ingressosComprados.add(ingresso);
     }
 
