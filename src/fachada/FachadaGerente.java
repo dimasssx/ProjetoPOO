@@ -1,6 +1,8 @@
 package fachada;
 
 import dados.*;
+
+import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -81,24 +83,29 @@ public class FachadaGerente {
 
     //Gerenciamento de sessoes
 
-    public void adicionarSessao(String horario, String idFilme, String idSala, String dia, double valorIngresso) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ValorInvalidoException {
-        sessoesNegocio.adicionarSessao(horario, idFilme, idSala, dia, valorIngresso);
+    public void adicionarSessao(String horario, String idFilme, String idSala, String dia) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ValorInvalidoException {
+        sessoesNegocio.adicionarSessao(horario, idFilme, idSala, dia);
     }
-
     public void removerSessao(String ID) throws SessaoNaoEncontradaException {
         sessoesNegocio.removerSessao(ID);
     }
-
-//    public void atualizarSessao(String horario, String idFilme,String idSala,String dia, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-//        sessoesNegocio.atualizarSessao(horario,idFilme,idSsala,dia,valorIngresso);
-//    }
+    public String procurarSessao(String id) throws SessaoNaoEncontradaException {
+        Sessao s = sessoesNegocio.procurarSessao(id);
+        if (s== null)throw new SessaoNaoEncontradaException();
+        else return s.toString();
+    }
+    public void atualizarSessao(String id,String shorario,String sdia,String filme) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+        MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
+        LocalTime horario = LocalTime.parse(shorario) ;
+        sessoesNegocio.atualizarSessaoPorID(id,horario,dia,filme);
+    }
 
     public ArrayList<String> procurarSessaoTitulo(String titulo) throws SessaoNaoEncontradaException {
         ArrayList<Sessao> sessoes = sessoesNegocio.procurarSessaoTituloFilme(titulo);
         ArrayList<String> formatadas = new ArrayList<>();
         for (Sessao s : sessoes) {
             formatadas.add(s.toString());
-        }
+        }if (sessoes.isEmpty()) throw new SessaoNaoEncontradaException();
         return formatadas;
     }
 

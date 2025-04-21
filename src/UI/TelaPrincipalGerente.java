@@ -5,6 +5,7 @@ import java.util.Scanner;
 import dados.IRepositorioClientes;
 import dados.RepositorioClientesArquivoBinario;
 import fachada.FachadaGerente;
+import static UI.Utils.ValidacaoEntradas.*;
 
 public class TelaPrincipalGerente {
     private final FachadaGerente fachadaGerente;
@@ -26,8 +27,6 @@ public class TelaPrincipalGerente {
             System.out.println("2 - Gerenciar Salas");
             System.out.println("3 - Gerenciar Sessoes");
             System.out.println("4 - Logout");
-            System.out.println("5 remover depois- listar usuarios");
-
 
             String opcao = scanner.nextLine().trim();
 
@@ -47,10 +46,6 @@ public class TelaPrincipalGerente {
                 case "4":
                     System.out.println("Saindo...");
                     return;
-                case "5":
-                    IRepositorioClientes repositorioClientes = new RepositorioClientesArquivoBinario();
-                    repositorioClientes.imprimir();
-                    break;
                 default:
                     System.err.println("Opção Inválida");
             }

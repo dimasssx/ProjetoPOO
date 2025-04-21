@@ -10,13 +10,14 @@ import negocio.entidades.Cliente;
 import negocio.entidades.ClienteVIP;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
-
+import static UI.Utils.ValidacaoEntradas.*;
 public class TelaPrincipalCliente {
     private MonthDay hoje;
     private final FachadaCliente clienteFachada;
     private final Scanner scanner;
     private final Cliente cliente;
     private final Movietime fachadaPrincipal;
+
 
     // cores ANSI para melhorar a interface, vao estar presentes apenas nos prints da tela para mudar a cor
     private static final String ANSI_RESET = "\u001B[0m";
@@ -121,7 +122,6 @@ public class TelaPrincipalCliente {
             System.out.println(ANSI_YELLOW + "Nenhuma sessão encontrada para hoje." + ANSI_RESET);
         }
     }
-
     public void buscarporDia() throws SessaoNaoEncontradaException {
         System.out.println("\n" + ANSI_BOLD);
         System.out.println("╔══════════════════════════════════════════════╗");
@@ -152,8 +152,6 @@ public class TelaPrincipalCliente {
             System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
         }
     }
-
-
     public void buscarPorFilme() throws SessaoNaoEncontradaException {
         System.out.println("\n" + ANSI_BOLD);
         System.out.println("╔══════════════════════════════════════════════╗");
@@ -161,7 +159,7 @@ public class TelaPrincipalCliente {
         System.out.println("╚══════════════════════════════════════════════╝" + ANSI_RESET);
         System.out.println(ANSI_YELLOW + "Digite 0 a qualquer momento para cancelar" + ANSI_RESET);
         
-        String tituloInput = lerTituloFilme();
+        String tituloInput = lerDado("Titulo do Filme");
         if (tituloInput == null) return;
 
         try {
@@ -187,52 +185,4 @@ public class TelaPrincipalCliente {
         }
     }
 
-    private String lerData() {
-        String data;
-        do {
-            System.out.print(ANSI_BOLD + "Digite a data da sessão (dd-MM): " + ANSI_RESET);
-            data = scanner.nextLine().trim();
-
-            if (data.equals("0")) {
-                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
-                return null;
-            }
-
-            if (!isDataValida(data)) {
-                System.out.println(ANSI_RED + "Formato inválido! Use dd-MM (ex: 17-04)." + ANSI_RESET);
-            }
-        } while (!isDataValida(data));
-
-        return data;
-    }
-
-    private boolean isDataValida(String data) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
-            MonthDay.parse(data, formatter);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private String lerTituloFilme() {
-        String titulo;
-        do {
-            System.out.print(ANSI_BOLD + "Digite o nome do Filme: " + ANSI_RESET);
-            titulo = scanner.nextLine().trim();
-
-            if (titulo.equals("0")) {
-                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
-                return null;
-            }
-
-            if (titulo.isEmpty()) {
-                System.out.println(ANSI_RED + "O título não pode estar vazio!" + ANSI_RESET);
-            }
-
-        } while (titulo.isEmpty());
-
-        return titulo;
-    }
 }

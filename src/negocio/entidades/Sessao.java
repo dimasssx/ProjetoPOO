@@ -19,11 +19,11 @@ public class Sessao implements Serializable {
     private Assento[][] assentos;
     private double valorIngresso;
 
-    public Sessao(Filme filme, String horario, Sala sala, String dia, double valorIngresso) {
+    public Sessao(Filme filme, String horario, Sala sala, String dia) {
         this.id = GeradorIDNegocio.getInstancia().gerarId(GeradorIDNegocio.getInstancia().getPrefixoSessao());
         this.filme = filme;
-        this.valorIngresso = valorIngresso;
         this.sala = sala;
+        this.valorIngresso = calcularValorIngresso();
         this.horario = LocalTime.parse(horario);
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM");
         this.dia = MonthDay.parse(dia, formater);
@@ -45,31 +45,24 @@ public class Sessao implements Serializable {
         }
         return assentos[fileira][poltrona];
     }
-
     public String getId() {
         return id;
     }
-    
     public Sala getSala() {
         return this.sala;
     }
-
     public void setSala(Sala sala) {
         this.sala = sala;
     }
-
     public Filme getFilme() {
         return this.filme;
     }
-
     public void setFilme(Filme filme) {
         this.filme = filme;
     }
-
     public LocalTime getHorario() {
         return this.horario;
     }
-
     public MonthDay getDia() {
         return this.dia;
     }
@@ -130,5 +123,15 @@ public class Sessao implements Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+    private double calcularValorIngresso() {
+        String tipo = sala.getTipo();
+        switch (tipo) {
+            case "3D":
+                return 28.00;
+            case "2D":
+            default:
+                return 20.00;
+        }
     }
 }

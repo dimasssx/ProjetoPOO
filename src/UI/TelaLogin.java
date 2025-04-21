@@ -3,12 +3,13 @@ package UI;
 import fachada.FachadaCliente;
 import fachada.Movietime;
 import negocio.entidades.Cliente;
-import java.util.Scanner;
 import negocio.entidades.ClientePadrao;
 import negocio.entidades.ClienteVIP;
+import java.util.Scanner;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 import negocio.exceptions.usuario.SenhaInvalidaException;
 import negocio.exceptions.usuario.UsuarioJaExisteException;
+import static UI.Utils.ValidacaoEntradas.*;
 
 public class TelaLogin {
 
@@ -50,7 +51,7 @@ public class TelaLogin {
                     try {
                         fazerLogin();
                     } catch (ClienteNaoEncontradoException e) {
-                        System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+                        System.err.println(e.getMessage());
                     }
                     break;
                 case "2":
@@ -103,10 +104,8 @@ public class TelaLogin {
         
         String nomeDeUsuario = lerDado("Nome de usuário");
         if (nomeDeUsuario == null) return;
-        
         String senha = lerDado("Senha");
         if (senha == null) return;
-        
         checarCredenciais(nomeDeUsuario, senha);
     }
 
@@ -134,19 +133,4 @@ public class TelaLogin {
         System.out.println(ANSI_GREEN + ANSI_BOLD + "Logout concluído com sucesso!" + ANSI_RESET);
     }
 
-    private String lerDado(String campo) {
-        System.out.print(ANSI_BOLD + campo + ": " + ANSI_RESET);
-        while (true) {
-            String dado = scanner.nextLine().trim();
-            if (dado.equals("0")) {
-                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
-                return null;
-            }
-            if (dado.isEmpty()) {
-                System.out.println(ANSI_RED + campo + " não pode ser vazio!" + ANSI_RESET);
-                continue;
-            }
-            return dado;
-        }
-    }
 }

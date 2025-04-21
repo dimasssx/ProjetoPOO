@@ -6,7 +6,7 @@ import negocio.entidades.Cliente;
 import negocio.entidades.ClientePadrao;
 import negocio.entidades.ClienteVIP;
 import negocio.entidades.Ingresso;
-
+import static UI.Utils.ValidacaoEntradas.*;
 public class TelaGerenciamentoDeContaCliente {
 
     private final Movietime fachada;
@@ -18,8 +18,6 @@ public class TelaGerenciamentoDeContaCliente {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_BOLD = "\u001B[1m";
 
     public TelaGerenciamentoDeContaCliente(Movietime fachada, Cliente cliente) {
@@ -60,7 +58,7 @@ public class TelaGerenciamentoDeContaCliente {
                     break;
                 case "3":
                     if (cliente instanceof ClientePadrao) {
-                        String numeroCartaoCredito = null;
+                        String numeroCartaoCredito;
                         while (true) {
                             numeroCartaoCredito = lerDado("Numero do Cartão (apenas números)");
                             if (numeroCartaoCredito == null) {
@@ -173,20 +171,5 @@ public class TelaGerenciamentoDeContaCliente {
         System.out.println(ANSI_YELLOW + "AVISO: Seu status como Cliente Padrão será atualizado ao realizar novamente seu login!" + ANSI_RESET);
     }
 
-    private String lerDado(String campo) {
-        System.out.print(ANSI_BOLD + campo + ": " + ANSI_RESET);
-        while(true){
-            String dado = scanner.nextLine().trim();
 
-            if (dado.equals("0")) {
-                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
-                return null;
-            }
-            if (dado.isEmpty()) {
-                System.out.println(ANSI_RED + campo + " não pode estar vazio!" + ANSI_RESET);
-                continue;
-            }
-            return dado;
-        }
-    }
 }

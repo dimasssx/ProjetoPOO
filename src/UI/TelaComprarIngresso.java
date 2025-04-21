@@ -12,6 +12,7 @@ import negocio.entidades.Sessao;
 import negocio.exceptions.assentos.AssentoIndisponivelException;
 import negocio.exceptions.ingressos.QuantidadeInvalidaException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
+import static UI.Utils.ValidacaoEntradas.*;
 
 public class TelaComprarIngresso {
     private final FachadaCliente fachada;
@@ -125,7 +126,7 @@ public class TelaComprarIngresso {
         System.out.println("Digite a quantidade de ingressos que serão comprados:");
         System.out.print("► ");
         
-        while (true) {
+        while(true) {
             try {
                 int quantidade = scanner.nextInt();
                 scanner.nextLine();
@@ -317,23 +318,6 @@ public class TelaComprarIngresso {
             
         } catch (AssentoIndisponivelException | SessaoNaoEncontradaException e) {
             System.err.println(ANSI_RED + "Erro ao finalizar a compra: " + e.getMessage() + ANSI_RESET);
-        }
-    }
-
-    private String lerDado(String campo) {
-        System.out.print(ANSI_BOLD + campo + ": " + ANSI_RESET);
-        while(true){
-            String dado = scanner.nextLine().trim();
-
-            if (dado.equals("0")) {
-                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
-                return null;
-            }
-            if (dado.isEmpty()) {
-                System.out.println(ANSI_RED + campo + " não pode estar vazio!" + ANSI_RESET);
-                continue;
-            }
-            return dado;
         }
     }
 }

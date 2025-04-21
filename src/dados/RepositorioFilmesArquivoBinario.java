@@ -95,7 +95,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
         lerFilmes();
         Filme filmeDesejado = null;
         for (Filme filme: catalogo){
-            if(filme.getTitulo().equalsIgnoreCase(nome)){
+            if(filme.getTitulo().toLowerCase().contains(nome.toLowerCase())){
                 filmeDesejado = filme;
                 break;
             }

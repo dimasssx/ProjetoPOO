@@ -1,6 +1,8 @@
 package negocio;
 
 import dados.IRepositorioSessoes;
+
+import java.time.LocalTime;
 import java.time.MonthDay;
 import java.util.ArrayList;
 import negocio.entidades.Assento;
@@ -26,14 +28,11 @@ public class SessoesNegocio {
         this.filmesNegocio = filmesNegocio;
     }
 
-    public void adicionarSessao(String horario, String sfilme, String ssala, String dia, double valorIngresso) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ValorInvalidoException {
-        if (valorIngresso <= 0) {
-            throw new ValorInvalidoException();
-        }
-        
+    public void adicionarSessao(String horario, String sfilme, String ssala, String dia) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException{
+
         Filme filme = filmesNegocio.procurarFilmePorID(sfilme);
         Sala sala = salasNegocio.procurarSala(ssala);
-        Sessao sessao = new Sessao(filme, horario, sala, dia, valorIngresso);
+        Sessao sessao = new Sessao(filme, horario, sala, dia);
         if (repositorioSessoes.existe(sessao)) {
             throw new SessaoJaExisteException();
         } else repositorioSessoes.adicionarSessao(sessao);
@@ -46,30 +45,19 @@ public class SessoesNegocio {
 
     }
 
-//    public void atualizarSessao(String horario, String idFilme, String idSala, String dia, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-//        Filme filme = filmesNegocio.procurarFilmePorID(idFilme);
-//        Sala sala = salasNegocio.procurarSala(idSala);
-//        Sessao s = new Sessao(filme,horario,sala,dia, valorIngresso);
-//        if (repositorioSessoes.existe(s)) repositorioSessoes.atualizarSessao(s);
-//        else throw new SessaoNaoEncontradaException();
-//    }
-//
-//    public void atualizarSessaoPorID(String id, String idFilme, String idSala, String dia, String horario, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-//        Sessao sessaoDesejada = repositorioSessoes.procurarSessaoPorId(id);
-//
-//        if (sessaoDesejada == null) {
-//            throw new SessaoNaoEncontradaException();
-//        }
-//        Filme novoFilme = filmesNegocio.procurarFilmePorID(idFilme);
-//        sessaoDesejada.setFilme(novoFilme);
-//        Sala novaSala = salasNegocio.procurarSala(idSala);
-//        sessaoDesejada.setSala(novaSala);
-//        sessaoDesejada.setDia(dia);
-//        sessaoDesejada.setHorario(horario);
-//        sessaoDesejada.setValorIn
-//
-//        repositorioSessoes.atualizarSessao(sessaoDesejada)
-//    }
+
+   public void atualizarSessaoPorID(String id, LocalTime horario, MonthDay dia, String idFilme ) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+        Sessao sessaoDesejada = repositorioSessoes.procurarSessaoPorId(id);
+        if (sessaoDesejada == null) {
+            throw new SessaoNaoEncontradaException();
+        }
+        Filme novoFilme = filmesNegocio.procurarFilmePorID(idFilme);
+        sessaoDesejada.setFilme(novoFilme);
+        sessaoDesejada.setDia(dia);
+        sessaoDesejada.setHorario(horario);
+
+        repositorioSessoes.atualizarSessao(sessaoDesejada);
+    }
 
     public Sessao procurarSessao(String ID) throws SessaoNaoEncontradaException {
         Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(ID);
@@ -79,8 +67,8 @@ public class SessoesNegocio {
 
     public ArrayList<Sessao> procurarSessaoTituloFilme(String titulo) throws SessaoNaoEncontradaException {
         ArrayList<Sessao> s = repositorioSessoes.procurarSessoesPorNomeDoFilme(titulo);
-        if (s != null) return s;
-        else throw new SessaoNaoEncontradaException();
+        if (s.isEmpty()) throw new SessaoNaoEncontradaException();
+        else return s;
     }
 
     public ArrayList<Sessao> procurarSessaodoDia(MonthDay dia) throws SessaoNaoEncontradaException {

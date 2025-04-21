@@ -8,7 +8,7 @@ import fachada.FachadaGerente;
 import negocio.exceptions.salas.CodigoSalaJaExisteException;
 import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
 import negocio.exceptions.salas.NenhumaSalaEncontradaException;
-
+import static UI.Utils.ValidacaoEntradas.*;
 
 public class TelaGerenciamentodeSalas {
     private final Scanner scanner;
@@ -41,6 +41,7 @@ public class TelaGerenciamentodeSalas {
                     break;
                 case "3":
                     listarSalas();
+                    break;
                 case "4":
                     System.out.println("Voltando...");
                     return;
@@ -67,8 +68,7 @@ public class TelaGerenciamentodeSalas {
     private void adicionarSala() {
         System.out.println("(Digite 0 a qualquer momento para sair)");
         System.out.println("AVISO: Lembre-se que só possuímos espaço físico para DUAS salas 2D e UMA sala 3D");
-        System.out.println("Código da Sala: (Sala 1/ Sala 2/ Sala 3)");
-        String codigo = lerCodigo();
+        String codigo = lerDado("Código da Sala: (Sala 1/ Sala 2/ Sala 3)");
         if (codigo == null) return;
         String tipo;
         while (true) {
@@ -126,8 +126,7 @@ public class TelaGerenciamentodeSalas {
 
     private void removerSala(){
         System.out.println("(Digite 0 a qualquer momento para sair)");
-        System.out.println("O ID da sala que será removida");
-        String ID = lerCodigo();
+        String ID = lerDado("ID da sala que será removida");
         if (ID == null) return;
         try {
             fachada.removerSala(ID);
@@ -137,19 +136,4 @@ public class TelaGerenciamentodeSalas {
         }
     }
 
-    private String lerCodigo(){
-        while (true) {
-            String dado = scanner.nextLine().trim();
-
-            if (dado.equals("0")) {
-                System.out.println("\nOperação cancelada.");
-                return null;
-            }
-            if (dado.isEmpty()) {
-                System.err.println("Código não pode ser vazio!");
-                continue;
-            }
-            return dado;
-        }
-    }
 }
