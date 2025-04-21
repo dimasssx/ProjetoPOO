@@ -9,8 +9,8 @@ public class Assento implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-    private int fileira;
-    private int poltrona;
+    private final int fileira;
+    private final int poltrona;
     private boolean isReservado;
 
     public Assento(int fileira, int poltrona) {

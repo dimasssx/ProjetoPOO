@@ -14,9 +14,16 @@ import negocio.exceptions.ingressos.QuantidadeInvalidaException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class TelaComprarIngresso {
-    private FachadaCliente fachada;
-    private Scanner scanner;
-    private Cliente cliente;
+    private final FachadaCliente fachada;
+    private final Scanner scanner;
+    private final Cliente cliente;
+
+    // cores ANSI para melhorar a interface, vao estar presentes nos prints da tela para mudar a cor
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BOLD = "\u001B[1m";
 
     public TelaComprarIngresso(FachadaCliente fachada, Cliente cliente) {
         this.fachada = fachada;
@@ -25,9 +32,12 @@ public class TelaComprarIngresso {
     }
 
     public void iniciar() {
+        imprimirCabecalho();
+        
         String ID;
-
-        System.out.println("Escolha a sessão pelo ID, caso não saiba, volte e busque a sessão que deseja por filme ou dia! (digite 0 a qualquer momento para sair)");
+        System.out.println(ANSI_YELLOW + "Escolha a sessão pelo ID, caso não saiba, volte e busque a sessão que deseja por filme ou dia!" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Digite 0 a qualquer momento para sair." + ANSI_RESET);
+        
         while(true){
             ID = lerDado("ID da Sessão");
             if (ID == null) return;
@@ -40,51 +50,54 @@ public class TelaComprarIngresso {
                 try {
                     quantidadeIngressos = solicitarQuantidadeIngressos();
                     if (quantidadeIngressos <= 0) {
-                        continue; // Volta para a seleção de sessão
+                        continue;
                     }
                 } catch (QuantidadeInvalidaException e) {
-                    System.err.println(e.getMessage());
+                    System.out.println(ANSI_RED + "► " + e.getMessage() + ANSI_RESET);
                     continue;
                 }
-                
-                // Processo de escolha de assentos
+
                 TelaEscolhadeAssentos telaEscolhadeAssentos = new TelaEscolhadeAssentos(fachada, sessao);
                 ArrayList<Ingresso> ingressosSelecionados = telaEscolhadeAssentos.iniciar(quantidadeIngressos);
                 
                 if (ingressosSelecionados == null || ingressosSelecionados.isEmpty()) {
-                    System.out.println("Seleção de assentos cancelada.");
-                    continue; // Volta para a seleção de sessão
+                    System.out.println(ANSI_YELLOW + "Seleção de assentos cancelada." + ANSI_RESET);
+                    continue;
                 }
-                
-                // Verificar se o número de ingressos selecionados corresponde ao solicitado
+
                 if (ingressosSelecionados.size() != quantidadeIngressos) {
-                    System.err.println("Erro: Número de assentos selecionados (" + ingressosSelecionados.size() + 
-                                      ") diferente do número de ingressos solicitados (" + quantidadeIngressos + ").");
-                    continue; // Volta para a seleção de sessão
+                    System.out.println(ANSI_RED + "Erro: Número de assentos selecionados (" + ingressosSelecionados.size() + 
+                                      ") diferente do número de ingressos solicitados (" + quantidadeIngressos + ")." + ANSI_RESET);
+                    continue;
                 }
                 
                 // Verificar se existem assentos duplicados
                 boolean temDuplicados = verificarAssentosDuplicados(ingressosSelecionados);
                 if (temDuplicados) {
-                    System.err.println("Erro: Assentos duplicados detectados. Por favor, inicie a compra novamente.");
-                    continue; // Volta para a seleção de sessão
+                    System.out.println(ANSI_RED + "Erro: Assentos duplicados detectados. Por favor, inicie a compra novamente." + ANSI_RESET);
+                    continue;
                 }
-                
-                // Processar pagamento
+
                 boolean pagamentoRealizado = processarPagamento(sessao, ingressosSelecionados, quantidadeIngressos);
                 if (pagamentoRealizado) {
-                    // Finaliza a compra
                     finalizarCompra(sessao, ingressosSelecionados);
-                    return; // Encerra o processo de compra após o sucesso
+                    return;
                 } else {
-                    System.out.println("A compra foi cancelada.");
-                    continue; // Volta para escolher uma nova sessão
+                    System.out.println(ANSI_YELLOW + "A compra foi cancelada." + ANSI_RESET);
+                    return;
                 }
                 
             } catch (SessaoNaoEncontradaException e) {
-                System.err.println(e.getMessage());
+                System.out.println(ANSI_RED + "► " + e.getMessage() + ANSI_RESET);
             }
         }
+    }
+    
+    private void imprimirCabecalho() {
+        System.out.println("\n" + ANSI_BOLD);
+        System.out.println("╔═══════════════════════════════════════════════════╗");
+        System.out.println("║                COMPRA DE INGRESSOS                ║");
+        System.out.println("╚═══════════════════════════════════════════════════╝" + ANSI_RESET);
     }
 
     private boolean verificarAssentosDuplicados(ArrayList<Ingresso> ingressos) {
@@ -105,77 +118,177 @@ public class TelaComprarIngresso {
     }
     
     private int solicitarQuantidadeIngressos() throws QuantidadeInvalidaException {
-        System.out.println("Digite a quantidade de Ingressos que serão comprados:");
+        System.out.println("\n" + ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
+        System.out.println(ANSI_BOLD + "  QUANTIDADE DE INGRESSOS" + ANSI_RESET);
+        System.out.println(ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
+        
+        System.out.println("Digite a quantidade de ingressos que serão comprados:");
+        System.out.print("► ");
+        
         while (true) {
             try {
                 int quantidade = scanner.nextInt();
-                scanner.nextLine(); // Consumir quebra de linha
+                scanner.nextLine();
                 
                 if (quantidade <= 0) {
                     throw new QuantidadeInvalidaException();
                 }
                 return quantidade;
             } catch (InputMismatchException e) {
-                scanner.nextLine(); // Limpar o buffer
+                scanner.nextLine();
                 throw new QuantidadeInvalidaException("Digite um número válido para a quantidade de ingressos.");
             }
         }
     }
     
     private boolean processarPagamento(Sessao sessao, ArrayList<Ingresso> ingressos, int quantidadeIngressos) {
-        // Calcular valor total
-        double valorTotal = fachada.getClienteNegocio().calcularValorTotal(cliente, sessao, quantidadeIngressos);
+        double valorTotal = fachada.calcularValorCompra(cliente, sessao, ingressos);
         
-        System.out.println("\n=== Resumo da Compra ===");
-        System.out.println("Filme: " + sessao.getFilme().getTitulo());
-        System.out.println("Sessão: " + sessao.getHorario() + " - " + sessao.getDiaFormatado());
-        System.out.println("Sala: " + sessao.getSala().getCodigo() + " (" + sessao.getSala().getTipo() + ")");
-        System.out.println("Quantidade de ingressos: " + quantidadeIngressos);
-        System.out.println("Valor unitário: R$ " + String.format("%.2f", sessao.getValorIngresso()));
+        imprimirResumoDaCompra(sessao, ingressos, quantidadeIngressos, valorTotal);
         
-        // Mostrar desconto para VIP
-        if (cliente instanceof ClienteVIP) {
-            System.out.println("Desconto VIP: 35%");
-        }
-        
-        System.out.println("Valor total: R$ " + String.format("%.2f", valorTotal));
-        
-        // Listar assentos selecionados
-        System.out.println("\nAssentos selecionados:");
-        for (int i = 0; i < ingressos.size(); i++) {
-            Assento assento = ingressos.get(i).getAssento();
-            System.out.println("  " + (i+1) + ". " + (char)('A' + (assento.getFileira()-1)) + assento.getPoltrona());
-        }
+        String resultadoPagamento = null;
         
         while (true) {
-            System.out.println("\nEscolha a forma de pagamento:");
+            System.out.println("\n" + ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
+            System.out.println(ANSI_BOLD + "  ESCOLHA A FORMA DE PAGAMENTO" + ANSI_RESET);
+            System.out.println(ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
+            
             System.out.println("1 - Cartão de Crédito");
             System.out.println("2 - Cartão de Débito");
             System.out.println("3 - PIX");
-            System.out.println("0 - Cancelar Compra");
+            System.out.println("0 - Cancelar Compra e Voltar à Tela Principal");
+            System.out.print("► ");
             
             String opcao = scanner.nextLine();
             
             switch (opcao) {
                 case "1":
-                    String numeroCartaoCredito = lerDado("Número do cartao(apenas digitos)");
+                    String numeroCartaoCredito = null;
+                    while (true) {
+                        numeroCartaoCredito = lerDado("Número do cartao(apenas números)");
+                        if (numeroCartaoCredito == null) {
+                            break;
+                        }
+
+                        // Verificar se o cartão tem exatamente 16 dígitos e apenas números
+                        if (!numeroCartaoCredito.matches("\\d{16}")) {
+                            System.out.println(ANSI_RED + "Número de cartão inválido. O cartão deve ter exatamente 16 dígitos numéricos." + ANSI_RESET);
+                            continue;
+                        }
+                        break;
+                    }
+                    
+                    if (numeroCartaoCredito == null) {
+                        continue;
+                    }
+                    
                     String titularCartaoCredito = lerDado("Titular do cartao");
-                    System.out.println(fachada.pagarComCredito(numeroCartaoCredito,titularCartaoCredito,valorTotal));
-                    return true;
+                    if (titularCartaoCredito == null) {
+                        continue;
+                    }
+                    resultadoPagamento = fachada.pagarComCredito(numeroCartaoCredito, titularCartaoCredito, valorTotal);
+                    break;
+
                 case "2":
-                    String numeroCartaoDebito = lerDado("Número do cartao(apenas digitos)");
-                    String titularCartaoDebito = lerDado("Titular do cartao");
-                    System.out.println(fachada.pagarComDebito(numeroCartaoDebito,titularCartaoDebito,valorTotal));
-                    return true;
+                    String numeroCartaoDebito = null;
+                    while (true) {
+                        numeroCartaoDebito = lerDado("Número do cartao(apenas números)");
+                        if (numeroCartaoDebito == null) {
+                            break;
+                        }
+
+                        // Verificar se o cartão tem exatamente 16 dígitos e apenas números
+                        if (!numeroCartaoDebito.matches("\\d{16}")) {
+                            System.out.println(ANSI_RED + "Número de cartão inválido. O cartão deve ter exatamente 16 dígitos numéricos." + ANSI_RESET);
+                            continue;
+                        }
+                        break;
+                    }
+                    
+                    if (numeroCartaoDebito == null) {
+                        continue; 
+                    }
+                    String titularCartaoDebito = lerDado("Titular do cartao");            
+                    if (titularCartaoDebito == null) {
+                        continue; 
+                    }
+                    resultadoPagamento = fachada.pagarComDebito(numeroCartaoDebito, titularCartaoDebito, valorTotal);
+                    break;
+
                 case "3":
-                    System.out.println(fachada.pagarComPIX(valorTotal));
-                    return true;
+                    resultadoPagamento = fachada.pagarComPIX(valorTotal);
+                    break;
+
                 case "0":
-                    System.out.println("Compra cancelada pelo usuário.");
+                    System.out.println(ANSI_YELLOW + "Compra cancelada pelo usuário. Retornando à tela principal..." + ANSI_RESET);
                     return false;
+
                 default:
-                    System.err.println("Método de pagamento inválido. Por favor, escolha uma opção válida.");
+                    System.out.println(ANSI_RED + "Método de pagamento inválido. Por favor, escolha uma opção válida." + ANSI_RESET);
+                    continue;
             }
+            
+            break;
+        }
+        
+        // Exibir resultado do pagamento
+        System.out.println(resultadoPagamento);
+        System.out.println(ANSI_GREEN + "\n✓ Pagamento realizado com sucesso!" + ANSI_RESET);
+        return true;
+    }
+    
+    private void imprimirResumoDaCompra(Sessao sessao, ArrayList<Ingresso> ingressos, int quantidadeIngressos, double valorTotal) {
+        System.out.println("\n" + ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
+        System.out.println(ANSI_BOLD + "  RESUMO DA COMPRA" + ANSI_RESET);
+        System.out.println(ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
+        
+        System.out.println(ANSI_BOLD + "Filme: " + ANSI_RESET + sessao.getFilme().getTitulo());
+        System.out.println(ANSI_BOLD + "Sessão: " + ANSI_RESET + sessao.getHorario() + " - " + sessao.getDiaFormatado());
+        System.out.println(ANSI_BOLD + "Sala: " + ANSI_RESET + sessao.getSala().getCodigo() + " (" + sessao.getSala().getTipo() + ")");
+        System.out.println(ANSI_BOLD + "Quantidade de ingressos: " + ANSI_RESET + quantidadeIngressos);
+
+        // contar ingressos de cada tipo
+        int ingressosMeia = 0;
+        int ingressosInteira = 0;
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.getTipo().equals("Meia")) {
+                ingressosMeia++;
+            } else {
+                ingressosInteira++;
+            }
+        }
+        
+        double valorUnitario = sessao.getValorIngresso();
+        System.out.println(ANSI_BOLD + "Valor unitário: " + ANSI_RESET + "R$ " + String.format("%.2f", valorUnitario));
+
+        if (ingressosInteira > 0) {
+            System.out.println(ANSI_BOLD + "Ingressos Inteira: " + ANSI_RESET + ingressosInteira + 
+                               " x R$ " + String.format("%.2f", valorUnitario) + 
+                               " = R$ " + String.format("%.2f", ingressosInteira * valorUnitario));
+        }
+        
+        if (ingressosMeia > 0) {
+            System.out.println(ANSI_BOLD + "Ingressos Meia: " + ANSI_RESET + ingressosMeia + 
+                               " x R$ " + String.format("%.2f", valorUnitario * 0.5) + 
+                               " = R$ " + String.format("%.2f", ingressosMeia * valorUnitario * 0.5));
+        }
+        
+        // mostrar desconto para o VIP
+        if (cliente instanceof ClienteVIP) {
+            double subtotal = (ingressosInteira * valorUnitario) + (ingressosMeia * valorUnitario * 0.5);
+            double descontoVIP = subtotal * 0.35;
+            System.out.println(ANSI_BOLD + "Subtotal: " + ANSI_RESET + "R$ " + String.format("%.2f", subtotal));
+            System.out.println(ANSI_BOLD + "Desconto VIP (35%): " + ANSI_RESET + "R$ " + String.format("%.2f", descontoVIP));
+        }
+        
+        System.out.println(ANSI_BOLD + "Valor total: " + ANSI_RESET + "R$ " + String.format("%.2f", valorTotal));
+
+        System.out.println("\n" + ANSI_BOLD + "Assentos selecionados:" + ANSI_RESET);
+        for (int i = 0; i < ingressos.size(); i++) {
+            Ingresso ingresso = ingressos.get(i);
+            Assento assento = ingresso.getAssento();
+            System.out.println("  " + (i+1) + ". " + (char)('A' + (assento.getFileira()-1)) + assento.getPoltrona() + 
+                               " - Tipo: " + ingresso.getTipo());
         }
     }
     
@@ -183,45 +296,45 @@ public class TelaComprarIngresso {
         try {
             for (Ingresso ingresso : ingressos) {
                 Assento assento = ingresso.getAssento();
-                fachada.getSessoesNegocio().reservarAssento(
-                    sessao, 
-                    assento.getFileira() - 1, // Ajustar índice
-                    assento.getPoltrona() - 1 // Ajustar índice
-                );
+                fachada.getSessoesNegocio().reservarAssento(sessao, assento.getFileira() - 1, assento.getPoltrona() - 1 );
             }
 
-            fachada.getClienteNegocio().adicionarIngressosAoCliente(cliente, ingressos);
+            fachada.adicionarIngresosAConta(cliente, ingressos);
 
             try {
                 Cliente clienteAtualizado = fachada.getClienteNegocio().buscarCliente(cliente.getNomeDeUsuario(), cliente.getSenha());
                 int totalIngressos = clienteAtualizado.getIngressosComprados().size();
                 
-                System.out.println("\n\033[92m Compra finalizada com sucesso! \033[0m");
+                System.out.println("\n" + ANSI_GREEN + ANSI_BOLD);
+                System.out.println("╔═══════════════════════════════════════════════════╗");
+                System.out.println("║          COMPRA FINALIZADA COM SUCESSO!           ║");
+                System.out.println("╚═══════════════════════════════════════════════════╝" + ANSI_RESET);
                 System.out.println("Seus ingressos foram adicionados à sua conta.");
                 System.out.println("Total de ingressos na sua conta: " + totalIngressos);
             } catch (Exception e) {
-                System.err.println("Erro ao verificar cliente atualizado: " + e.getMessage());
+                System.err.println(ANSI_RED + "Erro ao verificar cliente atualizado: " + e.getMessage() + ANSI_RESET);
             }
             
         } catch (AssentoIndisponivelException | SessaoNaoEncontradaException e) {
-            System.err.println("Erro ao finalizar a compra: " + e.getMessage());
+            System.err.println(ANSI_RED + "Erro ao finalizar a compra: " + e.getMessage() + ANSI_RESET);
         }
     }
 
     private String lerDado(String campo) {
-        System.out.print(campo + ": ");
+        System.out.print(ANSI_BOLD + campo + ": " + ANSI_RESET);
         while(true){
             String dado = scanner.nextLine().trim();
 
             if (dado.equals("0")) {
-                System.out.println("Operação cancelada.");
+                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
                 return null;
             }
             if (dado.isEmpty()) {
-                System.err.println(campo + " não pode estar vazio!");
+                System.out.println(ANSI_RED + campo + " não pode estar vazio!" + ANSI_RESET);
                 continue;
             }
             return dado;
         }
     }
 }
+

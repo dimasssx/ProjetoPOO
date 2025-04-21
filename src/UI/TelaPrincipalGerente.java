@@ -7,8 +7,8 @@ import dados.RepositorioClientesArquivoBinario;
 import fachada.FachadaGerente;
 
 public class TelaPrincipalGerente {
-    private FachadaGerente fachadaGerente;
-    private Scanner scanner;
+    private final FachadaGerente fachadaGerente;
+    private final Scanner scanner;
 
     public TelaPrincipalGerente(FachadaGerente fachadaGerente){
         this.scanner = new Scanner(System.in);

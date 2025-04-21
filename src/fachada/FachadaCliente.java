@@ -13,20 +13,20 @@ import negocio.FilmesNegocio;
 import negocio.SalasNegocio;
 import negocio.SessoesNegocio;
 import negocio.entidades.Filme;
+import negocio.entidades.Ingresso;
 import negocio.entidades.Sessao;
 import negocio.entidades.Cliente;
 import negocio.entidades.pagamento.CartaoCredito;
 import negocio.entidades.pagamento.CartaoDebito;
-import negocio.entidades.pagamento.MetodoPagamento;
 import negocio.entidades.pagamento.Pix;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class FachadaCliente {
 
-    private ClientesNegocio clientesNegocio;
-    private FilmesNegocio filmeNegocio;
-    private SessoesNegocio sessoesNegocio;
+    private final ClientesNegocio clientesNegocio;
+    private final FilmesNegocio filmeNegocio;
+    private final SessoesNegocio sessoesNegocio;
 
     public FachadaCliente() {
         this.clientesNegocio = new ClientesNegocio(new RepositorioClientesArquivoBinario());
@@ -88,6 +88,15 @@ public class FachadaCliente {
 
     public Sessao procurarSessao(String ID) throws SessaoNaoEncontradaException {
         return sessoesNegocio.procurarSessao(ID);
+    }
+
+    public double calcularValorCompra(Cliente cliente, Sessao sessao, ArrayList<Ingresso> ingressos) {
+        double valorTotal = clientesNegocio.calcularValorTotalComTipos(cliente, sessao, ingressos);
+        return valorTotal;
+    }
+
+    public void adicionarIngresosAConta(Cliente cliente, ArrayList<Ingresso> ingressos) {
+        clientesNegocio.adicionarIngressosAoCliente(cliente, ingressos);
     }
 
     public String pagarComPIX(double valor){

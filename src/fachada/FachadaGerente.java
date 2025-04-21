@@ -20,17 +20,14 @@ import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class FachadaGerente {
 
-    private IRepositorioFilmes repFilmes;
-    private IRepositorioSalas repSalas;
-    private IRepositorioSessoes repSessoes;
-    private FilmesNegocio filmesNegocio;
-    private SalasNegocio salasNegocio;
-    private SessoesNegocio sessoesNegocio;
+    private final FilmesNegocio filmesNegocio;
+    private final SalasNegocio salasNegocio;
+    private final SessoesNegocio sessoesNegocio;
 
     public FachadaGerente() {
-        this.repFilmes = new RepositorioFilmesArquivoBinario();
-        this.repSalas = new RepositorioSalasArquivoBinario();
-        this.repSessoes = new RepositorioSessoesArquivoBinario();
+        IRepositorioFilmes repFilmes = new RepositorioFilmesArquivoBinario();
+        IRepositorioSalas repSalas = new RepositorioSalasArquivoBinario();
+        IRepositorioSessoes repSessoes = new RepositorioSessoesArquivoBinario();
         this.filmesNegocio = new FilmesNegocio(repFilmes, repSessoes);
         this.salasNegocio = new SalasNegocio(repSalas, repSessoes);
         this.sessoesNegocio = new SessoesNegocio(repSessoes, salasNegocio, filmesNegocio);
@@ -92,8 +89,8 @@ public class FachadaGerente {
         sessoesNegocio.removerSessao(ID);
     }
 
-//    public void atualizarSessao(String horario, String filme,String sala,String dia, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
-//        sessoesNegocio.atualizarSessao(horario,filme,sala,dia,valorIngresso);
+//    public void atualizarSessao(String horario, String idFilme,String idSala,String dia, double valorIngresso) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+//        sessoesNegocio.atualizarSessao(horario,idFilme,idSsala,dia,valorIngresso);
 //    }
 
     public ArrayList<String> procurarSessaoTitulo(String titulo) throws SessaoNaoEncontradaException {

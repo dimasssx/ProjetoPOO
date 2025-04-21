@@ -71,10 +71,10 @@ public class RepositorioSalasArquivoBinario implements IRepositorioSalas, Serial
 
     // metodo para procurar uma sala no repositorio a partir do codigo da sala recebido
     @Override
-    public Sala procurarSala(String ID) {
+    public Sala procurarSala(String id) {
         lerSalas();
         for(Sala s : salas){
-            if(s.getId().equalsIgnoreCase(ID)){
+            if(s.getId().equalsIgnoreCase(id)){
                 return s;
             }
         }

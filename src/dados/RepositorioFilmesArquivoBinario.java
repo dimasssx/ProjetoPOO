@@ -79,11 +79,11 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
 
     //procurar um filme no repositorio a partir do nome do filme recebido
     @Override
-    public Filme procurarFilmePorID(String ID){
+    public Filme procurarFilmePorID(String id){
         lerFilmes();
         Filme filmeDesejado = null;
         for (Filme filme: catalogo){
-            if(filme.getId().equals(ID)){
+            if(filme.getId().equals(id)){
                 filmeDesejado = filme;
                 break;
             }

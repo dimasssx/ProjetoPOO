@@ -5,7 +5,7 @@ import negocio.entidades.Cliente;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class Autenticacao {
-    private ClientesNegocio negocioCliente;
+    private final ClientesNegocio negocioCliente;
 
     public Autenticacao() {
         this.negocioCliente = new ClientesNegocio(new RepositorioClientesArquivoBinario());

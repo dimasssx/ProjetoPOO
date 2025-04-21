@@ -15,8 +15,8 @@ import negocio.exceptions.sessoes.SessaoJaExisteException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class TelaGerenciamentoSessoes {
-    private Scanner scanner;
-    private FachadaGerente fachada;
+    private final Scanner scanner;
+    private final FachadaGerente fachada;
 
     public TelaGerenciamentoSessoes(FachadaGerente fachada) {
         this.scanner = new Scanner(System.in);
@@ -27,14 +27,14 @@ public class TelaGerenciamentoSessoes {
         System.out.println("------------------------------------");
         System.out.println("Tela de Gerenciamento de Sessoes");
         System.out.println("------------------------------------");
-
+        listarSessoes();
         while (true) {
-            System.out.println("\n1 - Adicionar Sessao");
-            System.out.println("2 - Remover Sessao");
-            System.out.println("3 - Atualizar Sessao");
-            System.out.println("4 - Buscar Sessoes por titulo de Filme");
-            System.out.println("5 - Listar Sessoes pelo dia");
-            System.out.println("6 - Listar Todas as Sessoes");
+            System.out.println("\n1 - Adicionar sessao");
+            System.out.println("2 - Remover sessao");
+            System.out.println("3 - Atualizar sessao");
+            System.out.println("4 - Buscar sessoes por titulo de filme");
+            System.out.println("5 - Listar sessoes pelo dia");
+            System.out.println("6 - Listar todas as sessoes");
             System.out.println("7 - Voltar");
 
             String opcao = scanner.nextLine();
@@ -57,12 +57,25 @@ public class TelaGerenciamentoSessoes {
                     break;
                 case "6":
                     listarSessoes();
-                    break;
                 case "7":
+                    System.out.println("Voltando...");
                     return;
                 default:
                     System.out.println("Opção Invalida");
             }
+        }
+    }
+
+    private void listarSessoes(){
+        ArrayList<String> sessoes;
+        try{
+            System.out.println(">>>>> Sessões Cadastradas <<<<<");
+            sessoes = fachada.listarTodas();
+            for (String sessoe : sessoes) {
+                System.out.println(sessoe);
+            }
+        } catch (NenhumaSessaoEncontradaException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -190,19 +203,6 @@ public class TelaGerenciamentoSessoes {
                 System.out.println(sessoe);
             }
         } catch (SessaoNaoEncontradaException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    private void listarSessoes(){
-        ArrayList<String> sessoes;
-        try{
-            sessoes = fachada.listarTodas();
-            System.out.println("=== Sessões Cadastradas ===");
-            for (String sessoe : sessoes) {
-                System.out.println(sessoe);
-            }
-        } catch (NenhumaSessaoEncontradaException e) {
             System.err.println(e.getMessage());
         }
     }

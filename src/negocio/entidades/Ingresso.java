@@ -9,10 +9,12 @@ public class Ingresso implements Serializable {
     private static final long serialVersionUID = -4009776605163947717L;
     private Sessao sessao;
     private Assento assento;
+    private String tipo; // meia ou inteira
 
-    public Ingresso(Sessao sessao, Assento assento) {
+    public Ingresso(Sessao sessao, Assento assento, String tipo) {
         this.sessao = sessao;
         this.assento = assento;
+        this.tipo = tipo;
     }
 
     public Sessao getSessao() {
@@ -22,6 +24,10 @@ public class Ingresso implements Serializable {
     public Assento getAssento() {
         return assento;
     }
+    
+    public String getTipo() {
+        return tipo;
+    }
 
     public void setSessao(Sessao sessao) {
         this.sessao = sessao;
@@ -29,6 +35,10 @@ public class Ingresso implements Serializable {
 
     public void setAssento(Assento assento) {
         this.assento = assento;
+    }
+    
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
@@ -38,6 +48,7 @@ public class Ingresso implements Serializable {
                " | Fileira: " + (char)('A' + (assento.getFileira()-1)) +
                " | Poltrona: " + assento.getPoltrona() +
                " | Data: " + sessao.getDiaFormatado() +
-               " | Horário: " + sessao.getHorario();
+               " | Horário: " + sessao.getHorario() +
+               " | Tipo: " + tipo;
     }
 }

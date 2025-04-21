@@ -8,7 +8,7 @@ public class Filme implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
-    private String id;
+    private final String id;
     private String titulo;
     private String genero;
     private String duracao;

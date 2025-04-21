@@ -10,9 +10,9 @@ public abstract class Cliente implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
-    private String id;
+    private final String id;
     private String nome;
-    private String nomeDeUsuario;
+    private final String nomeDeUsuario;
     private String senha;
     private ArrayList<Ingresso> ingressosComprados;
 
@@ -65,6 +65,8 @@ public abstract class Cliente implements Serializable {
     public void adicionarIngressoComprado(Ingresso ingresso) {
         this.ingressosComprados.add(ingresso);
     }
+
+    public abstract double calcularDesconto(double valorCompra);
 
     @Override
     public boolean equals(Object o) {

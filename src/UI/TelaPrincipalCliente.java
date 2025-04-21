@@ -1,22 +1,28 @@
 package UI;
 
+import fachada.FachadaCliente;
+import fachada.Movietime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import fachada.FachadaCliente;
-import fachada.Movietime;
 import negocio.entidades.Cliente;
+import negocio.entidades.ClienteVIP;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class TelaPrincipalCliente {
     private MonthDay hoje;
-    private FachadaCliente clienteFachada;
-    private Scanner scanner;
-    private Cliente cliente;
-    private Movietime fachadaPrincipal;
+    private final FachadaCliente clienteFachada;
+    private final Scanner scanner;
+    private final Cliente cliente;
+    private final Movietime fachadaPrincipal;
+
+    // cores ANSI para melhorar a interface, vao estar presentes apenas nos prints da tela para mudar a cor
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BOLD = "\u001B[1m";
 
     public TelaPrincipalCliente(FachadaCliente clienteFachada, Cliente cliente, Movietime fachadaPrincipal) {
         this.clienteFachada = clienteFachada;
@@ -27,24 +33,33 @@ public class TelaPrincipalCliente {
     }
 
     public void iniciar() {
-
-        System.out.println("=== Bem-vindo ao MovieTime, " + cliente.getNome().split(" ")[0] + "!" + " ===");
-        System.out.println("------------------------------------");
+        String statusVip = cliente instanceof ClienteVIP ? " 👑 VIP 👑" : "";
+        
+        System.out.println("\n" + ANSI_BOLD);
+        System.out.println("╔══════════════════════════════════════════════╗");
+        System.out.println("║               MOVIETIME CINEMA               ║");
+        System.out.println("╚══════════════════════════════════════════════╝" + ANSI_RESET);
+        
+        System.out.println("\n" + ANSI_BOLD + "Bem-vindo, " + cliente.getNome().split(" ")[0] + "!" + statusVip + ANSI_RESET);
+        System.out.println(ANSI_BOLD + "═════════════════════════════════════════════" + ANSI_RESET);
+        
         exibicaoSessoesDeHoje(); //exibe as sessões de hoje
 
         while(true){
-            System.out.println("1 - Comprar ingresso");
-            System.out.println("2 - Buscar sessões por dia");
-            System.out.println("3 - Buscar sessoes por filme");
-            System.out.println("4 - Gerenciamento de conta");
-            System.out.println("5 - Logout");
+            System.out.println("\n" + ANSI_BOLD + ">>>>> MENU PRINCIPAL <<<<<" + ANSI_RESET);
+            System.out.println("1 - " + "Comprar ingresso" + ANSI_RESET);
+            System.out.println("2 - " + "Buscar sessões por dia" + ANSI_RESET);
+            System.out.println("3 - " + "Buscar sessões por filme" + ANSI_RESET);
+            System.out.println("4 - " + "Gerenciamento de conta" + ANSI_RESET);
+            System.out.println("5 - " + "Logout" + ANSI_RESET);
 
+            System.out.print("► ");
             String opcao;
 
             try {
                 opcao = scanner.nextLine();
             } catch (Exception e) {
-                System.err.println("Digite um número");
+                System.out.println(ANSI_RED + "Digite um número válido!" + ANSI_RESET);
                 scanner.nextLine();
                 continue;
             }
@@ -59,7 +74,7 @@ public class TelaPrincipalCliente {
                     try {
                         buscarporDia();
                     } catch (SessaoNaoEncontradaException e) {
-                        System.err.println(e.getMessage());
+                        System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
                     }
                     break;
                 case "3":
@@ -67,7 +82,7 @@ public class TelaPrincipalCliente {
                         buscarPorFilme();
                     }
                     catch (SessaoNaoEncontradaException e){
-                        System.err.println(e.getMessage());
+                        System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
                     }
                     break;
                 case "4":
@@ -75,36 +90,45 @@ public class TelaPrincipalCliente {
                     telaGerenciamentoDeContaCliente.iniciar();
                     break;
                 case "5":
-                    System.out.println("Saindo...");
+                    System.out.println(ANSI_YELLOW + "Saindo do sistema..." + ANSI_RESET);
                     return;
                 default:
-                    System.err.println("Opcao invalida");
+                    System.out.println(ANSI_RED + "Opção inválida! Por favor, tente novamente." + ANSI_RESET);
             }
         }
     }
 
     public void exibicaoSessoesDeHoje() {
-        System.out.println("Sessões em Exibição Hoje: " + hoje.format(DateTimeFormatter.ofPattern("dd/MM")));
-        System.out.println("------------------------------------");
+        String dataHoje = hoje.format(DateTimeFormatter.ofPattern("dd/MM"));
+        
+        System.out.println("\n" + ANSI_BOLD);
+        System.out.println("╔══════════════════════════════════════════════╗");
+        System.out.println("║           SESSÕES EM EXIBIÇÃO HOJE           ║");
+        System.out.println("║                   " + dataHoje + "                      ║");
+        System.out.println("╚══════════════════════════════════════════════╝" + ANSI_RESET);
 
         try {
             ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessoesHoje();
 
             if (sessoesFormatadas.isEmpty()) {
-                System.out.println("Nenhuma sessão disponível para hoje.");
+                System.out.println(ANSI_YELLOW + "Nenhuma sessão disponível para hoje." + ANSI_RESET);
             } else {
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
                 }
-                System.out.println("------------------------------------");
             }
         } catch (SessaoNaoEncontradaException e) {
-            System.out.println("Nenhuma sessão encontrada para hoje.");
+            System.out.println(ANSI_YELLOW + "Nenhuma sessão encontrada para hoje." + ANSI_RESET);
         }
     }
 
     public void buscarporDia() throws SessaoNaoEncontradaException {
-        System.out.println("(digite 0 a qualquer momento para sair)");
+        System.out.println("\n" + ANSI_BOLD);
+        System.out.println("╔══════════════════════════════════════════════╗");
+        System.out.println("║             BUSCAR SESSÕES POR DIA           ║");
+        System.out.println("╚══════════════════════════════════════════════╝" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Digite 0 a qualquer momento para cancelar" + ANSI_RESET);
+        
         String dataInput = lerData();
         if (dataInput == null) return;
 
@@ -112,24 +136,31 @@ public class TelaPrincipalCliente {
             ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoporDia(dataInput);
 
             if (sessoesFormatadas.isEmpty()) {
-                System.out.println("Nenhuma sessão encontrada para esta data.");
+                System.out.println(ANSI_YELLOW + "Nenhuma sessão encontrada para esta data." + ANSI_RESET);
             } else {
-                System.out.println("=== Sessões para o dia: " + dataInput + " ===");
-                System.out.println("------------------------------------");
+                System.out.println("\n" + ANSI_BOLD);
+                System.out.println("╔══════════════════════════════════════════════╗");
+                System.out.println("║           SESSÕES PARA O DIA: " + dataInput + "          ║");
+                System.out.println("╚══════════════════════════════════════════════╝" + ANSI_RESET);
+                
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
-                    System.out.println("----------------------------");
                 }
             }
 
-        } catch ( SessaoNaoEncontradaException e) {
-            System.out.println(e.getMessage());
+        } catch (SessaoNaoEncontradaException e) {
+            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
         }
     }
 
 
     public void buscarPorFilme() throws SessaoNaoEncontradaException {
-        System.out.println("(digite 0 a qualquer momento para sair)");
+        System.out.println("\n" + ANSI_BOLD);
+        System.out.println("╔══════════════════════════════════════════════╗");
+        System.out.println("║            BUSCAR SESSÕES POR FILME          ║");
+        System.out.println("╚══════════════════════════════════════════════╝" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Digite 0 a qualquer momento para cancelar" + ANSI_RESET);
+        
         String tituloInput = lerTituloFilme();
         if (tituloInput == null) return;
 
@@ -139,35 +170,36 @@ public class TelaPrincipalCliente {
             ArrayList<String> sessoesFormatadas = clienteFachada.procurarSessaoPorTituloDoFilme(tituloInput);
 
             if (sessoesFormatadas.isEmpty()) {
-                System.out.println("Nenhuma sessão encontrada para o filme: " + tituloInput);
+                System.out.println(ANSI_YELLOW + "Nenhuma sessão encontrada para o filme: " + tituloInput + ANSI_RESET);
             } else {
-                System.out.println("=== Sessões para o filme: " + tituloInput + " ===");
-                System.out.println("------------------------------------");
+                System.out.println("\n" + ANSI_BOLD);
+                System.out.println("╔══════════════════════════════════════════════╗");
+                System.out.println("║           SESSÕES PARA O FILME:              ║");
+                System.out.println("║                    " + tituloInput + "                       ║");
+                System.out.println("╚══════════════════════════════════════════════╝" + ANSI_RESET);
+                
                 for (String sessao : sessoesFormatadas) {
                     System.out.println(sessao);
-                    System.out.println("----------------------------");
                 }
             }
-        } catch (FilmeNaoEstaCadastradoException e) {
-            System.err.println(e.getMessage());
-        } catch (SessaoNaoEncontradaException e) {
-            System.err.println(e.getMessage());
+        } catch (FilmeNaoEstaCadastradoException | SessaoNaoEncontradaException e) {
+            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
         }
     }
 
     private String lerData() {
         String data;
         do {
-            System.out.println("Digite a data da sessão (dd-MM):");
+            System.out.print(ANSI_BOLD + "Digite a data da sessão (dd-MM): " + ANSI_RESET);
             data = scanner.nextLine().trim();
 
             if (data.equals("0")) {
-                System.out.println("Operação cancelada.");
+                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
                 return null;
             }
 
             if (!isDataValida(data)) {
-                System.err.println("Formato inválido! Use dd-MM (ex: 17-04).");
+                System.out.println(ANSI_RED + "Formato inválido! Use dd-MM (ex: 17-04)." + ANSI_RESET);
             }
         } while (!isDataValida(data));
 
@@ -187,16 +219,16 @@ public class TelaPrincipalCliente {
     private String lerTituloFilme() {
         String titulo;
         do {
-            System.out.println("Digite o nome do Filme:");
+            System.out.print(ANSI_BOLD + "Digite o nome do Filme: " + ANSI_RESET);
             titulo = scanner.nextLine().trim();
 
             if (titulo.equals("0")) {
-                System.out.println("Operação cancelada.");
+                System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
                 return null;
             }
 
             if (titulo.isEmpty()) {
-                System.err.println("O título não pode estar vazio!");
+                System.out.println(ANSI_RED + "O título não pode estar vazio!" + ANSI_RESET);
             }
 
         } while (titulo.isEmpty());

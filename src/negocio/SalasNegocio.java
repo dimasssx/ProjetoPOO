@@ -48,7 +48,7 @@ public class SalasNegocio {
         Sala salaDesejada = repositorioSalas.procurarSala(ID);
         ArrayList<Sessao> sessoesremovidas;
         if (salaDesejada != null){
-            sessoesremovidas = repositorioSessoes.procurarSessaoporSala(ID);
+            sessoesremovidas = repositorioSessoes.procurarSessoesPorIdSala(ID);
             if(sessoesremovidas!= null){
                 for (Sessao s : sessoesremovidas){
                     repositorioSessoes.removerSessao(s);

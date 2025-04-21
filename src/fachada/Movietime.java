@@ -9,10 +9,10 @@ import negocio.exceptions.usuario.UsuarioJaExisteException;
 import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 
 public class Movietime {
-    private Autenticacao autenticacao;
-    private ClientesNegocio negocioCliente;
-    private FachadaCliente fachadaCliente;
-    private FachadaGerente fachadaGerente;
+    private final Autenticacao autenticacao;
+    private final ClientesNegocio negocioCliente;
+    private final FachadaCliente fachadaCliente;
+    private final FachadaGerente fachadaGerente;
 
     public Movietime(){
         this.autenticacao = new Autenticacao();
