@@ -87,10 +87,10 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
     }
 
     @Override
-    public Sessao procurarSessaoPorId(String ID){
+    public Sessao procurarSessaoPorId(String id){
         lerSessoes();
         for (Sessao s : sessoes) {
-            if (s.getId().equals(ID)) {
+            if (s.getId().equals(id)) {
                 return s;
             }
         }
@@ -98,11 +98,11 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
     }
 
     @Override
-    public ArrayList<Sessao> procurarSessaoporSala(String ID){
+    public ArrayList<Sessao> procurarSessoesPorIdSala(String id){
         lerSessoes();
         ArrayList<Sessao> sessoesDaSala = new ArrayList<>();
         for(Sessao s : sessoes){
-            if(s.getSala().getId().equalsIgnoreCase(ID)){
+            if(s.getSala().getId().equalsIgnoreCase(id)){
                 sessoesDaSala.add(s);
             }
         }

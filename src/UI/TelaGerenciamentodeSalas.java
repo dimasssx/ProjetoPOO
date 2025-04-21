@@ -9,11 +9,10 @@ import negocio.exceptions.salas.CodigoSalaJaExisteException;
 import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
 import negocio.exceptions.salas.NenhumaSalaEncontradaException;
 
-//mt codigo repetido, fazer metodos pra leitura
 
 public class TelaGerenciamentodeSalas {
-    private Scanner scanner;
-    private FachadaGerente fachada;
+    private final Scanner scanner;
+    private final FachadaGerente fachada;
 
     public TelaGerenciamentodeSalas(FachadaGerente fachada){
         this.scanner = new Scanner(System.in);
@@ -24,12 +23,12 @@ public class TelaGerenciamentodeSalas {
         System.out.println("------------------------------------");
         System.out.println("Tela de Gerenciamento de Salas");
         System.out.println("------------------------------------");
+        listarSalas();
         while (true){
-            System.out.println("\n1 - Adicionar Sala");
-            System.out.println("2 - Remover Sala");
-            System.out.println("3 - Listar Salas");
+            System.out.println("\n1 - Adicionar sala");
+            System.out.println("2 - Remover sala");
+            System.out.println("3 - Listar todas as salas");
             System.out.println("4 - Voltar");
-
 
             String opcao = scanner.nextLine();
 
@@ -42,13 +41,26 @@ public class TelaGerenciamentodeSalas {
                     break;
                 case "3":
                     listarSalas();
-                    break;
                 case "4":
+                    System.out.println("Voltando...");
                     return;
                 default:
                     System.err.println("Opção Inválida");
 
             }
+        }
+    }
+
+    private void listarSalas(){
+        try {
+            System.out.println(">>>>> Salas Cadastradas <<<<<");
+            ArrayList<String> salas = fachada.listarSalas();
+            for (String sala : salas) {
+                System.out.println(sala);
+            }
+        } catch (NenhumaSalaEncontradaException e) {
+            System.err.println("Nenhuma sala encontrada");
+
         }
     }
 
@@ -122,19 +134,6 @@ public class TelaGerenciamentodeSalas {
             System.out.println("\033[92m Sala removida com Sucesso, as sessões vinculadas a sala, também foram removidas! \033[0m");
         } catch (Exception e) {
             System.err.println(e.getMessage());
-        }
-    }
-
-    private void listarSalas(){
-        try {
-            ArrayList<String> salas = fachada.listarSalas();
-            System.out.println("=== Salas Cadastradas ===");
-            for (String sala : salas) {
-                System.out.println(sala);
-            }
-        } catch (NenhumaSalaEncontradaException e) {
-            System.err.println("Nenhuma sala encontrada");
-
         }
     }
 

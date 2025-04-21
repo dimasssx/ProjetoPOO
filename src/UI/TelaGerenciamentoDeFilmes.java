@@ -10,8 +10,8 @@ import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
 
 public class TelaGerenciamentoDeFilmes {
-    private Scanner scanner;
-    private FachadaGerente fachada;
+    private final Scanner scanner;
+    private final FachadaGerente fachada;
 
     public TelaGerenciamentoDeFilmes(FachadaGerente fachada) {
         this.scanner = new Scanner(System.in);
@@ -22,12 +22,13 @@ public class TelaGerenciamentoDeFilmes {
         System.out.println("------------------------------------");
         System.out.println("Tela de Gerenciamento de Filmes");
         System.out.println("------------------------------------");
+        listarFilmes();
         while (true) {
-            System.out.println("\n1 - Adicionar Filme");
-            System.out.println("2 - Remover Filme");
-            System.out.println("3 - Atualizar Filme");
-            System.out.println("4 - Buscar Filme");
-            System.out.println("5 - Listar Filmes");
+            System.out.println("\n1 - Adicionar filme");
+            System.out.println("2 - Remover filme");
+            System.out.println("3 - Atualizar filme");
+            System.out.println("4 - Buscar filme");
+            System.out.println("5 - Listar todos os filmes");
             System.out.println("6 - Voltar");
 
             String opcao;
@@ -48,7 +49,6 @@ public class TelaGerenciamentoDeFilmes {
                     break;
                 case "5":
                     listarFilmes();
-                    break;
                 case "6":
                     System.out.println("Voltando...");
                     return;
@@ -56,6 +56,18 @@ public class TelaGerenciamentoDeFilmes {
                     System.err.println("Opção Invalida");
 
             }
+        }
+    }
+
+    private void listarFilmes(){
+        try {
+            System.out.println(">>>>> Filmes Cadastrados <<<<<");
+            ArrayList<String> filmes = fachada.imprimirCatalogo();
+            for (String filme : filmes) {
+                System.out.println(filme);
+            }
+        } catch (NenhumFilmeEncontradoException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -105,7 +117,7 @@ public class TelaGerenciamentoDeFilmes {
             return;
         }
         
-        System.out.println("=== Novas caracteristicas do filme ===");
+        System.out.println(">>>>> Novas caracteristicas do filme <<<<<");
         String nome = lerDado("Nome do Filme");
         if (nome == null) return;
         String genero = lerDado("Gênero");
@@ -131,18 +143,6 @@ public class TelaGerenciamentoDeFilmes {
         try {
             System.out.println(fachada.procurarFilmePorTitulo(nome));
         } catch (FilmeNaoEstaCadastradoException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    private void listarFilmes(){
-        try {
-            ArrayList<String> filmes = fachada.imprimirCatalogo();
-            System.out.println("=== Catálogo de Filmes ===");
-            for (String filme : filmes) {
-                System.out.println(filme);
-            }
-        } catch (NenhumFilmeEncontradoException e) {
             System.err.println(e.getMessage());
         }
     }

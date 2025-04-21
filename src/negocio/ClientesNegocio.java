@@ -7,7 +7,7 @@ import negocio.exceptions.usuario.ClienteNaoEncontradoException;
 import negocio.exceptions.usuario.UsuarioJaExisteException;
 
 public class ClientesNegocio {
-    private IRepositorioClientes repositorioClientes;
+    private final IRepositorioClientes repositorioClientes;
 
     public ClientesNegocio(IRepositorioClientes repositorioClientes) {
         this.repositorioClientes = repositorioClientes;
@@ -48,15 +48,32 @@ public class ClientesNegocio {
     }
 
 
-    //calcular o valor total dos ingressos com desconto para VIP se aplicável
-    public double calcularValorTotal(Cliente cliente, Sessao sessao, int quantidadeIngressos) {
+//    //calcular o valor total dos ingressos com desconto para VIP se aplicável
+//    public double calcularValorTotal(Cliente cliente, Sessao sessao, int quantidadeIngressos) {
+//        double valorUnitario = sessao.getValorIngresso();
+//        double valorTotal = valorUnitario * quantidadeIngressos;
+//
+//        // Se o cliente for VIP, aplica desconto de 35%
+//        if (cliente instanceof ClienteVIP) {
+//            valorTotal = valorTotal * 0.65;
+//        }
+//
+//        return valorTotal;
+//    }
+
+    public double calcularValorTotalComTipos(Cliente cliente, Sessao sessao, ArrayList<Ingresso> ingressos) {
+        double valorTotal = 0;
         double valorUnitario = sessao.getValorIngresso();
-        double valorTotal = valorUnitario * quantidadeIngressos;
         
-        // Se o cliente for VIP, aplica desconto de 35%
-        if (cliente instanceof ClienteVIP) {
-            valorTotal = valorTotal * 0.65;
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.getTipo().equals("Meia")) {
+                valorTotal += valorUnitario * 0.5;
+            } else {
+                valorTotal += valorUnitario;
+            }
         }
+
+        valorTotal = cliente.calcularDesconto(valorTotal);
         
         return valorTotal;
     }

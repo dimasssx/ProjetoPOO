@@ -11,7 +11,7 @@ public class Sessao implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4009776605163947716L;
-    private String id;
+    private final String id;
     private LocalTime horario;
     private MonthDay dia;
     private Filme filme;
@@ -50,10 +50,6 @@ public class Sessao implements Serializable {
         return id;
     }
     
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public Sala getSala() {
         return this.sala;
     }
@@ -93,6 +89,18 @@ public class Sessao implements Serializable {
 
     public double getValorIngresso() {
         return valorIngresso;
+    }
+
+    public void setValorIngresso(double valorIngresso) {
+        this.valorIngresso = valorIngresso;
+    }
+
+    public void setDia(MonthDay dia) {
+        this.dia = dia;
+    }
+
+    public void setHorario(LocalTime horario) {
+        this.horario = horario;
     }
 
     @Override
