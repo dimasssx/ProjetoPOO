@@ -11,14 +11,11 @@ import negocio.entidades.*;
 import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
-import negocio.exceptions.sessoes.ValorInvalidoException;
+import negocio.exceptions.sessoes.*;
 import negocio.exceptions.salas.CodigoSalaJaExisteException;
 import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
 import negocio.exceptions.salas.NenhumaSalaEncontradaException;
 import negocio.exceptions.salas.SalaNaoEncontradaException;
-import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
-import negocio.exceptions.sessoes.SessaoJaExisteException;
-import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 
 public class FachadaGerente {
 
@@ -83,7 +80,7 @@ public class FachadaGerente {
 
     //Gerenciamento de sessoes
 
-    public void adicionarSessao(String horario, String idFilme, String idSala, String dia) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ValorInvalidoException {
+    public void adicionarSessao(String horario, String idFilme, String idSala, String dia) throws SessaoJaExisteException, ConflitoHorarioException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ValorInvalidoException {
         sessoesNegocio.adicionarSessao(horario, idFilme, idSala, dia);
     }
     public void removerSessao(String ID) throws SessaoNaoEncontradaException {

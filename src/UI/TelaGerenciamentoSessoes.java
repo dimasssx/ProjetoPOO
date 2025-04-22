@@ -4,11 +4,9 @@ import fachada.FachadaGerente;
 import java.util.ArrayList;
 import java.util.Scanner;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
-import negocio.exceptions.sessoes.ValorInvalidoException;
+import negocio.exceptions.sessoes.*;
 import negocio.exceptions.salas.SalaNaoEncontradaException;
-import negocio.exceptions.sessoes.NenhumaSessaoEncontradaException;
-import negocio.exceptions.sessoes.SessaoJaExisteException;
-import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
+
 import static UI.Utils.ValidacaoEntradas.*;
 
 public class TelaGerenciamentoSessoes {
@@ -91,7 +89,7 @@ public class TelaGerenciamentoSessoes {
         try{
             fachada.adicionarSessao(horario,idFilme,idSala,dia);
             System.out.println("\033[92m Sessão adicionada com Sucesso! \033[0m");
-        } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException | ValorInvalidoException e) {
+        } catch (FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | SessaoJaExisteException | ValorInvalidoException |ConflitoHorarioException e) {
             System.err.println(e.getMessage());
         }
     }
