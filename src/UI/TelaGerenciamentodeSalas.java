@@ -30,17 +30,14 @@ public class TelaGerenciamentodeSalas {
             System.out.println("2 - Remover sala");
             System.out.println("3 - Listar todas as salas");
             System.out.println("4 - Voltar");
-
             String opcao = scanner.nextLine();
 
             switch (opcao){
                 case "1":
                     adicionarSala();
-                    listarSalas();
                     break;
                 case "2":
                     removerSala();
-                    listarSalas();
                     break;
                 case "3":
                     listarSalas();

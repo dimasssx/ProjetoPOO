@@ -32,21 +32,17 @@ public class TelaGerenciamentoDeFilmes {
             System.out.println("4 - Buscar filme");
             System.out.println("5 - Listar todos os filmes");
             System.out.println("6 - Voltar");
-
             String opcao=scanner.nextLine();
 
             switch (opcao) {
                 case "1":
                     adicionarFilme();
-                    listarFilmes();
                     break;
                 case "2":
                     removerFilme();
-                    listarFilmes();
                     break;
                 case "3":
                     atualizarFilme();
-                    listarFilmes();
                     break;
                 case "4":
                     buscarFilme();

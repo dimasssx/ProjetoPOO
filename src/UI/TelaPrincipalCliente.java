@@ -54,7 +54,8 @@ public class TelaPrincipalCliente {
             System.out.println("2 - " + "Buscar sessões por dia" + ANSI_RESET);
             System.out.println("3 - " + "Buscar sessões por filme" + ANSI_RESET);
             System.out.println("4 - " + "Gerenciamento de conta" + ANSI_RESET);
-            System.out.println("5 - " + "Logout" + ANSI_RESET);
+            System.out.println("5 - " + "Listar sessões de hoje" + ANSI_RESET);
+            System.out.println("6 - " + "Logout" + ANSI_RESET);
 
             System.out.print("► ");
             String opcao;
@@ -71,7 +72,6 @@ public class TelaPrincipalCliente {
                 case "1":
                     TelaComprarIngresso comprar = new TelaComprarIngresso(clienteFachada,cliente);
                     comprar.iniciar();
-                    exibicaoSessoesDeHoje();
                     break;
 
                 case "2":
@@ -95,6 +95,9 @@ public class TelaPrincipalCliente {
                     exibicaoSessoesDeHoje();
                     break;
                 case "5":
+                    exibicaoSessoesDeHoje();
+                    break;
+                case "6":
                     System.out.println(ANSI_YELLOW + "Saindo do sistema..." + ANSI_RESET);
                     return;
                 default:
@@ -153,7 +156,7 @@ public class TelaPrincipalCliente {
             }
 
         } catch (SessaoNaoEncontradaException e) {
-            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+            System.err.println(e.getMessage());
         }
     }
     public void buscarPorFilme() throws SessaoNaoEncontradaException {

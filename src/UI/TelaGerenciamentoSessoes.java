@@ -41,15 +41,12 @@ public class TelaGerenciamentoSessoes {
             switch (opcao) {
                 case "1":
                     adicionarSessao();
-                    listarSessoes();
                     break;
                 case "2":
                     removerSessao();
-                    listarSessoes();
                     break;
                 case "3":
                     atualizarSessao();
-                    listarSessoes();
                     break;
                 case "4":
                     buscarSessaoporTitulo();
@@ -73,6 +70,7 @@ public class TelaGerenciamentoSessoes {
     }
 
     private void adicionarSessao(){
+        System.out.println("(Digite 0 a qualquer momento para sair)");
         String horario,idFilme,idSala,dia;
         idFilme = lerDado("ID do Filme");
         if (idFilme== null)return;
@@ -103,6 +101,7 @@ public class TelaGerenciamentoSessoes {
         }
     }
     private void removerSessao(){
+        System.out.println("(Digite 0 a qualquer momento para sair)");
         String ID;
         ID = lerDado("ID da Sessao");
         if (ID == null) return;
@@ -114,6 +113,7 @@ public class TelaGerenciamentoSessoes {
         }
     }
     private void atualizarSessao(){
+        System.out.println("(Digite 0 a qualquer momento para sair)");
         String ID, horario,dia, idFilme;
 
         ID = lerDado("ID da Sessão");
@@ -146,6 +146,7 @@ public class TelaGerenciamentoSessoes {
         }
     }
     private void buscarSessaoporTitulo(){
+        System.out.println("(Digite 0 a qualquer momento para sair)");
         String filme = lerDado("Nome do Filme");
         if (filme==null)return;
         ArrayList<String> sessoes;
@@ -159,6 +160,7 @@ public class TelaGerenciamentoSessoes {
         }
     }
     private void buscarSessaoDia(){
+        System.out.println("(Digite 0 a qualquer momento para sair)");
         String dia = lerData();
         if (dia==null)return;
         ArrayList<String> sessoes;
@@ -184,7 +186,8 @@ public class TelaGerenciamentoSessoes {
         }
     }
     private void reservarSessaoInteira(){
-        String idSessao = lerDado("ID da sessão");
+        System.out.println("(Digite 0 a qualquer momento para sair)");
+        String idSessao = lerDado("ID da sessão (preferencialmente criar uma nova antes)");
         if (idSessao == null) return;
         try {
             fachada.procurarSessao(idSessao);

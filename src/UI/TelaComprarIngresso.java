@@ -57,7 +57,7 @@ public class TelaComprarIngresso {
                         continue;
                     }
                 } catch (QuantidadeInvalidaException e) {
-                    System.out.println(ANSI_RED + "► " + e.getMessage() + ANSI_RESET);
+                    System.err.println( "► " + e.getMessage());
                     continue;
                 }
 
@@ -102,7 +102,7 @@ public class TelaComprarIngresso {
 
 
              catch (SessaoNaoEncontradaException e) {
-                System.out.println(ANSI_RED + "► " + e.getMessage() + ANSI_RESET);
+                System.err.println( "► " + e.getMessage());
             }
         }
     }
