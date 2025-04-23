@@ -22,7 +22,6 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
 
     public RepositorioFilmesArquivoBinario(){
         file = new File("filmes.dat");
-
         if (file.exists()){
             lerFilmes();
         }else {
@@ -30,7 +29,15 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
             escritaFilmes();
         }
     }
-
+    public RepositorioFilmesArquivoBinario(String caminho){
+        file = new File(caminho);
+        if (file.exists()){
+            lerFilmes();
+        }else {
+            catalogo = new ArrayList<>();
+            escritaFilmes();
+        }
+    }
     //ler o arquivo de filmes
     public void lerFilmes(){
         try(FileInputStream fis = new FileInputStream(file);

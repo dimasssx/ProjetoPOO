@@ -15,7 +15,15 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
 
     public RepositorioSessoesArquivoBinario() {
         file = new File("sessoes.dat");
-
+        if (file.exists()) {
+            lerSessoes();
+        } else {
+            sessoes = new ArrayList<>();
+            escreverSessoes();
+        }
+    }
+    public RepositorioSessoesArquivoBinario(String caminho){
+        file = new File(caminho);
         if (file.exists()) {
             lerSessoes();
         } else {

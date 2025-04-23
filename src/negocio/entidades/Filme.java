@@ -68,12 +68,12 @@ public class Filme implements Serializable {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Filme filme = (Filme) obj;
-        
+
         // Dois filmes são iguais somente se todas as características forem iguais
         return titulo.equalsIgnoreCase(filme.titulo) &&
                genero.equalsIgnoreCase(filme.genero) &&
-               duracao.equals(filme.duracao) &&
-               classificacao.equals(filme.classificacao);
+               duracao.equalsIgnoreCase(filme.duracao) &&
+               classificacao.equalsIgnoreCase(filme.classificacao);
     }
 
     @Override
