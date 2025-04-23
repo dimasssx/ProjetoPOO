@@ -2,6 +2,6 @@ package negocio.exceptions.sessoes;
 
 public class NenhumaSessaoEncontradaException extends Exception {
     public NenhumaSessaoEncontradaException(){
-        super("Nao foi encontrada nenhuma sessao");
+        super("AVISO: Nenhuma sessao está cadastrada no sistema, nesse momento!");
     }
 }

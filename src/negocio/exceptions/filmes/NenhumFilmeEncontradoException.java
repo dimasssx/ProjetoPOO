@@ -2,6 +2,6 @@ package negocio.exceptions.filmes;
 
 public class NenhumFilmeEncontradoException extends Exception {
     public NenhumFilmeEncontradoException(){
-        super("Nenhum filme foi encontrado no catalógo");
+        super("AVISO: Nenhum filme está cadastrado no catalógo, nesse momento!");
     }
 }

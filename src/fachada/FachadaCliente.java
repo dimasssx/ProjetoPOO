@@ -29,7 +29,7 @@ public class FachadaCliente {
         this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(), new SalasNegocio(new RepositorioSalasArquivoBinario(), new RepositorioSessoesArquivoBinario()), filmeNegocio);
         this.cardapioNegocio = new CardapioNegocio();
     }
-    //para testes
+    //alternativo para testes
     public FachadaCliente(IRepositorioClientes repositorioClientes, IRepositorioFilmes repositorioFilmes, IRepositorioSessoes repositorioSessoes) {
         this.clientesNegocio = new ClientesNegocio(repositorioClientes);
         this.filmeNegocio = new FilmesNegocio(repositorioFilmes, repositorioSessoes);
@@ -37,14 +37,15 @@ public class FachadaCliente {
         this.cardapioNegocio = new CardapioNegocio();
     }
 
-
     public ClientesNegocio getClienteNegocio() {
         return clientesNegocio;
     }
     public SessoesNegocio getSessoesNegocio() {
         return sessoesNegocio;
     }
-    //Visualizacao de filmes e sessoes
+
+    //metodos relacionados a filmes e sessoes
+
     public Filme consultarFilme(String nomeFilme) throws FilmeNaoEstaCadastradoException {
         return filmeNegocio.procurarFilmePorTitulo(nomeFilme);
     }
@@ -81,6 +82,18 @@ public class FachadaCliente {
     public Sessao procurarSessao(String id) throws SessaoNaoEncontradaException {
         return sessoesNegocio.procurarSessao(id);
     }
+    public void verificarSessaoAindaValida(Sessao sessao) throws SessaoJaExibidaException {
+        LocalDate hoje = LocalDate.now();
+        LocalDate dataSessao = sessao.getDia().atYear(hoje.getYear());
+        LocalDateTime dataHoraSessao = LocalDateTime.of(dataSessao, sessao.getHorario());
+
+        if (dataHoraSessao.isBefore(LocalDateTime.now())) {
+            throw new SessaoJaExibidaException();
+        }
+    }
+
+    //metodos relacionados a compras e gerenciamento de contas
+
     public double calcularValorCompra(Cliente cliente, Sessao sessao, ArrayList<Ingresso> ingressos,ArrayList<Lanche> lanches) {
         return clientesNegocio.calcularValorTotalComTipos(cliente, sessao, ingressos,lanches);
     }
@@ -101,15 +114,6 @@ public class FachadaCliente {
     }
     public void alterarSenha(Cliente cliente, String novaSenha) {
         clientesNegocio.alterarSenha(cliente, novaSenha);
-    }
-    public void verificarSessaoAindaValida(Sessao sessao) throws SessaoJaExibidaException {
-        LocalDate hoje = LocalDate.now();
-        LocalDate dataSessao = sessao.getDia().atYear(hoje.getYear());
-        LocalDateTime dataHoraSessao = LocalDateTime.of(dataSessao, sessao.getHorario());
-
-        if (dataHoraSessao.isBefore(LocalDateTime.now())) {
-            throw new SessaoJaExibidaException();
-        }
     }
     public ArrayList<Lanche> listarCardapio(){
         return cardapioNegocio.obterCardapio();

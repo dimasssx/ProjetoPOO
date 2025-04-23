@@ -25,14 +25,11 @@ public class FachadaGerente {
     private final SessoesNegocio sessoesNegocio;
 
     public FachadaGerente() {
-        IRepositorioFilmes repFilmes = new RepositorioFilmesArquivoBinario();
-        IRepositorioSalas repSalas = new RepositorioSalasArquivoBinario();
-        IRepositorioSessoes repSessoes = new RepositorioSessoesArquivoBinario();
-        this.filmesNegocio = new FilmesNegocio(repFilmes, repSessoes);
-        this.salasNegocio = new SalasNegocio(repSalas, repSessoes);
-        this.sessoesNegocio = new SessoesNegocio(repSessoes, salasNegocio, filmesNegocio);
+        this.filmesNegocio = new FilmesNegocio(new RepositorioFilmesArquivoBinario(), new RepositorioSessoesArquivoBinario());
+        this.salasNegocio = new SalasNegocio(new RepositorioSalasArquivoBinario(), new RepositorioSessoesArquivoBinario());
+        this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(), salasNegocio, filmesNegocio);
     }
-    //para testes
+    //alternativo para testes
     public FachadaGerente(IRepositorioFilmes repFilmes, IRepositorioSalas repSalas, IRepositorioSessoes repSessoes) {
         this.filmesNegocio = new FilmesNegocio(repFilmes, repSessoes);
         this.salasNegocio = new SalasNegocio(repSalas, repSessoes);
