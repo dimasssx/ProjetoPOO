@@ -1,0 +1,1135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/dimas/Desktop/ProjetoPOO</OriginalElement>
+  <nodes>
+    <node x="5604.639285791608" y="9831.668673174641">negocio.exceptions.assentos.AssentoIndisponivelException</node>
+    <node x="3112.7487128352705" y="7999.561249028036">negocio.exceptions.sessoes.SessaoJaExisteException</node>
+    <node x="3108.2487128352705" y="7898.911895060563">negocio.exceptions.sessoes.SessaoJaExibidaException</node>
+    <node x="4119.759764611835" y="7098.0786595215495">negocio.entidades.ClienteVIP</node>
+    <node x="2128.1320568194014" y="8035.66230474457">negocio.exceptions.filmes.NenhumFilmeEncontradoException</node>
+    <node x="1582.9099929171575" y="8680.230037920352">negocio.exceptions.salas.LimiteDeSalasExcedidoException</node>
+    <node x="4119.759764611835" y="7738.101508161429">negocio.entidades.Assento</node>
+    <node x="5621.639285791608" y="9637.571462156675">negocio.exceptions.assentos.AssentoOcupadoException</node>
+    <node x="3467.0028598582862" y="8133.541736533334">negocio.SessoesNegocio</node>
+    <node x="1744.4676584816373" y="8968.917234133638">test.RepositorioFilmeTest</node>
+    <node x="4873.007406209952" y="7787.66253025013">negocio.Autenticacao</node>
+    <node x="2119.2567372628523" y="9494.817825584763">UI.TelaGerenciamentoSessoes</node>
+    <node x="5015.297789866813" y="9529.388004733893">UI.TelaEscolhadeAssentos</node>
+    <node x="4433.31651360958" y="9799.169055707041">UI.TelaPrincipalCliente</node>
+    <node x="2588.321256502054" y="7325.155904132003">negocio.entidades.Filme</node>
+    <node x="3507.960161464993" y="8537.06921554012">negocio.exceptions.sessoes.NenhumaSessaoEncontradaException</node>
+    <node x="5407.631820493414" y="8519.947730740118">negocio.exceptions.usuario.ClienteNaoEncontradoException</node>
+    <node x="3538.6039239504425" y="8632.54904653413">negocio.exceptions.sessoes.SessaoNaoEncontradaException</node>
+    <node x="2810.2002297523372" y="6666.865568296914">negocio.entidades.Sessao</node>
+    <node x="2107.7567372628523" y="10048.089274065476">test.EntrarComoGerenteEAdicionarFilmeTest</node>
+    <node x="2133.1320568194014" y="8194.554734151656">negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException</node>
+    <node x="3051.2487128352705" y="8115.108519448113">negocio.exceptions.sessoes.SessaoIndisponivelParaReservaException</node>
+    <node x="2008.727823477052" y="8434.299207472095">negocio.SalasNegocio</node>
+    <node x="4531.780952940491" y="7370.057139136128">dados.IRepositorioClientes</node>
+    <node x="3886.047751035472" y="8537.06921554012">negocio.exceptions.sessoes.ConflitoHorarioException</node>
+    <node x="3591.165490770128" y="8915.032020137622">fachada.Movietime</node>
+    <node x="5084.562240421557" y="8519.947730740118">negocio.exceptions.usuario.UsuarioJaExisteException</node>
+    <node x="4396.364770791475" y="6553.483156843706">negocio.entidades.Cliente</node>
+    <node x="3591.7096067169523" y="10418.028595382857">main.Main</node>
+    <node x="5383.064382467065" y="7989.815224158313">test.RepositorioClienteTest</node>
+    <node x="3021.8187464244334" y="9494.817825584763">UI.TelaGerenciamentodeSalas</node>
+    <node x="4102.25" y="8193.541736533334">negocio.ClientesNegocio</node>
+    <node x="3924.397366347551" y="9370.73022888635">UI.TelaGerenciamentoDeContaCliente</node>
+    <node x="5675.761446022899" y="7475.618468883254">negocio.entidades.pagamento.Pix</node>
+    <node x="4994.2778962395205" y="8294.41616467545">negocio.entidades.Lanche</node>
+    <node x="2526.537741843643" y="8738.999866364551">fachada.FachadaGerente</node>
+    <node x="3507.8346874207878" y="7638.047551543161">dados.RepositorioSessoesArquivoBinario</node>
+    <node x="1582.9099929171575" y="8318.652618575936">negocio.exceptions.salas.CodigoSalaJaExisteException</node>
+    <node x="4379.256191193285" y="8735.6796595027">fachada.FachadaCliente</node>
+    <node x="5462.872409305604" y="9371.73022888635">negocio.exceptions.ingressos.QuantidadeInvalidaException</node>
+    <node x="2593.037741843643" y="9892.34185723063">UI.TelaPrincipalGerente</node>
+    <node x="2568.537741843643" y="9494.817825584763">UI.TelaGerenciamentoDeFilmes</node>
+    <node x="5074.297789866813" y="9370.73022888635">UI.TelaEscolhaDeLanches</node>
+    <node x="3497.1744525387803" y="7263.789279724656">dados.IRepositorioSessoes</node>
+    <node x="3070.450055344598" y="8672.04742817846">dados.RepositorioIDsArquivoBinario</node>
+    <node x="5095.562240421557" y="7466.87059488584">negocio.entidades.pagamento.CartaoCredito</node>
+    <node x="1164.0216729094686" y="7890.046946283306">negocio.entidades.Sala2D</node>
+    <node x="5374.681653249532" y="7475.618468883254">negocio.entidades.pagamento.CartaoDebito</node>
+    <node x="1808.2753204617047" y="7559.539829302639">dados.IRepositorioSalas</node>
+    <node x="4545.2087674956665" y="7098.0786595215495">negocio.entidades.ClientePadrao</node>
+    <node x="2604.5372642055477" y="7841.596722441265">dados.RepositorioFilmesArquivoBinario</node>
+    <node x="1440.3722068092209" y="7890.046946283306">negocio.entidades.Sala3D</node>
+    <node x="1328.9933097500711" y="7395.1333859644">negocio.entidades.Sala</node>
+    <node x="4667.89795687619" y="8281.700729599997">negocio.CardapioNegocio</node>
+    <node x="3531.2096067169523" y="10151.659541724452">UI.TelaLogin</node>
+    <node x="1785.8214328052281" y="7807.046946283306">dados.RepositorioSalasArquivoBinario</node>
+    <node x="3203.2487128352705" y="7301.169610717765">negocio.entidades.GeradorID</node>
+    <node x="2127.6320568194014" y="8115.108519448113">negocio.exceptions.filmes.FilmeNaoEstaCadastradoException</node>
+    <node x="4498.780952940491" y="7657.340239050129">dados.RepositorioClientesArquivoBinario</node>
+    <node x="2931.8470239672" y="7336.169610717765">negocio.GeradorIDNegocio</node>
+    <node x="5396.635688869557" y="7304.697743605981">negocio.entidades.pagamento.MetodoPagamento</node>
+    <node x="4908.473488847677" y="9124.5">negocio.exceptions.usuario.SenhaInvalidaException</node>
+    <node x="2203.47235596758" y="7583.655430959034">dados.IRepositorioFilmes</node>
+    <node x="5088.297789866813" y="9914.182950439537">UI.Utils.ValidacaoEntradas</node>
+    <node x="1582.9099929171575" y="8549.945796368254">negocio.exceptions.salas.NenhumaSalaEncontradaException</node>
+    <node x="3070.352834669148" y="8478.6351671581">dados.IRepositorioIDs</node>
+    <node x="4425.480126553658" y="9370.73022888635">UI.TelaComprarIngresso</node>
+    <node x="2544.5372642055477" y="8353.156266039761">negocio.FilmesNegocio</node>
+    <node x="1603.4099929171575" y="8434.299207472095">negocio.exceptions.salas.SalaNaoEncontradaException</node>
+    <node x="5095.247587895918" y="6950.0786595215495">negocio.entidades.Ingresso</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="UI.TelaEscolhadeAssentos" target="negocio.entidades.Ingresso" relationship="TO_MANY">
+      <point x="209.50021013318656" y="-28.817004733893555" />
+      <point x="5759.372" y="9605.071" />
+      <point x="5759.372" y="7582.118" />
+      <point x="5040.0" y="7582.118" />
+      <point x="5040.0" y="7090.579" />
+      <point x="-132.999587895918" y="-1.9996595215498019" />
+    </edge>
+    <edge source="negocio.entidades.Sala3D" target="negocio.entidades.Sala" relationship="GENERALIZATION">
+      <point x="-94.5002068092208" y="5.3716693400929216E-5" />
+      <point x="1397.0" y="7947.547" />
+      <point x="1397.0" y="7904.5" />
+      <point x="1422.872" y="7904.5" />
+      <point x="-3.1213097500710774" y="178.49961403559973" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.entidades.pagamento.CartaoCredito" relationship="CREATE">
+      <point x="233.0" y="-14.999659502700524" />
+      <point x="5870.261446022899" y="8959.18" />
+      <point x="5870.261446022899" y="7287.197743605981" />
+      <point x="5211.062240421557" y="7287.197743605981" />
+      <point x="0.0" y="-44.5" />
+    </edge>
+    <edge source="dados.RepositorioFilmesArquivoBinario" target="negocio.entidades.Filme" relationship="TO_MANY">
+      <point x="116.78373579445224" y="-152.49972244126548" />
+      <point x="2872.821" y="7302.0" />
+      <point x="2721.821" y="7302.0" />
+      <point x="-2.565020540714613E-4" y="-190.4999041320034" />
+    </edge>
+    <edge source="negocio.entidades.Sessao" target="negocio.entidades.Filme" relationship="TO_ONE">
+      <point x="-110.70022975233724" y="286.5004317030862" />
+      <point x="2831.0" y="7302.0" />
+      <point x="2721.821" y="7302.0" />
+      <point x="-2.565020540714613E-4" y="-190.4999041320034" />
+    </edge>
+    <edge source="dados.RepositorioFilmesArquivoBinario" target="dados.IRepositorioFilmes" relationship="REALIZATION">
+      <point x="-151.5" y="-14.999722441265476" />
+      <point x="2340.47235596758" y="7979.097" />
+      <point x="0.0" y="103.5" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException" relationship="CREATE">
+      <point x="14.999735794452135" y="-104.5" />
+      <point x="2771.037" y="8226.054734151656" />
+      <point x="157.0" y="0.0" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="negocio.entidades.Filme" relationship="CREATE">
+      <point x="-211.50026420554786" y="14.99973396023961" />
+      <point x="2518.0" y="8472.656" />
+      <point x="2518.0" y="7515.656" />
+      <point x="-133.50025650205407" y="9.586799660610268E-5" />
+    </edge>
+    <edge source="negocio.Autenticacao" target="dados.RepositorioClientesArquivoBinario" relationship="CREATE">
+      <point x="-4.062099524162477E-4" y="44.50046974986981" />
+      <point x="4998.507" y="8040.0" />
+      <point x="4656.781" y="8040.0" />
+      <point x="4.70595086881076E-5" y="140.49976094987142" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="dados.RepositorioSessoesArquivoBinario" relationship="CREATE">
+      <point x="-233.000191193285" y="-91.64765950270157" />
+      <point x="2978.0" y="8882.532" />
+      <point x="2978.0" y="10202.589" />
+      <point x="1146.522" y="10202.589" />
+      <point x="1146.522" y="6649.366" />
+      <point x="3956.335" y="6649.366" />
+      <point x="3956.335" y="7838.548" />
+      <point x="215.50031257921228" y="4.48456838967104E-4" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="dados.IRepositorioSessoes" relationship="TO_ONE">
+      <point x="-227.99985985828607" y="15.000263466665274" />
+      <point x="3446.0" y="8325.042" />
+      <point x="3446.0" y="7415.289" />
+      <point x="-215.50045253878034" y="-2.797246561385691E-4" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.SalasNegocio" relationship="CREATE">
+      <point x="-214.49974184364282" y="-186.99986636455105" />
+      <point x="2436.0" y="8812.5" />
+      <point x="2436.0" y="8514.799" />
+      <point x="193.5001765229481" y="-2.074720941891428E-4" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="negocio.FilmesNegocio" relationship="TO_ONE">
+      <point x="178.00034151836257" y="-156.91723413363798" />
+      <point x="2496.0" y="8976.5" />
+      <point x="2496.0" y="8457.656" />
+      <point x="-211.50026420554786" y="-2.66039760390413E-4" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="negocio.exceptions.salas.SalaNaoEncontradaException" relationship="CREATE">
+      <point x="-193.5" y="-49.0" />
+      <point x="141.0" y="0.0" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="dados.RepositorioSalasArquivoBinario" relationship="TO_ONE">
+      <point x="-182.0" y="29.999725934523667" />
+      <point x="1519.8722068092209" y="10146.589" />
+      <point x="1519.8722068092209" y="8022.546946283306" />
+      <point x="-147.0" y="75.0" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.SalasNegocio" relationship="CREATE">
+      <point x="232.999808806715" y="3.404972994758282E-4" />
+      <point x="5938.139" y="8974.18" />
+      <point x="5938.139" y="10330.16" />
+      <point x="1101.522" y="10330.16" />
+      <point x="1101.522" y="8760.73" />
+      <point x="2436.0" y="8760.73" />
+      <point x="2436.0" y="8514.799" />
+      <point x="193.5001765229481" y="-2.074720941891428E-4" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.entidades.pagamento.Pix" relationship="CREATE">
+      <point x="233.0" y="15.000340497299476" />
+      <point x="5804.372" y="8989.18" />
+      <point x="40.11055397710152" y="44.5" />
+    </edge>
+    <edge source="negocio.GeradorIDNegocio" target="dados.RepositorioIDsArquivoBinario" relationship="CREATE">
+      <point x="-47.84702396720013" y="142.50038928223512" />
+      <point x="2995.0" y="8637.0" />
+      <point x="3227.45" y="8637.0" />
+      <point x="-5.534459796763258E-5" y="-92.50042817846042" />
+    </edge>
+    <edge source="fachada.Movietime" target="negocio.Autenticacao" relationship="CREATE">
+      <point x="158.5" y="0.0" />
+      <point x="4021.897366347551" y="9021.532020137622" />
+      <point x="4021.897366347551" y="8675.0" />
+      <point x="5729.131820493414" y="8675.0" />
+      <point x="5729.131820493414" y="7817.163" />
+      <point x="125.5" y="-14.999530250130192" />
+    </edge>
+    <edge source="UI.TelaGerenciamentoDeFilmes" target="fachada.FachadaGerente" relationship="TO_ONE">
+      <point x="172.50025815635718" y="1.7441523596062325E-4" />
+      <point x="2955.0" y="9599.318" />
+      <point x="2955.0" y="9462.0" />
+      <point x="2500.0" y="9462.0" />
+      <point x="2500.0" y="8999.5" />
+      <point x="-214.49974184364282" y="1.3363544894673396E-4" />
+    </edge>
+    <edge source="UI.TelaPrincipalCliente" target="UI.TelaComprarIngresso" relationship="CREATE">
+      <point x="-14.99951360958039" y="-80.5" />
+      <point x="-47.163126553658" y="128.5" />
+    </edge>
+    <edge source="UI.TelaEscolhaDeLanches" target="fachada.FachadaCliente" relationship="TO_ONE">
+      <point x="2.1013318655604962E-4" y="-44.50022888635067" />
+      <point x="5224.798" y="9292.0" />
+      <point x="4612.256" y="9292.0" />
+      <point x="-1.9119328499073163E-4" y="238.50034049729948" />
+    </edge>
+    <edge source="UI.TelaPrincipalCliente" target="negocio.entidades.Cliente" relationship="TO_ONE">
+      <point x="-202.4995136095804" y="-5.570704161073081E-5" />
+      <point x="4354.0" y="9879.669" />
+      <point x="4354.0" y="8479.042" />
+      <point x="4084.75" y="8479.042" />
+      <point x="4084.75" y="6767.983" />
+      <point x="-183.99977079147538" y="-1.568437055539107E-4" />
+    </edge>
+    <edge source="negocio.ClientesNegocio" target="negocio.exceptions.usuario.ClienteNaoEncontradoException" relationship="CREATE">
+      <point x="230.0" y="-45.840736533335075" />
+      <point x="5275.0" y="8264.201" />
+      <point x="5275.0" y="7972.315" />
+      <point x="5694.564" y="7972.315" />
+      <point x="134.93217950658618" y="-31.49973074011723" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="negocio.entidades.Filme" relationship="CREATE">
+      <point x="93.7603415183628" y="-164.50023413363851" />
+      <point x="2016.228" y="8694.547" />
+      <point x="2518.0" y="8694.547" />
+      <point x="2518.0" y="7515.656" />
+      <point x="-133.50025650205407" y="9.586799660610268E-5" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="fachada.FachadaGerente" relationship="CREATE">
+      <point x="182.00026273714775" y="-15.000274065476333" />
+      <point x="2551.038" y="10101.589" />
+      <point x="2551.038" y="9292.0" />
+      <point x="2726.038" y="9292.0" />
+      <point x="-14.999741843642823" y="260.50013363544895" />
+    </edge>
+    <edge source="UI.TelaGerenciamentoDeContaCliente" target="negocio.entidades.Cliente" relationship="TO_ONE">
+      <point x="199.49963365244912" y="-2.288863506691996E-4" />
+      <point x="4354.0" y="9487.23" />
+      <point x="4354.0" y="8479.042" />
+      <point x="4084.75" y="8479.042" />
+      <point x="4084.75" y="6767.983" />
+      <point x="-183.99977079147538" y="-1.568437055539107E-4" />
+    </edge>
+    <edge source="UI.TelaPrincipalCliente" target="UI.TelaGerenciamentoDeContaCliente" relationship="CREATE">
+      <point x="-202.5" y="-15.00005570704161" />
+      <point x="4123.897366347551" y="9864.669" />
+      <point x="0.0" y="116.5" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="dados.IRepositorioSalas" relationship="TO_ONE">
+      <point x="-119.90682347705206" y="-80.5" />
+      <point x="2082.321" y="8137.608519448113" />
+      <point x="1768.3214328052281" y="8137.608519448113" />
+      <point x="1768.3214328052281" y="7651.039829302639" />
+      <point x="-111.0" y="0.0" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.entidades.Sessao" relationship="CREATE">
+      <point x="-219.5428598582862" y="176.50026346666527" />
+      <point x="3475.46" y="8618.0" />
+      <point x="1957.0" y="8618.0" />
+      <point x="1957.0" y="8152.609" />
+      <point x="2097.321" y="8152.609" />
+      <point x="2097.321" y="6953.366" />
+      <point x="-131.50022975233742" y="4.3170308617845876E-4" />
+    </edge>
+    <edge source="UI.TelaEscolhadeAssentos" target="negocio.exceptions.assentos.AssentoOcupadoException" relationship="CREATE">
+      <point x="209.5" y="35.18345742278143" />
+      <point x="-134.5" y="0.0" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="negocio.exceptions.filmes.NenhumFilmeEncontradoException" relationship="CREATE">
+      <point x="-211.50026420554786" y="-15.00026603976039" />
+      <point x="2461.0" y="8442.656" />
+      <point x="2461.0" y="8305.653" />
+      <point x="2114.632" y="8305.653" />
+      <point x="2114.632" y="8067.162" />
+      <point x="-162.00005681940138" y="-3.04744569803006E-4" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="dados.RepositorioIDsArquivoBinario" relationship="CREATE">
+      <point x="-2.6420554786454886E-4" y="104.49973396023961" />
+      <point x="2756.037" y="8637.0" />
+      <point x="3227.45" y="8637.0" />
+      <point x="-5.534459796763258E-5" y="-92.50042817846042" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="negocio.entidades.Sala2D" relationship="CREATE">
+      <point x="15.94234151836281" y="-164.50023413363851" />
+      <point x="1938.41" y="8850.73" />
+      <point x="1972.0" y="8850.73" />
+      <point x="1972.0" y="8528.5" />
+      <point x="1258.522" y="8528.5" />
+      <point x="3.270905313002004E-4" y="57.5000537166934" />
+    </edge>
+    <edge source="negocio.entidades.Sala2D" target="negocio.entidades.Sala" relationship="GENERALIZATION">
+      <point x="94.5003270905313" y="5.3716693400929216E-5" />
+      <point x="1397.0" y="7947.547" />
+      <point x="1397.0" y="7904.5" />
+      <point x="1422.872" y="7904.5" />
+      <point x="-3.1213097500710774" y="178.49961403559973" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="dados.IRepositorioIDs" relationship="TO_ONE">
+      <point x="193.5001765229481" y="64.85679252790578" />
+      <point x="3010.0" y="8579.656" />
+      <point x="3010.0" y="8534.135" />
+      <point x="-156.99983466914773" y="-1.671580994297983E-4" />
+    </edge>
+    <edge source="dados.RepositorioSalasArquivoBinario" target="negocio.entidades.Sala" relationship="TO_MANY">
+      <point x="-142.04643280522805" y="-140.4999462833066" />
+      <point x="1790.775" y="7283.0" />
+      <point x="1425.993" y="7283.0" />
+      <point x="-3.097500712101464E-4" y="-178.50038596440027" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.SessoesNegocio" relationship="CREATE">
+      <point x="214.50025815635718" y="202.50013363544895" />
+      <point x="4239.0" y="9202.0" />
+      <point x="4239.0" y="8454.5" />
+      <point x="228.00014014171393" y="144.4582634666658" />
+    </edge>
+    <edge source="test.RepositorioClienteTest" target="dados.RepositorioClientesArquivoBinario" relationship="CREATE">
+      <point x="-147.0003824670648" y="-126.7132241583131" />
+      <point x="4998.507" y="7991.602" />
+      <point x="4998.507" y="8040.0" />
+      <point x="4656.781" y="8040.0" />
+      <point x="4.70595086881076E-5" y="140.49976094987142" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="dados.RepositorioClientesArquivoBinario" relationship="CREATE">
+      <point x="-1.9119328499073163E-4" y="-238.49965950270052" />
+      <point x="4612.256" y="8040.0" />
+      <point x="4656.781" y="8040.0" />
+      <point x="4.70595086881076E-5" y="140.49976094987142" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="dados.IRepositorioFilmes" relationship="TO_ONE">
+      <point x="183.30975976165246" y="-104.5" />
+      <point x="2939.3470239672" y="7723.655904132003" />
+      <point x="137.0" y="36.50047317296958" />
+    </edge>
+    <edge source="dados.RepositorioSessoesArquivoBinario" target="negocio.entidades.Sessao" relationship="TO_MANY">
+      <point x="215.50031257921228" y="15.000448456838967" />
+      <point x="4069.75" y="7853.548" />
+      <point x="4069.75" y="7041.0" />
+      <point x="3941.335" y="7041.0" />
+      <point x="3941.335" y="6953.366" />
+      <point x="131.49977024766258" y="4.3170308617845876E-4" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="dados.RepositorioFilmesArquivoBinario" relationship="CREATE">
+      <point x="-214.49974184364282" y="-79.99986636455105" />
+      <point x="2481.0" y="8919.5" />
+      <point x="2481.0" y="7994.097" />
+      <point x="-151.50026420554786" y="2.7755873452406377E-4" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.exceptions.sessoes.SessaoIndisponivelParaReservaException" relationship="CREATE">
+      <point x="-228.0" y="-163.43321708522126" />
+      <point x="186.5" y="0.0" />
+    </edge>
+    <edge source="negocio.entidades.pagamento.CartaoDebito" target="negocio.entidades.pagamento.MetodoPagamento" relationship="REALIZATION">
+      <point x="3.4675046754273353E-4" y="-44.500468883253234" />
+      <point x="5487.682" y="7452.0" />
+      <point x="5495.636" y="7452.0" />
+      <point x="3.1113044315134175E-4" y="31.500256394019743" />
+    </edge>
+    <edge source="UI.TelaLogin" target="negocio.exceptions.usuario.ClienteNaoEncontradoException" relationship="CREATE">
+      <point x="142.50039328304774" y="4.5827554822608363E-4" />
+      <point x="5923.139" y="10232.16" />
+      <point x="5923.139" y="7972.315" />
+      <point x="5694.564" y="7972.315" />
+      <point x="134.93217950658618" y="-31.49973074011723" />
+    </edge>
+    <edge source="UI.TelaPrincipalGerente" target="UI.TelaGerenciamentodeSalas" relationship="CREATE">
+      <point x="148.0" y="15.00014276937145" />
+      <point x="3189.8187464244334" y="9951.842" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="negocio.entidades.ClienteVIP" target="negocio.entidades.Cliente" relationship="GENERALIZATION">
+      <point x="2.3538816549262265E-4" y="-56.4996595215498" />
+      <point x="4313.76" y="7068.0" />
+      <point x="4580.365" y="7068.0" />
+      <point x="2.2920852461538743E-4" y="214.49984315629445" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.SessoesNegocio" relationship="TO_ONE">
+      <point x="214.50025815635718" y="30.000133635448947" />
+      <point x="3424.0" y="9029.5" />
+      <point x="3424.0" y="9187.0" />
+      <point x="4159.548" y="9187.0" />
+      <point x="4159.548" y="8504.042" />
+      <point x="3695.003" y="8504.042" />
+      <point x="1.4014171392773278E-4" y="176.50026346666527" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="dados.RepositorioSessoesArquivoBinario" relationship="CREATE">
+      <point x="214.50025815635718" y="1.3363544894673396E-4" />
+      <point x="2978.0" y="8999.5" />
+      <point x="2978.0" y="10202.589" />
+      <point x="1146.522" y="10202.589" />
+      <point x="1146.522" y="6649.366" />
+      <point x="3956.335" y="6649.366" />
+      <point x="3956.335" y="7838.548" />
+      <point x="215.50031257921228" y="4.48456838967104E-4" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.CardapioNegocio" relationship="TO_ONE">
+      <point x="190.1417656829044" y="-238.5" />
+      <point x="0.0" y="44.5" />
+    </edge>
+    <edge source="UI.TelaEscolhadeAssentos" target="negocio.entidades.Ingresso" relationship="CREATE">
+      <point x="209.5" y="-43.817004733893555" />
+      <point x="5834.372" y="9590.071" />
+      <point x="5834.372" y="8713.049" />
+      <point x="5938.139" y="8713.049" />
+      <point x="5938.139" y="7092.5786595215495" />
+      <point x="133.0" y="0.0" />
+    </edge>
+    <edge source="dados.RepositorioSessoesArquivoBinario" target="dados.IRepositorioSessoes" relationship="REALIZATION">
+      <point x="-10.660234882007444" y="-200.5" />
+      <point x="0.0" y="151.5" />
+    </edge>
+    <edge source="UI.TelaPrincipalGerente" target="fachada.FachadaGerente" relationship="TO_ONE">
+      <point x="148.00025815635718" y="1.4276937145041302E-4" />
+      <point x="2955.0" y="9936.842" />
+      <point x="2955.0" y="9462.0" />
+      <point x="2500.0" y="9462.0" />
+      <point x="2500.0" y="8999.5" />
+      <point x="-214.49974184364282" y="1.3363544894673396E-4" />
+    </edge>
+    <edge source="main.Main" target="fachada.Movietime" relationship="CREATE">
+      <point x="82.0" y="0.0" />
+      <point x="3833.7096067169523" y="10462.528595382857" />
+      <point x="84.04411594682415" y="106.5" />
+    </edge>
+    <edge source="negocio.GeradorIDNegocio" target="dados.IRepositorioIDs" relationship="TO_ONE">
+      <point x="-9.098023967200334" y="142.50038928223512" />
+      <point x="3033.749" y="8134.0" />
+      <point x="3010.0" y="8134.0" />
+      <point x="3010.0" y="8534.135" />
+      <point x="-156.99983466914773" y="-1.671580994297983E-4" />
+    </edge>
+    <edge source="negocio.entidades.pagamento.CartaoCredito" target="negocio.entidades.pagamento.MetodoPagamento" relationship="REALIZATION">
+      <point x="115.49975957844254" y="4.051141604577424E-4" />
+      <point x="5355.062" y="7511.371" />
+      <point x="5355.062" y="7452.0" />
+      <point x="5495.636" y="7452.0" />
+      <point x="3.1113044315134175E-4" y="31.500256394019743" />
+    </edge>
+    <edge source="UI.TelaLogin" target="UI.TelaPrincipalGerente" relationship="CREATE">
+      <point x="0.0" y="-80.5" />
+      <point x="3673.7096067169523" y="9977.669055707041" />
+      <point x="148.0" y="40.82719847641238" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="negocio.exceptions.salas.NenhumaSalaEncontradaException" relationship="CREATE">
+      <point x="-14.999823477051905" y="80.49979252790581" />
+      <point x="2187.228" y="8657.0" />
+      <point x="1744.41" y="8657.0" />
+      <point x="7.082842557792901E-6" y="31.500203631745535" />
+    </edge>
+    <edge source="negocio.Autenticacao" target="negocio.ClientesNegocio" relationship="TO_ONE">
+      <point x="-21.729406209951776" y="44.50046974986981" />
+      <point x="4976.778" y="8660.0" />
+      <point x="4332.25" y="8660.0" />
+      <point x="0.0" y="116.50026346666527" />
+    </edge>
+    <edge source="fachada.Movietime" target="fachada.FachadaGerente" relationship="TO_ONE">
+      <point x="-4.907701281808841E-4" y="106.49997986237759" />
+      <point x="3749.665" y="9806.669" />
+      <point x="2955.0" y="9806.669" />
+      <point x="2955.0" y="9462.0" />
+      <point x="2500.0" y="9462.0" />
+      <point x="2500.0" y="8999.5" />
+      <point x="-214.49974184364282" y="1.3363544894673396E-4" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.exceptions.sessoes.NenhumaSessaoEncontradaException" relationship="CREATE">
+      <point x="-14.999859858286072" y="176.5" />
+      <point x="-1.4571614649926232" y="-31.5" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.FilmesNegocio" relationship="TO_ONE">
+      <point x="-214.49974184364282" y="-22.999866364551053" />
+      <point x="2496.0" y="8976.5" />
+      <point x="2496.0" y="8457.656" />
+      <point x="-211.50026420554786" y="-2.66039760390413E-4" />
+    </edge>
+    <edge source="negocio.ClientesNegocio" target="dados.IRepositorioClientes" relationship="TO_ONE">
+      <point x="15.0" y="-116.5" />
+      <point x="4347.25" y="7461.557139136128" />
+      <point x="-141.5" y="0.0" />
+    </edge>
+    <edge source="negocio.entidades.pagamento.Pix" target="negocio.entidades.pagamento.MetodoPagamento" relationship="REALIZATION">
+      <point x="-4.4602289835893316E-4" y="-44.500468883253234" />
+      <point x="5764.261" y="7452.0" />
+      <point x="5495.636" y="7452.0" />
+      <point x="3.1113044315134175E-4" y="31.500256394019743" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="dados.RepositorioSalasArquivoBinario" relationship="CREATE">
+      <point x="-181.99973726285225" y="-2.7406547633290756E-4" />
+      <point x="2090.257" y="10116.589" />
+      <point x="2090.257" y="9319.0" />
+      <point x="2439.632" y="9319.0" />
+      <point x="2439.632" y="8835.73" />
+      <point x="1938.41" y="8835.73" />
+      <point x="5.58856719477194" y="140.5000537166934" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.ClientesNegocio" relationship="CREATE">
+      <point x="14.99980880671501" y="-238.49965950270052" />
+      <point x="4627.256" y="8633.0" />
+      <point x="4317.25" y="8633.0" />
+      <point x="-15.0" y="116.50026346666527" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="dados.RepositorioSessoesArquivoBinario" relationship="CREATE">
+      <point x="-14.999658481637198" y="164.49976586636149" />
+      <point x="1907.468" y="10202.589" />
+      <point x="1146.522" y="10202.589" />
+      <point x="1146.522" y="6649.366" />
+      <point x="3956.335" y="6649.366" />
+      <point x="3956.335" y="7838.548" />
+      <point x="215.50031257921228" y="4.48456838967104E-4" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.SalasNegocio" relationship="TO_ONE">
+      <point x="-227.99985985828607" y="50.61426346666667" />
+      <point x="3401.853" y="8360.656" />
+      <point x="3401.853" y="8280.042" />
+      <point x="2187.228" y="8280.042" />
+      <point x="-14.999823477051905" y="-80.50020747209419" />
+    </edge>
+    <edge source="negocio.ClientesNegocio" target="negocio.entidades.ClienteVIP" relationship="CREATE">
+      <point x="-16.990235388165274" y="-116.5" />
+      <point x="1.5" y="56.5" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.exceptions.sessoes.ConflitoHorarioException" relationship="CREATE">
+      <point x="220.5" y="176.5" />
+      <point x="-98.54489117718595" y="-31.5" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.CardapioNegocio" relationship="CREATE">
+      <point x="205.1417656829044" y="-238.5" />
+      <point x="15.0" y="44.5" />
+    </edge>
+    <edge source="dados.RepositorioClientesArquivoBinario" target="negocio.entidades.Cliente" relationship="TO_MANY">
+      <point x="-74.52495294049095" y="140.49976094987142" />
+      <point x="4582.256" y="8475.916" />
+      <point x="4354.0" y="8475.916" />
+      <point x="4354.0" y="8479.042" />
+      <point x="4084.75" y="8479.042" />
+      <point x="4084.75" y="6767.983" />
+      <point x="-183.99977079147538" y="-1.568437055539107E-4" />
+    </edge>
+    <edge source="UI.TelaGerenciamentoSessoes" target="fachada.FachadaGerente" relationship="TO_ONE">
+      <point x="170.50026273714775" y="1.7441523596062325E-4" />
+      <point x="2500.0" y="9623.318" />
+      <point x="2500.0" y="8999.5" />
+      <point x="-214.49974184364282" y="1.3363544894673396E-4" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.exceptions.sessoes.SessaoJaExisteException" relationship="CREATE">
+      <point x="-215.3284073195059" y="-176.5" />
+      <point x="3479.6744525387803" y="8031.061249028036" />
+      <point x="125.0" y="0.0" />
+    </edge>
+    <edge source="fachada.Movietime" target="negocio.exceptions.usuario.SenhaInvalidaException" relationship="CREATE">
+      <point x="143.83450922987186" y="106.49997986237759" />
+      <point x="3893.5" y="9237.0" />
+      <point x="5026.473" y="9237.0" />
+      <point x="-4.888476769338013E-4" y="31.5" />
+    </edge>
+    <edge source="UI.TelaPrincipalCliente" target="fachada.FachadaCliente" relationship="TO_ONE">
+      <point x="4.863904196099611E-4" y="-80.50005570704161" />
+      <point x="4635.817" y="9769.0" />
+      <point x="3734.665" y="9769.0" />
+      <point x="3734.665" y="9292.0" />
+      <point x="4612.256" y="9292.0" />
+      <point x="-1.9119328499073163E-4" y="238.50034049729948" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.FilmesNegocio" relationship="CREATE">
+      <point x="-15.00019119328499" y="238.50034049729948" />
+      <point x="4597.256" y="9255.0" />
+      <point x="3446.0" y="9255.0" />
+      <point x="3446.0" y="8442.656" />
+      <point x="211.49973579445214" y="-15.00026603976039" />
+    </edge>
+    <edge source="fachada.Movietime" target="fachada.FachadaCliente" relationship="CREATE">
+      <point x="158.5" y="30.0" />
+      <point x="-233.0" y="77.35236063492084" />
+    </edge>
+    <edge source="negocio.ClientesNegocio" target="negocio.exceptions.usuario.UsuarioJaExisteException" relationship="CREATE">
+      <point x="230.0" y="-70.72651237502214" />
+      <point x="5211.062240421557" y="8239.315224158312" />
+      <point x="0.0" y="-31.5" />
+    </edge>
+    <edge source="negocio.ClientesNegocio" target="negocio.entidades.ClientePadrao" relationship="CREATE">
+      <point x="0.0" y="-116.49973653333473" />
+      <point x="4332.25" y="8115.0" />
+      <point x="4832.281" y="8115.0" />
+      <point x="81.57223250433344" y="68.5003404784502" />
+    </edge>
+    <edge source="fachada.Movietime" target="negocio.ClientesNegocio" relationship="CREATE">
+      <point x="136.83450922987186" y="-106.50002013762241" />
+      <point x="3886.5" y="8633.0" />
+      <point x="4317.25" y="8633.0" />
+      <point x="-15.0" y="116.50026346666527" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="negocio.exceptions.salas.CodigoSalaJaExisteException" relationship="CREATE">
+      <point x="-144.90639067182383" y="-80.5" />
+      <point x="2057.321432805228" y="8330.0" />
+      <point x="141.0" y="-20.152618575935776" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="dados.RepositorioFilmesArquivoBinario" relationship="TO_ONE">
+      <point x="-29.999658481637198" y="164.49976586636149" />
+      <point x="1892.468" y="9378.23" />
+      <point x="1131.522" y="9378.23" />
+      <point x="1131.522" y="7268.0" />
+      <point x="2887.821" y="7268.0" />
+      <point x="131.78373579445224" y="-152.49972244126548" />
+    </edge>
+    <edge source="negocio.entidades.Sessao" target="negocio.entidades.Sala" relationship="TO_ONE">
+      <point x="-2.2975233741817647E-4" y="286.5004317030862" />
+      <point x="2941.7" y="7283.0" />
+      <point x="1425.993" y="7283.0" />
+      <point x="-3.097500712101464E-4" y="-178.50038596440027" />
+    </edge>
+    <edge source="negocio.Autenticacao" target="negocio.exceptions.usuario.ClienteNaoEncontradoException" relationship="CREATE">
+      <point x="125.49959379004758" y="4.6974986980785616E-4" />
+      <point x="5275.0" y="7832.163" />
+      <point x="5275.0" y="7972.315" />
+      <point x="5694.564" y="7972.315" />
+      <point x="134.93217950658618" y="-31.49973074011723" />
+    </edge>
+    <edge source="negocio.entidades.ClientePadrao" target="negocio.entidades.Cliente" relationship="GENERALIZATION">
+      <point x="2.3250433332577813E-4" y="-68.4996595215498" />
+      <point x="4750.709" y="7068.0" />
+      <point x="4580.365" y="7068.0" />
+      <point x="2.2920852461538743E-4" y="214.49984315629445" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.exceptions.sessoes.SessaoNaoEncontradaException" relationship="CREATE">
+      <point x="-227.99985985828607" y="34.95826346666581" />
+      <point x="3424.0" y="8345.0" />
+      <point x="3424.0" y="8664.049" />
+      <point x="-152.49992395044274" y="-4.653412906918675E-5" />
+    </edge>
+    <edge source="UI.TelaComprarIngresso" target="UI.TelaEscolhadeAssentos" relationship="CREATE">
+      <point x="242.5" y="121.0" />
+      <point x="-209.5" y="-13.657775847543235" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.SessoesNegocio" relationship="CREATE">
+      <point x="-233.000191193285" y="-106.64765950270157" />
+      <point x="4239.0" y="8867.532" />
+      <point x="4239.0" y="8454.5" />
+      <point x="228.00014014171393" y="144.4582634666658" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="dados.RepositorioSessoesArquivoBinario" relationship="TO_ONE">
+      <point x="-181.99973726285225" y="-15.000274065476333" />
+      <point x="1720.0" y="10101.589" />
+      <point x="1720.0" y="9490.0" />
+      <point x="1116.522" y="9490.0" />
+      <point x="1116.522" y="6520.983" />
+      <point x="3971.335" y="6520.983" />
+      <point x="3971.335" y="7823.548" />
+      <point x="215.50031257921228" y="-14.999551543161033" />
+    </edge>
+    <edge source="UI.TelaPrincipalGerente" target="UI.TelaGerenciamentoSessoes" relationship="CREATE">
+      <point x="-148.0" y="0.0" />
+      <point x="2274.757" y="9936.84185723063" />
+      <point x="-14.99973726285225" y="128.5" />
+    </edge>
+    <edge source="negocio.entidades.Ingresso" target="negocio.entidades.Assento" relationship="TO_ONE">
+      <point x="-132.999587895918" y="-51.578659521549525" />
+      <point x="4988.709" y="7041.0" />
+      <point x="4988.709" y="7327.198" />
+      <point x="4208.76" y="7327.198" />
+      <point x="2.3538816549262265E-4" y="-130.49950816142882" />
+    </edge>
+    <edge source="negocio.entidades.Assento" target="negocio.exceptions.assentos.AssentoIndisponivelException" relationship="CREATE">
+      <point x="2.3538816549262265E-4" y="130.50049183857118" />
+      <point x="4208.76" y="8023.0" />
+      <point x="4847.281" y="8023.0" />
+      <point x="4847.281" y="7770.163" />
+      <point x="5953.139" y="7770.163" />
+      <point x="5953.139" y="9863.169" />
+      <point x="142.9997142083921" y="3.268253585702041E-4" />
+    </edge>
+    <edge source="fachada.Movietime" target="negocio.Autenticacao" relationship="TO_ONE">
+      <point x="158.5" y="15.0" />
+      <point x="4066.897366347551" y="9036.532020137622" />
+      <point x="4066.897366347551" y="8690.0" />
+      <point x="5774.372" y="8690.0" />
+      <point x="5774.372" y="7802.163" />
+      <point x="125.5" y="-29.999530250130192" />
+    </edge>
+    <edge source="UI.TelaPrincipalCliente" target="fachada.Movietime" relationship="TO_ONE">
+      <point x="-202.4995136095804" y="14.99994429295839" />
+      <point x="3871.0" y="9894.669" />
+      <point x="3871.0" y="9240.0" />
+      <point x="3779.665" y="9240.0" />
+      <point x="29.99950922987182" y="106.49997986237759" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="negocio.exceptions.salas.LimiteDeSalasExcedidoException" relationship="CREATE">
+      <point x="-193.5" y="42.6465888961593" />
+      <point x="1923.41" y="8557.445796368254" />
+      <point x="1923.41" y="8706.5" />
+      <point x="154.0" y="-5.230037920351606" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.entidades.pagamento.CartaoDebito" relationship="CREATE">
+      <point x="233.0" y="-29.999659502700524" />
+      <point x="5789.372" y="8944.18" />
+      <point x="5789.372" y="7709.840239050129" />
+      <point x="5487.681653249532" y="7709.840239050129" />
+      <point x="0.0" y="44.5" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.exceptions.sessoes.SessaoJaExibidaException" relationship="CREATE">
+      <point x="29.99980880671501" y="-238.5" />
+      <point x="4642.256" y="8095.061249028036" />
+      <point x="3090.7487128352705" y="8095.061249028036" />
+      <point x="3090.7487128352705" y="7930.411895060563" />
+      <point x="-129.5" y="0.0" />
+    </edge>
+    <edge source="dados.RepositorioIDsArquivoBinario" target="dados.IRepositorioIDs" relationship="REALIZATION">
+      <point x="14.999944655402032" y="-92.5" />
+      <point x="15.097165330852022" y="55.5" />
+    </edge>
+    <edge source="negocio.entidades.Sessao" target="negocio.entidades.Assento" relationship="TO_MANY">
+      <point x="131.49977024766258" y="87.6344317030862" />
+      <point x="3920.674" y="7041.0" />
+      <point x="3920.674" y="7015.0" />
+      <point x="4988.709" y="7015.0" />
+      <point x="4988.709" y="7327.198" />
+      <point x="4208.76" y="7327.198" />
+      <point x="2.3538816549262265E-4" y="-130.49950816142882" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="dados.IRepositorioSessoes" relationship="TO_ONE">
+      <point x="-2.6420554786454886E-4" y="-104.50026603976039" />
+      <point x="2756.037" y="8330.0" />
+      <point x="3446.0" y="8330.0" />
+      <point x="3446.0" y="7415.289" />
+      <point x="-215.50045253878034" y="-2.797246561385691E-4" />
+    </edge>
+    <edge source="fachada.Movietime" target="negocio.ClientesNegocio" relationship="TO_ONE">
+      <point x="121.83450922987186" y="-106.50002013762241" />
+      <point x="3871.5" y="8660.0" />
+      <point x="4332.25" y="8660.0" />
+      <point x="0.0" y="116.50026346666527" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="dados.RepositorioSalasArquivoBinario" relationship="CREATE">
+      <point x="2.58156357176631E-4" y="260.50013363544895" />
+      <point x="2741.038" y="9319.0" />
+      <point x="2439.632" y="9319.0" />
+      <point x="2439.632" y="8835.73" />
+      <point x="1938.41" y="8835.73" />
+      <point x="5.58856719477194" y="140.5000537166934" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.exceptions.assentos.AssentoIndisponivelException" relationship="CREATE">
+      <point x="228.00014014171393" y="2.634666652738815E-4" />
+      <point x="4069.75" y="8310.042" />
+      <point x="4069.75" y="8023.0" />
+      <point x="4847.281" y="8023.0" />
+      <point x="4847.281" y="7770.163" />
+      <point x="5953.139" y="7770.163" />
+      <point x="5953.139" y="9863.169" />
+      <point x="142.9997142083921" y="3.268253585702041E-4" />
+    </edge>
+    <edge source="test.RepositorioClienteTest" target="negocio.ClientesNegocio" relationship="TO_ONE">
+      <point x="-139.9323824670655" y="128.49977584168755" />
+      <point x="5390.132" y="8660.0" />
+      <point x="4332.25" y="8660.0" />
+      <point x="0.0" y="116.50026346666527" />
+    </edge>
+    <edge source="test.RepositorioClienteTest" target="negocio.entidades.ClientePadrao" relationship="CREATE">
+      <point x="-147.0003824670648" y="-93.31522415831296" />
+      <point x="5290.0" y="8025.0" />
+      <point x="5290.0" y="8115.0" />
+      <point x="4832.281" y="8115.0" />
+      <point x="81.57223250433344" y="68.5003404784502" />
+    </edge>
+    <edge source="UI.TelaGerenciamentodeSalas" target="fachada.FachadaGerente" relationship="TO_ONE">
+      <point x="-167.9997464244334" y="1.7441523596062325E-4" />
+      <point x="2955.0" y="9575.318" />
+      <point x="2955.0" y="9462.0" />
+      <point x="2500.0" y="9462.0" />
+      <point x="2500.0" y="8999.5" />
+      <point x="-214.49974184364282" y="1.3363544894673396E-4" />
+    </edge>
+    <edge source="UI.TelaComprarIngresso" target="negocio.exceptions.ingressos.QuantidadeInvalidaException" relationship="CREATE">
+      <point x="242.5" y="0.0" />
+      <point x="5629.139285791608" y="9499.23022888635" />
+      <point x="26.76687648600364" y="43.5" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="dados.RepositorioFilmesArquivoBinario" relationship="CREATE">
+      <point x="3.415183628021623E-4" y="164.49976586636149" />
+      <point x="1922.468" y="9335.0" />
+      <point x="2481.0" y="9335.0" />
+      <point x="2481.0" y="7994.097" />
+      <point x="-151.50026420554786" y="2.7755873452406377E-4" />
+    </edge>
+    <edge source="UI.TelaComprarIngresso" target="UI.TelaEscolhaDeLanches" relationship="CREATE">
+      <point x="242.5" y="-84.0" />
+      <point x="-150.5" y="0.0" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="dados.RepositorioFilmesArquivoBinario" relationship="CREATE">
+      <point x="2.6273714775015833E-4" y="-68.50027406547633" />
+      <point x="2289.757" y="9769.318" />
+      <point x="2481.0" y="9769.318" />
+      <point x="2481.0" y="7994.097" />
+      <point x="-151.50026420554786" y="2.7755873452406377E-4" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.exceptions.salas.NenhumaSalaEncontradaException" relationship="CREATE">
+      <point x="2.58156357176631E-4" y="-260.49986636455105" />
+      <point x="2741.038" y="8657.0" />
+      <point x="1744.41" y="8657.0" />
+      <point x="7.082842557792901E-6" y="31.500203631745535" />
+    </edge>
+    <edge source="dados.RepositorioSalasArquivoBinario" target="dados.IRepositorioSalas" relationship="REALIZATION">
+      <point x="-13.546112343523419" y="-140.5" />
+      <point x="0.0" y="91.5" />
+    </edge>
+    <edge source="negocio.entidades.Sessao" target="negocio.entidades.Assento" relationship="CREATE">
+      <point x="131.5" y="152.21309122463572" />
+      <point x="4016.335" y="7105.5786595215495" />
+      <point x="4016.335" y="7823.548" />
+      <point x="-89.0" y="-45.05350816142891" />
+    </edge>
+    <edge source="main.Main" target="UI.TelaLogin" relationship="CREATE">
+      <point x="0.0" y="-44.5" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="UI.TelaGerenciamentoDeContaCliente" target="fachada.Movietime" relationship="TO_ONE">
+      <point x="-199.50036634755088" y="-2.288863506691996E-4" />
+      <point x="3871.0" y="9487.23" />
+      <point x="3871.0" y="9240.0" />
+      <point x="3779.665" y="9240.0" />
+      <point x="29.99950922987182" y="106.49997986237759" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="negocio.FilmesNegocio" relationship="CREATE">
+      <point x="0.9423415183628094" y="-164.50023413363851" />
+      <point x="1923.41" y="8721.5" />
+      <point x="2995.0" y="8721.5" />
+      <point x="2995.0" y="9255.0" />
+      <point x="3446.0" y="9255.0" />
+      <point x="3446.0" y="8442.656" />
+      <point x="211.49973579445214" y="-15.00026603976039" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="negocio.entidades.Sala3D" relationship="CREATE">
+      <point x="-104.90682347705206" y="-80.5" />
+      <point x="2097.321" y="8232.054734151656" />
+      <point x="1534.8722068092209" y="8232.054734151656" />
+      <point x="0.0" y="57.5" />
+    </edge>
+    <edge source="UI.TelaLogin" target="fachada.Movietime" relationship="TO_ONE">
+      <point x="142.50039328304774" y="-14.999541724451774" />
+      <point x="3871.0" y="10217.16" />
+      <point x="3871.0" y="9240.0" />
+      <point x="3779.665" y="9240.0" />
+      <point x="29.99950922987182" y="106.49997986237759" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="dados.RepositorioSalasArquivoBinario" relationship="CREATE">
+      <point x="29.99980880671501" y="238.50034049729948" />
+      <point x="4642.256" y="9319.0" />
+      <point x="2439.632" y="9319.0" />
+      <point x="2439.632" y="8835.73" />
+      <point x="1938.41" y="8835.73" />
+      <point x="5.58856719477194" y="140.5000537166934" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="dados.RepositorioIDsArquivoBinario" relationship="CREATE">
+      <point x="-204.5428598582862" y="176.50026346666527" />
+      <point x="3490.46" y="8637.0" />
+      <point x="3227.45" y="8637.0" />
+      <point x="-5.534459796763258E-5" y="-92.50042817846042" />
+    </edge>
+    <edge source="UI.TelaEscolhadeAssentos" target="negocio.entidades.Sessao" relationship="TO_ONE">
+      <point x="209.50021013318656" y="-13.817004733893555" />
+      <point x="5908.139" y="9620.071" />
+      <point x="5908.139" y="6535.983" />
+      <point x="4069.75" y="6535.983" />
+      <point x="4069.75" y="7041.0" />
+      <point x="3941.335" y="7041.0" />
+      <point x="3941.335" y="6953.366" />
+      <point x="131.49977024766258" y="4.3170308617845876E-4" />
+    </edge>
+    <edge source="UI.TelaPrincipalGerente" target="UI.TelaGerenciamentoDeFilmes" relationship="CREATE">
+      <point x="0.0" y="-44.5" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="test.RepositorioClienteTest" target="dados.RepositorioClientesArquivoBinario" relationship="TO_ONE">
+      <point x="0.0" y="-128.5" />
+      <point x="5530.064382467065" y="7755.163" />
+      <point x="158.0" y="-42.677239050129174" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="dados.RepositorioFilmesArquivoBinario" relationship="TO_ONE">
+      <point x="-181.99973726285225" y="14.999725934523667" />
+      <point x="2075.257" y="10131.589" />
+      <point x="2075.257" y="9399.0" />
+      <point x="1892.468" y="9399.0" />
+      <point x="1892.468" y="9378.23" />
+      <point x="1131.522" y="9378.23" />
+      <point x="1131.522" y="7268.0" />
+      <point x="2887.821" y="7268.0" />
+      <point x="131.78373579445224" y="-152.49972244126548" />
+    </edge>
+    <edge source="negocio.entidades.Ingresso" target="negocio.entidades.Sessao" relationship="TO_ONE">
+      <point x="-132.999587895918" y="13.000340478450198" />
+      <point x="4973.709" y="7105.579" />
+      <point x="4973.709" y="7041.0" />
+      <point x="3941.335" y="7041.0" />
+      <point x="3941.335" y="6953.366" />
+      <point x="131.49977024766258" y="4.3170308617845876E-4" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.FilmesNegocio" relationship="TO_ONE">
+      <point x="-233.000191193285" y="-76.64765950270157" />
+      <point x="3033.749" y="8897.532" />
+      <point x="3033.749" y="8679.547" />
+      <point x="2496.0" y="8679.547" />
+      <point x="2496.0" y="8457.656" />
+      <point x="-211.50026420554786" y="-2.66039760390413E-4" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="negocio.entidades.Sessao" relationship="CREATE">
+      <point x="64.53234151836273" y="-164.50023413363851" />
+      <point x="1987.0" y="8618.0" />
+      <point x="1957.0" y="8618.0" />
+      <point x="1957.0" y="8152.609" />
+      <point x="2097.321" y="8152.609" />
+      <point x="2097.321" y="6953.366" />
+      <point x="-131.50022975233742" y="4.3170308617845876E-4" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="dados.IRepositorioIDs" relationship="TO_ONE">
+      <point x="211.49973579445214" y="-2.66039760390413E-4" />
+      <point x="3010.0" y="8457.656" />
+      <point x="3010.0" y="8534.135" />
+      <point x="-156.99983466914773" y="-1.671580994297983E-4" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="dados.RepositorioFilmesArquivoBinario" relationship="CREATE">
+      <point x="14.99980880671501" y="238.50034049729948" />
+      <point x="4627.256" y="9335.0" />
+      <point x="2481.0" y="9335.0" />
+      <point x="2481.0" y="7994.097" />
+      <point x="-151.50026420554786" y="2.7755873452406377E-4" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.SessoesNegocio" relationship="TO_ONE">
+      <point x="-233.000191193285" y="3.404972994758282E-4" />
+      <point x="4159.548" y="8974.18" />
+      <point x="4159.548" y="8504.042" />
+      <point x="3695.003" y="8504.042" />
+      <point x="1.4014171392773278E-4" y="176.50026346666527" />
+    </edge>
+    <edge source="fachada.Movietime" target="fachada.FachadaCliente" relationship="TO_ONE">
+      <point x="14.99950922987182" y="106.49997986237759" />
+      <point x="3764.665" y="9292.0" />
+      <point x="4612.256" y="9292.0" />
+      <point x="-1.9119328499073163E-4" y="238.50034049729948" />
+    </edge>
+    <edge source="fachada.Movietime" target="dados.RepositorioClientesArquivoBinario" relationship="CREATE">
+      <point x="-4.907701281808841E-4" y="-106.50002013762241" />
+      <point x="3749.665" y="8713.049" />
+      <point x="4597.256" y="8713.049" />
+      <point x="4597.256" y="8040.0" />
+      <point x="4656.781" y="8040.0" />
+      <point x="4.70595086881076E-5" y="140.49976094987142" />
+    </edge>
+    <edge source="UI.TelaGerenciamentoDeContaCliente" target="negocio.exceptions.usuario.SenhaInvalidaException" relationship="CREATE">
+      <point x="-3.663475508801639E-4" y="-116.50022888635067" />
+      <point x="4123.897" y="9237.0" />
+      <point x="5026.473" y="9237.0" />
+      <point x="-4.888476769338013E-4" y="31.5" />
+    </edge>
+    <edge source="test.RepositorioClienteTest" target="negocio.ClientesNegocio" relationship="CREATE">
+      <point x="-147.0003824670648" y="-78.31522415831296" />
+      <point x="5355.062" y="8040.0" />
+      <point x="5355.062" y="8633.0" />
+      <point x="4317.25" y="8633.0" />
+      <point x="-15.0" y="116.50026346666527" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="negocio.FilmesNegocio" relationship="TO_ONE">
+      <point x="-227.99985985828607" y="-14.999736533334726" />
+      <point x="2496.0" y="8295.042" />
+      <point x="2496.0" y="8457.656" />
+      <point x="-211.50026420554786" y="-2.66039760390413E-4" />
+    </edge>
+    <edge source="fachada.Movietime" target="fachada.FachadaGerente" relationship="CREATE">
+      <point x="-38.165490770128145" y="106.49997986237759" />
+      <point x="3711.5" y="9292.0" />
+      <point x="2726.038" y="9292.0" />
+      <point x="-14.999741843642823" y="260.50013363544895" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.SalasNegocio" relationship="TO_ONE">
+      <point x="23.462258156357166" y="-260.49986636455105" />
+      <point x="2764.5" y="8653.0" />
+      <point x="3401.853" y="8653.0" />
+      <point x="3401.853" y="8280.042" />
+      <point x="2187.228" y="8280.042" />
+      <point x="-14.999823477051905" y="-80.50020747209419" />
+    </edge>
+    <edge source="negocio.entidades.Cliente" target="negocio.entidades.Ingresso" relationship="TO_MANY">
+      <point x="184.00022920852462" y="-1.568437055539107E-4" />
+      <point x="5040.0" y="6767.983" />
+      <point x="5040.0" y="7090.579" />
+      <point x="-132.999587895918" y="-1.9996595215498019" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="dados.RepositorioSessoesArquivoBinario" relationship="CREATE">
+      <point x="182.00026273714775" y="14.999725934523667" />
+      <point x="2978.0" y="10131.589" />
+      <point x="2978.0" y="10202.589" />
+      <point x="1146.522" y="10202.589" />
+      <point x="1146.522" y="6649.366" />
+      <point x="3956.335" y="6649.366" />
+      <point x="3956.335" y="7838.548" />
+      <point x="215.50031257921228" y="4.48456838967104E-4" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="dados.RepositorioIDsArquivoBinario" relationship="CREATE">
+      <point x="1.7652294809522573E-4" y="80.49979252790581" />
+      <point x="2202.228" y="8637.0" />
+      <point x="3227.45" y="8637.0" />
+      <point x="-5.534459796763258E-5" y="-92.50042817846042" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="negocio.entidades.Sala2D" relationship="CREATE">
+      <point x="-193.4998234770519" y="-2.074720941891428E-4" />
+      <point x="1972.0" y="8514.799" />
+      <point x="1972.0" y="8528.5" />
+      <point x="1258.522" y="8528.5" />
+      <point x="3.270905313002004E-4" y="57.5000537166934" />
+    </edge>
+    <edge source="negocio.Autenticacao" target="negocio.ClientesNegocio" relationship="CREATE">
+      <point x="-36.729406209951776" y="44.50046974986981" />
+      <point x="4961.778" y="8633.0" />
+      <point x="4317.25" y="8633.0" />
+      <point x="-15.0" y="116.50026346666527" />
+    </edge>
+    <edge source="negocio.SessoesNegocio" target="dados.IRepositorioIDs" relationship="TO_ONE">
+      <point x="-227.99985985828607" y="2.634666652738815E-4" />
+      <point x="3010.0" y="8310.042" />
+      <point x="3010.0" y="8534.135" />
+      <point x="-156.99983466914773" y="-1.671580994297983E-4" />
+    </edge>
+    <edge source="negocio.SalasNegocio" target="dados.IRepositorioSessoes" relationship="TO_ONE">
+      <point x="1.7652294809522573E-4" y="-80.50020747209419" />
+      <point x="2202.228" y="8330.0" />
+      <point x="3446.0" y="8330.0" />
+      <point x="3446.0" y="7415.289" />
+      <point x="-215.50045253878034" y="-2.797246561385691E-4" />
+    </edge>
+    <edge source="UI.TelaEscolhadeAssentos" target="fachada.FachadaCliente" relationship="TO_ONE">
+      <point x="2.1013318655604962E-4" y="104.49999526610736" />
+      <point x="5224.798" y="9769.0" />
+      <point x="3734.665" y="9769.0" />
+      <point x="3734.665" y="9292.0" />
+      <point x="4612.256" y="9292.0" />
+      <point x="-1.9119328499073163E-4" y="238.50034049729948" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.exceptions.sessoes.SessaoNaoEncontradaException" relationship="CREATE">
+      <point x="214.50025815635718" y="15.000133635448947" />
+      <point x="3424.0" y="9014.5" />
+      <point x="3424.0" y="8664.049" />
+      <point x="-152.49992395044274" y="-4.653412906918675E-5" />
+    </edge>
+    <edge source="dados.RepositorioClientesArquivoBinario" target="dados.IRepositorioClientes" relationship="REALIZATION">
+      <point x="16.5" y="-140.5" />
+      <point x="0.0" y="91.5" />
+    </edge>
+    <edge source="test.EntrarComoGerenteEAdicionarFilmeTest" target="fachada.FachadaGerente" relationship="TO_ONE">
+      <point x="182.00026273714775" y="-2.7406547633290756E-4" />
+      <point x="2500.0" y="10116.589" />
+      <point x="2500.0" y="8999.5" />
+      <point x="-214.49974184364282" y="1.3363544894673396E-4" />
+    </edge>
+    <edge source="negocio.CardapioNegocio" target="negocio.entidades.Lanche" relationship="CREATE">
+      <point x="134.5" y="0.0" />
+      <point x="-97.5" y="-62.71543507545175" />
+    </edge>
+    <edge source="UI.TelaComprarIngresso" target="negocio.entidades.Cliente" relationship="TO_ONE">
+      <point x="-242.50012655365845" y="-2.288863506691996E-4" />
+      <point x="4354.0" y="9499.23" />
+      <point x="4354.0" y="8479.042" />
+      <point x="4084.75" y="8479.042" />
+      <point x="4084.75" y="6767.983" />
+      <point x="-183.99977079147538" y="-1.568437055539107E-4" />
+    </edge>
+    <edge source="fachada.FachadaCliente" target="negocio.ClientesNegocio" relationship="TO_ONE">
+      <point x="173.7438088067147" y="-238.49965950270052" />
+      <point x="4786.0" y="8660.0" />
+      <point x="4332.25" y="8660.0" />
+      <point x="0.0" y="116.50026346666527" />
+    </edge>
+    <edge source="test.RepositorioFilmeTest" target="dados.RepositorioSessoesArquivoBinario" relationship="TO_ONE">
+      <point x="-177.9996584816372" y="-2.3413363851432223E-4" />
+      <point x="1720.0" y="9133.417" />
+      <point x="1720.0" y="9490.0" />
+      <point x="1116.522" y="9490.0" />
+      <point x="1116.522" y="6520.983" />
+      <point x="3971.335" y="6520.983" />
+      <point x="3971.335" y="7823.548" />
+      <point x="215.50031257921228" y="-14.999551543161033" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.FilmesNegocio" relationship="CREATE">
+      <point x="214.50025815635718" y="-14.999866364551053" />
+      <point x="2995.0" y="8984.5" />
+      <point x="2995.0" y="9255.0" />
+      <point x="3446.0" y="9255.0" />
+      <point x="3446.0" y="8442.656" />
+      <point x="211.49973579445214" y="-15.00026603976039" />
+    </edge>
+    <edge source="UI.TelaLogin" target="UI.TelaPrincipalCliente" relationship="CREATE">
+      <point x="142.5" y="15.000458275548226" />
+      <point x="4635.81651360958" y="10247.16" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="UI.TelaComprarIngresso" target="fachada.FachadaCliente" relationship="TO_ONE">
+      <point x="-1.2655365844693733E-4" y="-128.50022888635067" />
+      <point x="4667.98" y="9292.0" />
+      <point x="4612.256" y="9292.0" />
+      <point x="-1.9119328499073163E-4" y="238.50034049729948" />
+    </edge>
+    <edge source="negocio.FilmesNegocio" target="negocio.exceptions.filmes.FilmeNaoEstaCadastradoException" relationship="CREATE">
+      <point x="29.999735794452135" y="-104.5" />
+      <point x="2786.037" y="8164.096722441265" />
+      <point x="162.5" y="17.4882029931523" />
+    </edge>
+    <edge source="fachada.FachadaGerente" target="negocio.exceptions.filmes.NenhumFilmeEncontradoException" relationship="CREATE">
+      <point x="-214.49974184364282" y="-215.49986636455105" />
+      <point x="2461.0" y="8784.0" />
+      <point x="2461.0" y="8305.653" />
+      <point x="2114.632" y="8305.653" />
+      <point x="2114.632" y="8067.162" />
+      <point x="-162.00005681940138" y="-3.04744569803006E-4" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.1730008787346223" showDependencies="true" x="4429.791289092064" y="8510.941587301586" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
