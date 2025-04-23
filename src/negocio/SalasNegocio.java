@@ -55,7 +55,7 @@ public class SalasNegocio {
                 }
             }
             repositorioSalas.removerSala(salaDesejada);
-            repositorioIDs.removerID(GeradorID.getInstancia().getPrefixoFilme(), salaDesejada.getId());
+            repositorioIDs.removerID(GeradorID.getInstancia().getPrefixoSala(), salaDesejada.getId());
         }
         else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
     }
