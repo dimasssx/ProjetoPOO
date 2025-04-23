@@ -72,8 +72,8 @@ public class FachadaCliente {
 
         return formatadas;
     }
-    public Sessao procurarSessao(String ID) throws SessaoNaoEncontradaException {
-        return sessoesNegocio.procurarSessao(ID);
+    public Sessao procurarSessao(String id) throws SessaoNaoEncontradaException {
+        return sessoesNegocio.procurarSessao(id);
     }
     public double calcularValorCompra(Cliente cliente, Sessao sessao, ArrayList<Ingresso> ingressos,ArrayList<Lanche> lanches) {
         return clientesNegocio.calcularValorTotalComTipos(cliente, sessao, ingressos,lanches);

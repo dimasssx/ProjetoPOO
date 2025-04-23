@@ -66,8 +66,8 @@ public class FachadaGerente {
     public void adicionarSessao(String horario, String idFilme, String idSala, String dia) throws SessaoJaExisteException, ConflitoHorarioException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ValorInvalidoException {
         sessoesNegocio.adicionarSessao(horario, idFilme, idSala, dia);
     }
-    public void removerSessao(String ID) throws SessaoNaoEncontradaException {
-        sessoesNegocio.removerSessao(ID);
+    public void removerSessao(String id) throws SessaoNaoEncontradaException {
+        sessoesNegocio.removerSessao(id);
     }
     public String procurarSessao(String id) throws SessaoNaoEncontradaException {
         Sessao s = sessoesNegocio.procurarSessao(id);
@@ -122,12 +122,12 @@ public class FachadaGerente {
         salasNegocio.adicionarSala(codigo,tipo,linhas,colunas);
     }
 
-    public void removerSala(String ID) throws SalaNaoEncontradaException {
-        salasNegocio.removerSala(ID);
+    public void removerSala(String id) throws SalaNaoEncontradaException {
+        salasNegocio.removerSala(id);
     }
 
-    public Sala procurarSala(String ID) throws SalaNaoEncontradaException {
-        return salasNegocio.procurarSala(ID);
+    public Sala procurarSala(String id) throws SalaNaoEncontradaException {
+        return salasNegocio.procurarSala(id);
     }
 
     public ArrayList<String> listarSalas() throws NenhumaSalaEncontradaException {

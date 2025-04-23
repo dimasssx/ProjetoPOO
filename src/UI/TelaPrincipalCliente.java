@@ -191,5 +191,4 @@ public class TelaPrincipalCliente {
             System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
         }
     }
-
 }

@@ -102,11 +102,11 @@ public class TelaGerenciamentoSessoes {
     }
     private void removerSessao(){
         System.out.println("(Digite 0 a qualquer momento para sair)");
-        String ID;
-        ID = lerDado("ID da Sessao");
-        if (ID == null) return;
+        String id;
+        id = lerDado("id da Sessao");
+        if (id == null) return;
         try{
-            fachada.removerSessao(ID);
+            fachada.removerSessao(id);
             System.out.println("\033[92m Sessão removida com Sucesso! \033[0m");
         } catch (SessaoNaoEncontradaException e) {
             System.err.println(e.getMessage());
@@ -114,12 +114,12 @@ public class TelaGerenciamentoSessoes {
     }
     private void atualizarSessao(){
         System.out.println("(Digite 0 a qualquer momento para sair)");
-        String ID, horario,dia, idFilme;
+        String id, horario,dia, idFilme;
 
-        ID = lerDado("ID da Sessão");
-        if (ID == null) return;
+        id = lerDado("id da Sessão");
+        if (id == null) return;
         try{
-            fachada.procurarSessao(ID);
+            fachada.procurarSessao(id);
         } catch (SessaoNaoEncontradaException e) {
             System.err.println(e.getMessage());
             return;
@@ -139,7 +139,7 @@ public class TelaGerenciamentoSessoes {
             return;
         }
         try {
-            fachada.atualizarSessao(ID,horario,dia,idFilme);
+            fachada.atualizarSessao(id,horario,dia,idFilme);
             System.out.println("\033[92m Sessão atualizada com Sucesso! \033[0m");
         } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | ConflitoHorarioException e) {
             System.err.println(e.getMessage());
@@ -187,7 +187,7 @@ public class TelaGerenciamentoSessoes {
     }
     private void reservarSessaoInteira(){
         System.out.println("(Digite 0 a qualquer momento para sair)");
-        String idSessao = lerDado("ID da sessão (preferencialmente criar uma nova antes)");
+        String idSessao = lerDado("ID da sessão (preferencialmente crie uma nova antes de reservar)");
         if (idSessao == null) return;
         try {
             fachada.procurarSessao(idSessao);

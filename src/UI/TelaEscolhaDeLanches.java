@@ -43,11 +43,4 @@ public class TelaEscolhaDeLanches {
              }
         return escolhidos;
     }
-    public double calcularTotal(ArrayList<Lanche> lanches) {
-        double total = 0.0;
-        for (Lanche lanche : lanches) {
-            total += lanche.getPreco();
-        }
-        return total;
-    }
 }

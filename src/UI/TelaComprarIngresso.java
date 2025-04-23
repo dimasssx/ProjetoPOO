@@ -32,16 +32,16 @@ public class TelaComprarIngresso {
     public void iniciar() {
         imprimirCabecalho();
         
-        String ID;
+        String id;
         System.out.println(ANSI_YELLOW + "Escolha a sessão pelo ID, caso não saiba, volte e busque a sessão que deseja por filme ou dia!" + ANSI_RESET);
         System.out.println(ANSI_YELLOW + "Digite 0 a qualquer momento para sair." + ANSI_RESET);
         
         while(true){
-            ID = lerDado("ID da Sessão");
-            if (ID == null) return;
+            id = lerDado("ID da Sessão");
+            if (id == null) return;
             
             try {
-                Sessao sessao = fachada.procurarSessao(ID);
+                Sessao sessao = fachada.procurarSessao(id);
                 try{
                     fachada.verificarSessaoAindaValida(sessao);
                 } catch (SessaoJaExibidaException e) {

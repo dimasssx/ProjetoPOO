@@ -1,24 +1,23 @@
 package negocio;
 
 import dados.*;
-import negocio.entidades.Sessao;
+import negocio.entidades.*;
 import negocio.exceptions.salas.CodigoSalaJaExisteException;
 import negocio.exceptions.salas.LimiteDeSalasExcedidoException;
 import negocio.exceptions.salas.NenhumaSalaEncontradaException;
 import negocio.exceptions.salas.SalaNaoEncontradaException;
-import negocio.entidades.Sala;
-import negocio.entidades.Sala2D;
-import negocio.entidades.Sala3D;
 
 import java.util.ArrayList;
 
 public class SalasNegocio {
-    IRepositorioSalas repositorioSalas;
-    IRepositorioSessoes repositorioSessoes;
+    private final IRepositorioSalas repositorioSalas;
+    private final IRepositorioSessoes repositorioSessoes;
+    private final IRepositorioIDs repositorioIDs;
 
     public SalasNegocio(IRepositorioSalas repositorioSalas,IRepositorioSessoes repositorioSessoes){
         this.repositorioSalas = repositorioSalas;
         this.repositorioSessoes = repositorioSessoes;
+        this.repositorioIDs = new RepositorioIDsArquivoBinario();
     }
 
     public void adicionarSala(String codigo,String tipo, int linhas, int colunas) throws CodigoSalaJaExisteException, LimiteDeSalasExcedidoException {
@@ -43,17 +42,20 @@ public class SalasNegocio {
         }
         repositorioSalas.adicionarSala(sala);
     }
-    public void removerSala(String ID) throws SalaNaoEncontradaException {
-        Sala salaDesejada = repositorioSalas.procurarSala(ID);
+    public void removerSala(String id) throws SalaNaoEncontradaException {
+        Sala salaDesejada = repositorioSalas.procurarSala(id);
         ArrayList<Sessao> sessoesremovidas;
         if (salaDesejada != null){
-            sessoesremovidas = repositorioSessoes.procurarSessoesPorIdSala(ID);
+            sessoesremovidas = repositorioSessoes.procurarSessoesPorIdSala(id);
+            //remove as sessoes vinculadas a ela
             if(sessoesremovidas!= null){
                 for (Sessao s : sessoesremovidas){
                     repositorioSessoes.removerSessao(s);
+                    repositorioIDs.removerID(GeradorID.getInstancia().getPrefixoSessao(), s.getId());
                 }
             }
             repositorioSalas.removerSala(salaDesejada);
+            repositorioIDs.removerID(GeradorID.getInstancia().getPrefixoFilme(), salaDesejada.getId());
         }
         else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
     }

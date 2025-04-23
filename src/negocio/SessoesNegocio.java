@@ -1,14 +1,14 @@
 package negocio;
 
+import dados.IRepositorioIDs;
 import dados.IRepositorioSessoes;
 
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.util.ArrayList;
-import negocio.entidades.Assento;
-import negocio.entidades.Filme;
-import negocio.entidades.Sala;
-import negocio.entidades.Sessao;
+
+import dados.RepositorioIDsArquivoBinario;
+import negocio.entidades.*;
 import negocio.exceptions.assentos.AssentoIndisponivelException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.*;
@@ -18,11 +18,13 @@ public class SessoesNegocio {
     private final IRepositorioSessoes repositorioSessoes;
     private final SalasNegocio salasNegocio;
     private final FilmesNegocio filmesNegocio;
+    private final IRepositorioIDs repositorioIDs;
 
     public SessoesNegocio(IRepositorioSessoes sessoes, SalasNegocio salasNegocio, FilmesNegocio filmesNegocio) {
         this.repositorioSessoes = sessoes;
         this.salasNegocio = salasNegocio;
         this.filmesNegocio = filmesNegocio;
+        this.repositorioIDs = new RepositorioIDsArquivoBinario();
     }
 
     public void adicionarSessao(String horario, String sfilme, String ssala, String dia) throws SessaoJaExisteException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException, ConflitoHorarioException {
@@ -35,11 +37,12 @@ public class SessoesNegocio {
             throw new SessaoJaExisteException();
         } else repositorioSessoes.adicionarSessao(sessao);
     }
-
-
-    public void removerSessao(String ID) throws SessaoNaoEncontradaException {
-        Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(ID);
-        if (sessaoprocurada != null) repositorioSessoes.removerSessao(sessaoprocurada);
+    public void removerSessao(String id) throws SessaoNaoEncontradaException {
+        Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(id);
+        if (sessaoprocurada != null){
+            repositorioSessoes.removerSessao(sessaoprocurada);
+            repositorioIDs.removerID(GeradorID.getInstancia().getPrefixoSessao(), sessaoprocurada.getId());
+        }
         else throw new SessaoNaoEncontradaException();
     }
     public void atualizarSessaoPorID(String id, LocalTime horario, MonthDay dia, String idFilme ) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, ConflitoHorarioException {
@@ -54,8 +57,8 @@ public class SessoesNegocio {
         verificarConflitoDeHorario(sessaoDesejada,sessaoDesejada);
         repositorioSessoes.atualizarSessao(sessaoDesejada);
     }
-    public Sessao procurarSessao(String ID) throws SessaoNaoEncontradaException {
-        Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(ID);
+    public Sessao procurarSessao(String id) throws SessaoNaoEncontradaException {
+        Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(id);
         if (sessaoprocurada != null) return sessaoprocurada;
         else throw new SessaoNaoEncontradaException();
     }

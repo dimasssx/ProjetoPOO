@@ -29,6 +29,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
             escritaFilmes();
         }
     }
+    //construtor alternativo para testes em outro caminho
     public RepositorioFilmesArquivoBinario(String caminho){
         file = new File(caminho);
         if (file.exists()){

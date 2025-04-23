@@ -1,21 +1,27 @@
 package negocio;
 
 import dados.IRepositorioFilmes;
+import dados.IRepositorioIDs;
 import dados.IRepositorioSessoes;
 import java.util.ArrayList;
+
+import dados.RepositorioIDsArquivoBinario;
 import negocio.entidades.Filme;
+import negocio.entidades.GeradorID;
 import negocio.entidades.Sessao;
 import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
 
 public class FilmesNegocio {
-    IRepositorioFilmes repositorioFilmes;
-    IRepositorioSessoes repositorioSessoes;
+    private final IRepositorioFilmes repositorioFilmes;
+    private final IRepositorioSessoes repositorioSessoes;
+    private final IRepositorioIDs repositorioIDs;
 
     public FilmesNegocio(IRepositorioFilmes repositorioFilmes, IRepositorioSessoes repositorioSessoes){
         this.repositorioFilmes = repositorioFilmes;
         this.repositorioSessoes = repositorioSessoes;
+        this.repositorioIDs = new RepositorioIDsArquivoBinario();
     }
 
     public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
@@ -27,17 +33,20 @@ public class FilmesNegocio {
         }
     }
 
-    public void removerFilme(String ID) throws FilmeNaoEstaCadastradoException {
-        Filme filmeprocurado = repositorioFilmes.procurarFilmePorID(ID);
+    public void removerFilme(String id) throws FilmeNaoEstaCadastradoException {
+        Filme filmeprocurado = repositorioFilmes.procurarFilmePorID(id);
         ArrayList<Sessao> sessoesRemovidas;
         if (filmeprocurado != null) {
-            sessoesRemovidas = repositorioSessoes.procurarSessoesPorIdDoFilme(ID);
+            sessoesRemovidas = repositorioSessoes.procurarSessoesPorIdDoFilme(id);
+            //remove as sessoes vinculadas a ele
             if (sessoesRemovidas != null) {
                 for (Sessao sessao : sessoesRemovidas) {
                     repositorioSessoes.removerSessao(sessao);
+                    repositorioIDs.removerID(GeradorID.getInstancia().getPrefixoSessao(), sessao.getId());
                 }
             }
             repositorioFilmes.removerFilme(filmeprocurado);
+            repositorioIDs.removerID(GeradorID.getInstancia().getPrefixoFilme(), filmeprocurado.getId());
         }
         else throw new FilmeNaoEstaCadastradoException();
     }
@@ -57,8 +66,8 @@ public class FilmesNegocio {
         repositorioFilmes.atualizaFilme(filmeExistente);
     }
 
-    public Filme procurarFilmePorID(String ID) throws FilmeNaoEstaCadastradoException {
-        Filme filmeprocurado = repositorioFilmes.procurarFilmePorID(ID);
+    public Filme procurarFilmePorID(String id) throws FilmeNaoEstaCadastradoException {
+        Filme filmeprocurado = repositorioFilmes.procurarFilmePorID(id);
         if (filmeprocurado == null){
             throw new FilmeNaoEstaCadastradoException();
         } else return filmeprocurado;

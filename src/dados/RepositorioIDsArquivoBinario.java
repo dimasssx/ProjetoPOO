@@ -57,4 +57,16 @@ public class RepositorioIDsArquivoBinario implements IRepositorioIDs, Serializab
         idsGerados.get(prefixo).put(id, true);
         escreverIDs();
     }
+
+    @Override
+    public void removerID(String prefixo, String id) {
+        lerIDs();
+        if (idsGerados.containsKey(prefixo)) {
+            Map<String, Boolean> idsPrefixos = idsGerados.get(prefixo);
+            if (idsPrefixos.containsKey(id)) {
+                idsPrefixos.remove(id);
+                escreverIDs();
+            }
+        }
+    }
 } 

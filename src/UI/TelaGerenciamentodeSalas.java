@@ -112,10 +112,10 @@ public class TelaGerenciamentodeSalas {
     }
     private void removerSala(){
         System.out.println("(Digite 0 a qualquer momento para sair)");
-        String ID = lerDado("ID da sala que será removida");
-        if (ID == null) return;
+        String id = lerDado("ID da sala que será removida");
+        if (id == null) return;
         try {
-            fachada.removerSala(ID);
+            fachada.removerSala(id);
             System.out.println("\033[92m Sala removida com Sucesso, as sessões vinculadas a sala, também foram removidas! \033[0m");
         } catch (Exception e) {
             System.err.println(e.getMessage());
