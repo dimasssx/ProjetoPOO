@@ -20,6 +20,15 @@ public class RepositorioSalasArquivoBinario implements IRepositorioSalas, Serial
             escritaSalas();
         }
     }
+    public RepositorioSalasArquivoBinario(String caminho) {
+        file = new File(caminho);
+        if (file.exists()) {
+            lerSalas();
+        } else {
+            salas = new ArrayList<Sala>();
+            escritaSalas();
+        }
+    }
 
     // metodo para ler as salas do arquivo
     public void lerSalas() {

@@ -20,7 +20,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
             escritaClientes();
         }
     }
-
     //construtor alternativo para testes em outro caminho
     public RepositorioClientesArquivoBinario(String caminho) {
         file = new File(caminho);

@@ -5,10 +5,8 @@ import java.time.LocalDateTime;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import dados.RepositorioClientesArquivoBinario;
-import dados.RepositorioFilmesArquivoBinario;
-import dados.RepositorioSalasArquivoBinario;
-import dados.RepositorioSessoesArquivoBinario;
+
+import dados.*;
 import negocio.*;
 import negocio.entidades.*;
 import negocio.entidades.pagamento.CartaoCredito;
@@ -31,6 +29,14 @@ public class FachadaCliente {
         this.sessoesNegocio = new SessoesNegocio(new RepositorioSessoesArquivoBinario(), new SalasNegocio(new RepositorioSalasArquivoBinario(), new RepositorioSessoesArquivoBinario()), filmeNegocio);
         this.cardapioNegocio = new CardapioNegocio();
     }
+    //para testes
+    public FachadaCliente(IRepositorioClientes repositorioClientes, IRepositorioFilmes repositorioFilmes, IRepositorioSessoes repositorioSessoes) {
+        this.clientesNegocio = new ClientesNegocio(repositorioClientes);
+        this.filmeNegocio = new FilmesNegocio(repositorioFilmes, repositorioSessoes);
+        this.sessoesNegocio = new SessoesNegocio(repositorioSessoes, new SalasNegocio(new RepositorioSalasArquivoBinario(), repositorioSessoes), filmeNegocio);
+        this.cardapioNegocio = new CardapioNegocio();
+    }
+
 
     public ClientesNegocio getClienteNegocio() {
         return clientesNegocio;

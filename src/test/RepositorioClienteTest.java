@@ -1,7 +1,6 @@
 //Teste implementado por José Portela
 
 package test;
-
 import dados.RepositorioClientesArquivoBinario;
 import negocio.ClientesNegocio;
 import negocio.entidades.*;

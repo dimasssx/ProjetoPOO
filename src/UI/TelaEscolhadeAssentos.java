@@ -30,6 +30,13 @@ public class TelaEscolhadeAssentos {
         this.ingressosSelecionados = new ArrayList<>();
         this.assentosSelecionados = new ArrayList<>(); // Inicializa a lista de controle
     }
+    public TelaEscolhadeAssentos(FachadaCliente fachada, Sessao sessao,Scanner scanner){
+        this.fachada = fachada;
+        this.sessao = sessao;
+        this.scanner = scanner;
+        this.ingressosSelecionados = new ArrayList<>();
+        this.assentosSelecionados = new ArrayList<>(); // Inicializa a lista de controle
+    }
 
     public ArrayList<Ingresso> iniciar(int quantidadeIngressos){
         if (quantidadeIngressos <= 0) {

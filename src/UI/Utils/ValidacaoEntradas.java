@@ -15,7 +15,7 @@ public class ValidacaoEntradas {
     private static final String ANSI_YELLOW = "\u001B[33m";
     private static final String ANSI_BOLD = "\u001B[1m";
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private static  Scanner scanner = new Scanner(System.in);
 
     public static String lerDado(String campo) {
         System.out.print(ANSI_BOLD+ campo + ": "+ANSI_RESET);
@@ -121,7 +121,7 @@ public class ValidacaoEntradas {
         System.err.println("Classificação inválida! As opções válidas são: Livre, 10, 12, 14, 16, 18");
         return null;
     }
-    private static String verificarDuracao(String dado){
+    private static String verificarDuracao(String dado) {
         if (!dado.matches("\\dh\\d{2}|\\dh")) {
             System.err.println("Formato inválido! Deve ser no formato xhxx ou xh.");
             return null;
@@ -135,6 +135,10 @@ public class ValidacaoEntradas {
             }
         }
         return dado;
+    }
+    //para testes
+    public static void setScanner(Scanner scannerCustomizado) {
+        scanner = scannerCustomizado;
     }
 
 }

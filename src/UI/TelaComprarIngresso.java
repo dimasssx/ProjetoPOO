@@ -28,6 +28,12 @@ public class TelaComprarIngresso {
         this.scanner = new Scanner(System.in);
         this.cliente = cliente;
     }
+    //para testes
+    public TelaComprarIngresso(FachadaCliente fachada, Cliente cliente,Scanner scanner) {
+        this.fachada = fachada;
+        this.scanner = scanner;
+        this.cliente = cliente;
+    }
 
     public void iniciar() {
         imprimirCabecalho();
@@ -61,7 +67,7 @@ public class TelaComprarIngresso {
                     continue;
                 }
 
-                    TelaEscolhadeAssentos telaEscolhadeAssentos = new TelaEscolhadeAssentos(fachada, sessao);
+                    TelaEscolhadeAssentos telaEscolhadeAssentos = new TelaEscolhadeAssentos(fachada, sessao,scanner);
                     ArrayList<Ingresso> ingressosSelecionados = telaEscolhadeAssentos.iniciar(quantidadeIngressos);
 
                     if (ingressosSelecionados == null || ingressosSelecionados.isEmpty()) {

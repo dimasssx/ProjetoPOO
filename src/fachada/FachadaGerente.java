@@ -32,7 +32,12 @@ public class FachadaGerente {
         this.salasNegocio = new SalasNegocio(repSalas, repSessoes);
         this.sessoesNegocio = new SessoesNegocio(repSessoes, salasNegocio, filmesNegocio);
     }
-
+    //para testes
+    public FachadaGerente(IRepositorioFilmes repFilmes, IRepositorioSalas repSalas, IRepositorioSessoes repSessoes) {
+        this.filmesNegocio = new FilmesNegocio(repFilmes, repSessoes);
+        this.salasNegocio = new SalasNegocio(repSalas, repSessoes);
+        this.sessoesNegocio = new SessoesNegocio(repSessoes, salasNegocio, filmesNegocio);
+    }
     //operacoes de gerenciamento de filmes
 
     public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
