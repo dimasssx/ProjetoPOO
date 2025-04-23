@@ -43,7 +43,6 @@ public class SalasNegocio {
         }
         repositorioSalas.adicionarSala(sala);
     }
-
     public void removerSala(String ID) throws SalaNaoEncontradaException {
         Sala salaDesejada = repositorioSalas.procurarSala(ID);
         ArrayList<Sessao> sessoesremovidas;
@@ -58,14 +57,12 @@ public class SalasNegocio {
         }
         else throw new SalaNaoEncontradaException("Essa sala nao foi encontrada");
     }
-
     public Sala procurarSala(String codigo) throws SalaNaoEncontradaException {
         Sala saladesejada = repositorioSalas.procurarSala(codigo);
         if (saladesejada != null){
             return saladesejada;
         } else throw new SalaNaoEncontradaException("Sala nao foi encontrada");
     }
-
     public ArrayList<Sala> listarSalas() throws NenhumaSalaEncontradaException {
         ArrayList<Sala> salas = repositorioSalas.listarSalas();
         if (salas.isEmpty()){

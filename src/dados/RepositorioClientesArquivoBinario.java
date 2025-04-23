@@ -2,7 +2,6 @@ package dados;
 
 import java.io.*;
 import java.util.ArrayList;
-
 import negocio.entidades.Cliente;
 
 public class RepositorioClientesArquivoBinario implements IRepositorioClientes, Serializable {
@@ -55,7 +54,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
         clientes.add(cliente);
         escritaClientes();
     }
-
     //retornar o cliente a partir do seu nome de usuario e senha para o funcionamento das operacoes
     @Override
     public Cliente retornarCliente(String nomeDeUsuario, String senha) {
@@ -92,15 +90,6 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
     public ArrayList<Cliente> listarClientes() {
         lerClientes();
         return new ArrayList<>(clientes);
-    }
-
-    //imprimir todos os clientes cadastrados
-    @Override
-    public void imprimir() {
-        lerClientes();
-        for (Cliente c : clientes) {
-            if (c!= null)System.out.println(c);
-        }
     }
 
     //verifica se o cliente ja existe no sistema, a partir do seu nome de usuario

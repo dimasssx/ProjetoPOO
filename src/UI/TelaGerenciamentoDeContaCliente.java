@@ -6,6 +6,8 @@ import negocio.entidades.Cliente;
 import negocio.entidades.ClientePadrao;
 import negocio.entidades.ClienteVIP;
 import negocio.entidades.Ingresso;
+import negocio.exceptions.usuario.SenhaInvalidaException;
+
 import static UI.Utils.ValidacaoEntradas.*;
 public class TelaGerenciamentoDeContaCliente {
 
@@ -30,7 +32,6 @@ public class TelaGerenciamentoDeContaCliente {
         while (true) {
             imprimirCabecalho();
             imprimirInfoCliente();
-            
             System.out.println("\n" + ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
             System.out.println(ANSI_BOLD + "  MENU DE OPÇÕES" + ANSI_RESET);
             System.out.println(ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
@@ -45,13 +46,17 @@ public class TelaGerenciamentoDeContaCliente {
                 System.out.println("3 - " + "Cancelar VIP");
                 System.out.println("4 - Voltar");
             }
-            
+
             System.out.print("► ");
             String opcao = scanner.nextLine();
 
             switch (opcao) {
                 case "1":
-                    alterarSenha();
+                    try {
+                        alterarSenha();
+                    } catch (SenhaInvalidaException e){
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case "2":
                     listarIngressos();
@@ -114,23 +119,17 @@ public class TelaGerenciamentoDeContaCliente {
         System.out.println(ANSI_BOLD + "└─────────────────────────────────────────────┘" + ANSI_RESET);
     }
 
-    private void alterarSenha() {
+    private void alterarSenha() throws SenhaInvalidaException{
         System.out.println("\n" + ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
         System.out.println(ANSI_BOLD + "  ALTERAÇÃO DE SENHA" + ANSI_RESET);
         System.out.println(ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
         System.out.println("Digite a nova senha (ou 0 para cancelar):");
         System.out.print("► ");
         
-        String novaSenha = scanner.nextLine();
-        if (novaSenha.equals("0")) {
-            System.out.println(ANSI_YELLOW + "Operação cancelada." + ANSI_RESET);
-            return;
+        String novaSenha = lerDado("Nova Senha");
+        if(novaSenha.length() < 8){
+            throw new SenhaInvalidaException();
         }
-        if (novaSenha.isEmpty()) {
-            System.out.println(ANSI_RED + "A senha não pode estar vazia." + ANSI_RESET);
-            return;
-        }
-
         fachada.getFachadaCliente().alterarSenha(cliente, novaSenha);
         System.out.println(ANSI_GREEN + "✓ Senha atualizada com sucesso!" + ANSI_RESET);
     }

@@ -3,6 +3,8 @@ package UI;
 import fachada.FachadaGerente;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import negocio.exceptions.assentos.AssentoIndisponivelException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.*;
 import negocio.exceptions.salas.SalaNaoEncontradaException;
@@ -24,25 +26,30 @@ public class TelaGerenciamentoSessoes {
         System.out.println("------------------------------------");
         listarSessoes();
         while (true) {
+
             System.out.println("\n1 - Adicionar sessao");
             System.out.println("2 - Remover sessao");
             System.out.println("3 - Atualizar sessao");
             System.out.println("4 - Buscar sessoes por titulo de filme");
             System.out.println("5 - Listar sessoes pelo dia");
             System.out.println("6 - Listar todas as sessoes");
-            System.out.println("7 - Voltar");
+            System.out.println("7 - Reservar sessão para entidade ou evento");
+            System.out.println("8 - Voltar");
 
             String opcao = scanner.nextLine();
 
             switch (opcao) {
                 case "1":
                     adicionarSessao();
+                    listarSessoes();
                     break;
                 case "2":
                     removerSessao();
+                    listarSessoes();
                     break;
                 case "3":
                     atualizarSessao();
+                    listarSessoes();
                     break;
                 case "4":
                     buscarSessaoporTitulo();
@@ -54,6 +61,9 @@ public class TelaGerenciamentoSessoes {
                     listarSessoes();
                     break;
                 case "7":
+                    reservarSessaoInteira();
+                    break;
+                case "8":
                     System.out.println("Voltando...");
                     return;
                 default:
@@ -64,7 +74,6 @@ public class TelaGerenciamentoSessoes {
 
     private void adicionarSessao(){
         String horario,idFilme,idSala,dia;
-
         idFilme = lerDado("ID do Filme");
         if (idFilme== null)return;
         try {
@@ -121,7 +130,7 @@ public class TelaGerenciamentoSessoes {
         System.out.println("Novo dia:");
         dia= lerData();
         if (dia == null)return;
-        idFilme = lerDado("Nome do filme que será colocado nesse horário");
+        idFilme = lerDado("ID do filme que será colocado nesse horário");
         if (idFilme==null)return;
         try {
             fachada.procurarFilmePorID(idFilme);
@@ -132,7 +141,7 @@ public class TelaGerenciamentoSessoes {
         try {
             fachada.atualizarSessao(ID,horario,dia,idFilme);
             System.out.println("\033[92m Sessão atualizada com Sucesso! \033[0m");
-        } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException e) {
+        } catch (SessaoNaoEncontradaException | FilmeNaoEstaCadastradoException | SalaNaoEncontradaException | ConflitoHorarioException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -174,6 +183,21 @@ public class TelaGerenciamentoSessoes {
             System.err.println(e.getMessage());
         }
     }
+    private void reservarSessaoInteira(){
+        String idSessao = lerDado("ID da sessão");
+        if (idSessao == null) return;
+        try {
+            fachada.procurarSessao(idSessao);
+            System.out.println("Quantidade de pessoas que irão participar do evento: ");
+            int quantidadePessoas= scanner.nextInt();
+            scanner.nextLine();
+            fachada.reservarSessaoParaEntidade(idSessao, quantidadePessoas);
+            System.out.println("\033[92m Sessão reservada com Sucesso! \033[0m");
+        } catch (SessaoNaoEncontradaException | AssentoIndisponivelException  | SessaoIndisponivelParaReservaException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
 
 }
 

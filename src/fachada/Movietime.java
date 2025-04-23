@@ -24,7 +24,6 @@ public class Movietime {
     public FachadaGerente getFachadaGerente() {
         return fachadaGerente;
     }
-
     public FachadaCliente getFachadaCliente() {
         return fachadaCliente;
     }
@@ -32,7 +31,6 @@ public class Movietime {
     public Cliente autenticar(String nomeDeUsuario, String senha) throws ClienteNaoEncontradoException {
         return autenticacao.autenticar(nomeDeUsuario, senha);
     }
-
     public void cadastrarCliente(String nome, String nomeDeUsuario, String senha) throws UsuarioJaExisteException, SenhaInvalidaException {
         if(senha.length() < 8){
            throw new SenhaInvalidaException();

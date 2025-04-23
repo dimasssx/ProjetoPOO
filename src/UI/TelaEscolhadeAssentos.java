@@ -129,7 +129,7 @@ public class TelaEscolhadeAssentos {
         System.out.println(ANSI_BOLD + "  ESCOLHA DO TIPO DE INGRESSO" + ANSI_RESET);
         System.out.println(ANSI_BOLD + "═════════════════════════════════════════" + ANSI_RESET);
         System.out.println("1 - Inteira");
-        System.out.println("2 - Meia");
+        System.out.println("2 - Meia (Apresente seu documento no estabelecimento para entrar na sessão)");
         System.out.println("0 - Cancelar");
         
         while (true) {

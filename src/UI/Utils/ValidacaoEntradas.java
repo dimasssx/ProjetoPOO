@@ -16,6 +16,7 @@ public class ValidacaoEntradas {
     private static final String ANSI_BOLD = "\u001B[1m";
 
     private static final Scanner scanner = new Scanner(System.in);
+
     public static String lerDado(String campo) {
         System.out.print(ANSI_BOLD+ campo + ": "+ANSI_RESET);
         while(true){
@@ -42,6 +43,12 @@ public class ValidacaoEntradas {
                     continue;
                 }
                 return classvalida;
+            }if(campo.equals("Deseja comprar lanches? (S/N)")){
+                if (!(dado.equalsIgnoreCase("S")) && !(dado.equalsIgnoreCase("N"))){
+                    System.err.println("Entrada Inválida");
+                    continue;
+                }
+                else return dado;
             }
             return dado;
         }

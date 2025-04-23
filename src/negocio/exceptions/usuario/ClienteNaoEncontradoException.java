@@ -2,6 +2,6 @@ package negocio.exceptions.usuario;
 
 public class ClienteNaoEncontradoException extends Exception {
     public ClienteNaoEncontradoException() {
-        super("O cliente nao foi encontrado");
+        super("O usuário nao foi encontrado, credenciais digitadas incorretas!");
     }
 }

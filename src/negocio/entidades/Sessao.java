@@ -83,15 +83,9 @@ public class Sessao implements Serializable {
     public double getValorIngresso() {
         return valorIngresso;
     }
-
-    public void setValorIngresso(double valorIngresso) {
-        this.valorIngresso = valorIngresso;
-    }
-
     public void setDia(MonthDay dia) {
         this.dia = dia;
     }
-
     public void setHorario(LocalTime horario) {
         this.horario = horario;
     }

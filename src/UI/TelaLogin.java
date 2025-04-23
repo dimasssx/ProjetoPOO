@@ -41,7 +41,7 @@ public class TelaLogin {
             
             System.out.println("1 - " + "Fazer Login" + ANSI_RESET);
             System.out.println("2 - " + "Não possui uma conta? Cadastre-se" + ANSI_RESET);
-            System.out.println("3 - " + "Sair" + ANSI_RESET);
+            System.out.println("3 - " + "Encerrar" + ANSI_RESET);
             
             System.out.print("► ");
             String opcao = scanner.nextLine().trim();
@@ -65,7 +65,7 @@ public class TelaLogin {
                     System.out.println(ANSI_YELLOW + "Saindo do sistema..." + ANSI_RESET);
                     return;
                 default:
-                    System.out.println(ANSI_RED + "Opção inválida. Por favor, tente novamente." + ANSI_RESET);
+                    System.err.println("Opção inválida. Por favor, tente novamente.");
             }
         }
     }
@@ -79,7 +79,7 @@ public class TelaLogin {
         
         String nomeDeUsuario = lerDado("Nome de Usuário (será utilizado para realizar seu login)");
         if (nomeDeUsuario == null) return;
-        
+
         String senha = lerDado("Senha");
         if (senha == null) return;
         
@@ -110,6 +110,7 @@ public class TelaLogin {
     }
 
     public void checarCredenciais(String nomeDeUsuario, String senha) throws ClienteNaoEncontradoException {
+        //verifica se é o gerente, pelo login fixo do gerente
         if (nomeDeUsuario.equals("admin") && senha.equals("admin123")) {
             System.out.println(ANSI_BOLD + "Bem-vindo, Gerente!" + ANSI_RESET);
             TelaPrincipalGerente telaPrincipalGerente = new TelaPrincipalGerente(fachada.getFachadaGerente());
@@ -117,12 +118,10 @@ public class TelaLogin {
         } else {
             Cliente tipologin = fachada.autenticar(nomeDeUsuario, senha);
             if (tipologin instanceof ClientePadrao) {
-                System.out.println(ANSI_BOLD + "Bem-vindo, " + tipologin.getNome() + "!" + ANSI_RESET);
                 FachadaCliente fachadaCliente = fachada.getFachadaCliente();
                 TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(fachadaCliente, tipologin, fachada);
                 telaPrincipalCliente.iniciar();
             } else if (tipologin instanceof ClienteVIP) {
-                System.out.println(ANSI_BOLD + "Bem-vindo, " + tipologin.getNome() + " 👑!" + ANSI_RESET);
                 FachadaCliente fachadaCliente = fachada.getFachadaCliente();
                 TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(fachadaCliente, tipologin, fachada);
                 telaPrincipalCliente.iniciar();
@@ -132,5 +131,4 @@ public class TelaLogin {
         }
         System.out.println(ANSI_GREEN + ANSI_BOLD + "Logout concluído com sucesso!" + ANSI_RESET);
     }
-
 }

@@ -55,4 +55,6 @@ public class GeradorIDNegocio {
         return GeradorID.getInstancia().getPrefixoFilme();
     }
 
+    public String getPrefixoIngresso(){return GeradorID.getInstancia().getPrefixoIngressso();}
+
 } 

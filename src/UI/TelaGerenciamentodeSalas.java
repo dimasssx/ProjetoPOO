@@ -25,6 +25,7 @@ public class TelaGerenciamentodeSalas {
         System.out.println("------------------------------------");
         listarSalas();
         while (true){
+
             System.out.println("\n1 - Adicionar sala");
             System.out.println("2 - Remover sala");
             System.out.println("3 - Listar todas as salas");
@@ -35,9 +36,11 @@ public class TelaGerenciamentodeSalas {
             switch (opcao){
                 case "1":
                     adicionarSala();
+                    listarSalas();
                     break;
                 case "2":
                     removerSala();
+                    listarSalas();
                     break;
                 case "3":
                     listarSalas();
@@ -49,19 +52,6 @@ public class TelaGerenciamentodeSalas {
                     System.err.println("Opção Inválida");
 
             }
-        }
-    }
-
-    private void listarSalas(){
-        try {
-            System.out.println(">>>>> Salas Cadastradas <<<<<");
-            ArrayList<String> salas = fachada.listarSalas();
-            for (String sala : salas) {
-                System.out.println(sala);
-            }
-        } catch (NenhumaSalaEncontradaException e) {
-            System.err.println("Nenhuma sala encontrada");
-
         }
     }
 
@@ -123,7 +113,6 @@ public class TelaGerenciamentodeSalas {
             System.err.println(e.getMessage());
         }
     }
-
     private void removerSala(){
         System.out.println("(Digite 0 a qualquer momento para sair)");
         String ID = lerDado("ID da sala que será removida");
@@ -133,6 +122,18 @@ public class TelaGerenciamentodeSalas {
             System.out.println("\033[92m Sala removida com Sucesso, as sessões vinculadas a sala, também foram removidas! \033[0m");
         } catch (Exception e) {
             System.err.println(e.getMessage());
+        }
+    }
+    private void listarSalas(){
+        try {
+            System.out.println(">>>>> Salas Cadastradas <<<<<");
+            ArrayList<String> salas = fachada.listarSalas();
+            for (String sala : salas) {
+                System.out.println(sala);
+            }
+        } catch (NenhumaSalaEncontradaException e) {
+            System.err.println("Nenhuma sala encontrada");
+
         }
     }
 

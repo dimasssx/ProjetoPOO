@@ -30,55 +30,19 @@ public class SessoesNegocio {
         Filme filme = filmesNegocio.procurarFilmePorID(sfilme);
         Sala sala = salasNegocio.procurarSala(ssala);
         Sessao sessao = new Sessao(filme, horario, sala, dia);
-        verificarConflitoDeHorario(sessao);
+        verificarConflitoDeHorario(sessao,null);
         if (repositorioSessoes.existe(sessao)) {
             throw new SessaoJaExisteException();
         } else repositorioSessoes.adicionarSessao(sessao);
     }
-    private void verificarConflitoDeHorario(Sessao novaSessao) throws ConflitoHorarioException {
-        LocalTime novoInicio = novaSessao.getHorario();
-        int duracaoNovoFilme = converterDuracaoParaMinutos(novaSessao.getFilme().getDuracao());
-        LocalTime novoFim = novoInicio.plusMinutes(duracaoNovoFilme);
 
-        MonthDay dia = novaSessao.getDia();
-        Sala sala = novaSessao.getSala();
-        ArrayList<Sessao> sessoesDoDia = repositorioSessoes.buscarSessoesDoDia(dia);
-        for (Sessao existente : sessoesDoDia) {
-            if (!existente.getSala().getCodigo().equals(sala.getCodigo())) continue;
 
-            LocalTime inicioExistente = existente.getHorario();
-            int duracaoExistente = converterDuracaoParaMinutos(existente.getFilme().getDuracao());
-            LocalTime fimExistente = inicioExistente.plusMinutes(duracaoExistente);
-
-            boolean haConflito = !(novoFim.isBefore(inicioExistente) || novoInicio.isAfter(fimExistente));
-            if (haConflito) {
-                fimExistente = inicioExistente.plusMinutes(duracaoExistente+5);
-                throw new ConflitoHorarioException(String.format(
-                        "Conflito detectado na %s.\nSessão existente: %s - %s\nNova sessão tem %s",
-                        sala.getCodigo(), inicioExistente, fimExistente, novaSessao.getFilme().getDuracao())
-                );
-            }
-        }
-    }
-
-    private int converterDuracaoParaMinutos(String duracaoStr) {
-        duracaoStr = duracaoStr.toLowerCase().replace(" ", "");
-        int horas = 0, minutos = 0;
-        if (duracaoStr.contains("h")) {
-            String[] partes = duracaoStr.split("h");
-            horas = Integer.parseInt(partes[0]);
-            if (partes.length > 1 && !partes[1].isEmpty()) {
-                minutos = Integer.parseInt(partes[1]);
-            }
-        }
-        return horas * 60 + minutos;
-    }
     public void removerSessao(String ID) throws SessaoNaoEncontradaException {
         Sessao sessaoprocurada = repositorioSessoes.procurarSessaoPorId(ID);
         if (sessaoprocurada != null) repositorioSessoes.removerSessao(sessaoprocurada);
         else throw new SessaoNaoEncontradaException();
     }
-    public void atualizarSessaoPorID(String id, LocalTime horario, MonthDay dia, String idFilme ) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+    public void atualizarSessaoPorID(String id, LocalTime horario, MonthDay dia, String idFilme ) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, ConflitoHorarioException {
         Sessao sessaoDesejada = repositorioSessoes.procurarSessaoPorId(id);
         if (sessaoDesejada == null) {
             throw new SessaoNaoEncontradaException();
@@ -87,7 +51,7 @@ public class SessoesNegocio {
         sessaoDesejada.setFilme(novoFilme);
         sessaoDesejada.setDia(dia);
         sessaoDesejada.setHorario(horario);
-
+        verificarConflitoDeHorario(sessaoDesejada,sessaoDesejada);
         repositorioSessoes.atualizarSessao(sessaoDesejada);
     }
     public Sessao procurarSessao(String ID) throws SessaoNaoEncontradaException {
@@ -127,7 +91,43 @@ public class SessoesNegocio {
             throw new SessaoNaoEncontradaException();
         }
     }
+    private void verificarConflitoDeHorario(Sessao novaSessao, Sessao ignorarSessao) throws ConflitoHorarioException {
+        LocalTime novoInicio = novaSessao.getHorario();
+        int duracaoNovoFilme = converterDuracaoParaMinutos(novaSessao.getFilme().getDuracao());
+        LocalTime novoFim = novoInicio.plusMinutes(duracaoNovoFilme);
 
+        MonthDay dia = novaSessao.getDia();
+        Sala sala = novaSessao.getSala();
+        ArrayList<Sessao> sessoesDoDia = repositorioSessoes.buscarSessoesDoDia(dia);
+        for (Sessao existente : sessoesDoDia) {
+            if (!existente.getSala().getCodigo().equals(sala.getCodigo())) continue;
+            if (existente.equals(ignorarSessao)) continue;
+            LocalTime inicioExistente = existente.getHorario();
+            int duracaoExistente = converterDuracaoParaMinutos(existente.getFilme().getDuracao());
+            LocalTime fimExistente = inicioExistente.plusMinutes(duracaoExistente);
+
+            boolean haConflito = !(novoFim.isBefore(inicioExistente) || novoInicio.isAfter(fimExistente));
+            if (haConflito) {
+                fimExistente = inicioExistente.plusMinutes(duracaoExistente+5);
+                throw new ConflitoHorarioException(String.format(
+                        "Conflito detectado na %s.\nSessão existente: %s - %s\nNova sessão tem %s",
+                        sala.getCodigo(), inicioExistente, fimExistente, novaSessao.getFilme().getDuracao())
+                );
+            }
+        }
+    }
+    private int converterDuracaoParaMinutos(String duracaoStr) {
+        duracaoStr = duracaoStr.toLowerCase().replace(" ", "");
+        int horas = 0, minutos = 0;
+        if (duracaoStr.contains("h")) {
+            String[] partes = duracaoStr.split("h");
+            horas = Integer.parseInt(partes[0]);
+            if (partes.length > 1 && !partes[1].isEmpty()) {
+                minutos = Integer.parseInt(partes[1]);
+            }
+        }
+        return horas * 60 + minutos;
+    }
     private void marcarAssentoComoReservado(Sessao sessao, int fileira, int poltrona) throws AssentoIndisponivelException {
         Assento[][] assentos = sessao.getAssentos();
         if (fileira >= 0 && fileira < assentos.length && poltrona >= 0 && poltrona < assentos[0].length) {
@@ -137,5 +137,34 @@ public class SessoesNegocio {
                 throw new AssentoIndisponivelException();
             }
         }
+    }
+    public void reservarSessaoInteira(String idSessao, int quantidadePessoas) throws AssentoIndisponivelException, SessaoNaoEncontradaException, SessaoIndisponivelParaReservaException {
+
+        Sessao sessao = repositorioSessoes.procurarSessaoPorId(idSessao);
+        if (sessao == null) {
+            throw new SessaoNaoEncontradaException();
+        }
+
+        Assento[][] assentos = sessao.getAssentos();
+        int fileiras = sessao.getSala().getFileiras();
+        int assentosPorFileira = sessao.getSala().getAssentosPorFileira();
+        int capacidadeTotal = fileiras * assentosPorFileira;
+
+        if (quantidadePessoas > capacidadeTotal) {
+            throw new SessaoIndisponivelParaReservaException();
+        }
+
+        for (int i = 0; i < fileiras; i++) {
+            for (int j = 0; j < assentosPorFileira; j++) {
+                if (!assentos[i][j].isReservado()) {
+                    assentos[i][j].reservar();
+                }
+                else {
+                    throw new SessaoIndisponivelParaReservaException();
+                }
+            }
+        }
+
+        repositorioSessoes.atualizarSessao(sessao);
     }
 }

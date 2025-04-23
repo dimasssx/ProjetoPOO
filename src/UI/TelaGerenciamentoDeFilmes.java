@@ -25,6 +25,7 @@ public class TelaGerenciamentoDeFilmes {
         System.out.println("------------------------------------");
         listarFilmes();
         while (true) {
+
             System.out.println("\n1 - Adicionar filme");
             System.out.println("2 - Remover filme");
             System.out.println("3 - Atualizar filme");
@@ -37,12 +38,15 @@ public class TelaGerenciamentoDeFilmes {
             switch (opcao) {
                 case "1":
                     adicionarFilme();
+                    listarFilmes();
                     break;
                 case "2":
                     removerFilme();
+                    listarFilmes();
                     break;
                 case "3":
                     atualizarFilme();
+                    listarFilmes();
                     break;
                 case "4":
                     buscarFilme();
@@ -77,7 +81,6 @@ public class TelaGerenciamentoDeFilmes {
             System.out.println("\033[92m Filme adicionado com Sucesso! \033[0m");
         } catch (FilmeJaEstaNoCatalogoException e) {
             System.err.println(e.getMessage());
-
         }
     }
     private void removerFilme() {
@@ -131,6 +134,7 @@ public class TelaGerenciamentoDeFilmes {
             System.err.println(e.getMessage());
         }
     }
+
     private void listarFilmes(){
         try {
             System.out.println(">>>>> Filmes Cadastrados <<<<<");
@@ -142,6 +146,4 @@ public class TelaGerenciamentoDeFilmes {
             System.err.println(e.getMessage());
         }
     }
-
-
 }

@@ -1,7 +1,6 @@
 package dados;
 
 import java.util.ArrayList;
-
 import negocio.entidades.Filme;
 
 public interface IRepositorioFilmes {

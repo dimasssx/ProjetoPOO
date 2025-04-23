@@ -37,11 +37,6 @@ public class Assento implements Serializable {
         }
         isReservado = true;
     }
-
-    public void cancelarReserva() {
-        isReservado = false;
-    }
-
     @Override
     public String toString() {
         return "" + (char) ('A' + (8 - fileira)) + poltrona + (isReservado ? "(R)" : "");

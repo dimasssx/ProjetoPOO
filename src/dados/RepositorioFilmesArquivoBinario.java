@@ -67,6 +67,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
             escritaFilmes();
         }
     }
+
     //atualizar um filme do repositorio a partir de um objeto de filme recebido
     @Override
     public void atualizaFilme(Filme filme){
@@ -83,7 +84,7 @@ public class RepositorioFilmesArquivoBinario implements IRepositorioFilmes,Seria
         lerFilmes();
         Filme filmeDesejado = null;
         for (Filme filme: catalogo){
-            if(filme.getId().equals(id)){
+            if(filme.getId().equalsIgnoreCase(id)){
                 filmeDesejado = filme;
                 break;
             }

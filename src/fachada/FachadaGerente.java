@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import negocio.*;
 import negocio.entidades.*;
+import negocio.exceptions.assentos.AssentoIndisponivelException;
 import negocio.exceptions.filmes.FilmeJaEstaNoCatalogoException;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.filmes.NenhumFilmeEncontradoException;
@@ -32,40 +33,23 @@ public class FachadaGerente {
         this.sessoesNegocio = new SessoesNegocio(repSessoes, salasNegocio, filmesNegocio);
     }
 
-    public FilmesNegocio getFilmesNegocio() {
-        return filmesNegocio;
-    }
-
-    public SalasNegocio getSalasNegocio() {
-        return salasNegocio;
-    }
-
-    public SessoesNegocio getSessoesNegocio() {
-        return sessoesNegocio;
-    }
-
     //operacoes de gerenciamento de filmes
 
     public void adicionarFilme(String nome,String genero,String duracao,String classificacao) throws FilmeJaEstaNoCatalogoException {
         filmesNegocio.adicionarFilme(nome, genero, duracao, classificacao);
     }
-
     public void removerFilme(String ID) throws FilmeNaoEstaCadastradoException {
         filmesNegocio.removerFilme(ID);
     }
-
     public void atualizarFilmePorID(String id, String nome, String genero, String duracao, String classificacao) throws FilmeNaoEstaCadastradoException {
         filmesNegocio.atualizarFilmePorID(id, nome, genero, duracao, classificacao);
     }
-
     public Filme procurarFilmePorID(String ID) throws FilmeNaoEstaCadastradoException {
         return filmesNegocio.procurarFilmePorID(ID);
     }
-
     public Filme procurarFilmePorTitulo(String titulo) throws FilmeNaoEstaCadastradoException {
         return filmesNegocio.procurarFilmePorTitulo(titulo);
     }
-
     public ArrayList<String> imprimirCatalogo() throws NenhumFilmeEncontradoException {
         ArrayList<String> filmesFormatados = new ArrayList<>();
         ArrayList<Filme> filmesCatalogo = filmesNegocio.listarCatalogo();
@@ -74,7 +58,6 @@ public class FachadaGerente {
             String filmeformatado = filme.toString();
             filmesFormatados.add(filmeformatado);
         }
-
         return filmesFormatados;
     }
 
@@ -91,7 +74,7 @@ public class FachadaGerente {
         if (s== null)throw new SessaoNaoEncontradaException();
         else return s.toString();
     }
-    public void atualizarSessao(String id,String shorario,String sdia,String filme) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException {
+    public void atualizarSessao(String id,String shorario,String sdia,String filme) throws SessaoNaoEncontradaException, FilmeNaoEstaCadastradoException, SalaNaoEncontradaException,ConflitoHorarioException {
         MonthDay dia = MonthDay.parse(sdia,DateTimeFormatter.ofPattern("dd-MM"));
         LocalTime horario = LocalTime.parse(shorario) ;
         sessoesNegocio.atualizarSessaoPorID(id,horario,dia,filme);
@@ -114,7 +97,7 @@ public class FachadaGerente {
 
         for (Sessao s : sessoes) {
             formatadas.add(s.toString());
-        }
+        }if (sessoes.isEmpty()) throw new SessaoNaoEncontradaException();
 
         return formatadas;
     }
@@ -127,6 +110,10 @@ public class FachadaGerente {
             sessoesFormat.add(s.toString());
         }
         return sessoesFormat;
+    }
+
+    public void reservarSessaoParaEntidade(String idSessao, int quantidadePessoas) throws AssentoIndisponivelException, SessaoIndisponivelParaReservaException, SessaoNaoEncontradaException {
+        sessoesNegocio.reservarSessaoInteira(idSessao, quantidadePessoas);
     }
 
     //gerenciamento de salas

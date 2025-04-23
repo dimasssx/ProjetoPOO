@@ -1,10 +1,7 @@
 package dados;
 
-import negocio.entidades.Filme;
 import negocio.entidades.Sessao;
-
 import java.io.*;
-import java.time.LocalTime;
 import java.time.MonthDay;
 import java.util.ArrayList;
 
@@ -90,7 +87,7 @@ public class RepositorioSessoesArquivoBinario implements IRepositorioSessoes, Se
     public Sessao procurarSessaoPorId(String id){
         lerSessoes();
         for (Sessao s : sessoes) {
-            if (s.getId().equals(id)) {
+            if (s.getId().equalsIgnoreCase(id)) {
                 return s;
             }
         }

@@ -11,6 +11,7 @@ import negocio.entidades.ClienteVIP;
 import negocio.exceptions.filmes.FilmeNaoEstaCadastradoException;
 import negocio.exceptions.sessoes.SessaoNaoEncontradaException;
 import static UI.Utils.ValidacaoEntradas.*;
+
 public class TelaPrincipalCliente {
     private MonthDay hoje;
     private final FachadaCliente clienteFachada;
@@ -43,10 +44,11 @@ public class TelaPrincipalCliente {
         
         System.out.println("\n" + ANSI_BOLD + "Bem-vindo, " + cliente.getNome().split(" ")[0] + "!" + statusVip + ANSI_RESET);
         System.out.println(ANSI_BOLD + "═════════════════════════════════════════════" + ANSI_RESET);
-        
         exibicaoSessoesDeHoje(); //exibe as sessões de hoje
 
+
         while(true){
+
             System.out.println("\n" + ANSI_BOLD + ">>>>> MENU PRINCIPAL <<<<<" + ANSI_RESET);
             System.out.println("1 - " + "Comprar ingresso" + ANSI_RESET);
             System.out.println("2 - " + "Buscar sessões por dia" + ANSI_RESET);
@@ -69,6 +71,7 @@ public class TelaPrincipalCliente {
                 case "1":
                     TelaComprarIngresso comprar = new TelaComprarIngresso(clienteFachada,cliente);
                     comprar.iniciar();
+                    exibicaoSessoesDeHoje();
                     break;
 
                 case "2":
@@ -89,6 +92,7 @@ public class TelaPrincipalCliente {
                 case "4":
                     TelaGerenciamentoDeContaCliente telaGerenciamentoDeContaCliente = new TelaGerenciamentoDeContaCliente(fachadaPrincipal,cliente);
                     telaGerenciamentoDeContaCliente.iniciar();
+                    exibicaoSessoesDeHoje();
                     break;
                 case "5":
                     System.out.println(ANSI_YELLOW + "Saindo do sistema..." + ANSI_RESET);

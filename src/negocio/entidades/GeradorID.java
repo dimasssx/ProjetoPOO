@@ -15,6 +15,7 @@ public class GeradorID implements Serializable {
     private static final String PREFIXO_SALA = "SA";
     private static final String PREFIXO_SESSAO = "SE";
     private static final String PREFIXO_FILME = "FI";
+    private static final String PREFIXO_INGRESSSO = "ING";
     
     private GeradorID() {
         this.random = new SecureRandom();
@@ -35,6 +36,8 @@ public class GeradorID implements Serializable {
     public String getPrefixoFilme(){
         return PREFIXO_FILME;
     }
+
+    public String getPrefixoIngressso(){return PREFIXO_INGRESSSO;}
 
     public static synchronized GeradorID getInstancia() {
         if (instancia == null) {
