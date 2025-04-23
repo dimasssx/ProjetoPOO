@@ -21,6 +21,17 @@ public class RepositorioClientesArquivoBinario implements IRepositorioClientes, 
         }
     }
 
+    //construtor alternativo para testes em outro caminho
+    public RepositorioClientesArquivoBinario(String caminho) {
+        file = new File(caminho);
+        if (file.exists()) {
+            lerClientes();
+        } else {
+            clientes = new ArrayList<Cliente>();
+            escritaClientes();
+        }
+    }
+
     public void lerClientes() {
         try (FileInputStream fis = new FileInputStream(file);
              ObjectInputStream ois = new ObjectInputStream(fis)) {
