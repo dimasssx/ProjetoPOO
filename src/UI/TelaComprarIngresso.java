@@ -242,7 +242,7 @@ public class TelaComprarIngresso {
                     return false;
 
                 default:
-                    System.out.println(ANSI_RED + "Método de pagamento inválido. Por favor, escolha uma opção válida." + ANSI_RESET);
+                    System.err.println("Método de pagamento inválido. Por favor, escolha uma opção válida.");
                     continue;
             }
             
